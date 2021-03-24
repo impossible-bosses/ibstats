@@ -1,0 +1,145 @@
+html, body
+{
+	margin: 0;
+	border: 0;
+	padding: 0;
+	background-color: #161616;
+	color: #FFFFFF;
+	font-size: 12pt;
+	font-weight: normal;
+	font-style: normal;
+	text-decoration: none;
+
+	font-family: Raleway, sans-serif;
+}
+
+h1, h3, h4
+{
+	width: 100%;
+	text-align: center;
+}
+h1
+{
+	font-weight: bold;
+	font-size: 32pt;
+}
+h2
+{
+	margin-top: 32pt;
+	margin-bottom: 16pt;
+	font-weight: normal;
+	font-size: 24pt;
+}
+h3
+{
+	font-size: 18pt;
+	font-weight: normal;
+	font-style: normal;
+}
+h4
+{
+	font-size: 14pt;
+	font-weight: normal;
+	font-style: italic;
+}
+
+hr
+{
+	margin-top: 24pt;
+	margin-bottom: 48pt;
+}
+
+table
+{
+	width: 100%;
+	margin: 0 auto;
+}
+th, td
+{
+	width: 60pt;
+	text-align: center;
+}
+
+#thinWrapper
+{
+	margin-left: 30%;
+	margin-right: 30%;
+	width: 40%;
+	min-width: 600pt;
+}
+
+.playerRow
+{
+}
+.rowLighter
+{
+	background-color: #252525;
+}
+
+.playerImageName
+{
+	height: 32pt;
+	width: 200pt;
+	position: relative;
+}
+.playerImageName > img
+{
+	float: left;
+	height: 100%;
+}
+.playerImageName > .player
+{
+	margin: 0;
+	position: absolute;
+	left: 40pt;
+	top: 50%;
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%);
+	overflow: hidden;
+}
+
+.player
+{
+}
+
+.player0
+{
+	color: #ff0303;
+}
+.player1
+{
+	color: #0042ff;
+}
+.player2
+{
+	color: #1ce6b9;
+}
+.player3
+{
+	color: #540081;
+}
+.player4
+{
+	color: #fffc01;
+}
+.player5
+{
+	color: #FF8A0E;
+}
+.player6
+{
+	color: #20c000;
+}
+.player7
+{
+	color: #e55bb0;
+}
+
+.bossTitleLeft
+{
+	float: left;
+}
+.bossTitleRight
+{
+	float: right;
+}
