@@ -460,8 +460,8 @@ function generateHtml(data)
 
 $(document).ready(function() {
 	const urlParams = new URLSearchParams(window.location.search);
-	if (urlParams.has("replayId")) {
-		const replayIdString = urlParams.get("replayId");
+	if (urlParams.has("id")) {
+		const replayIdString = urlParams.get("id");
 		const replayId = parseInt(replayIdString);
 		const wc3statsReplayUrl = "https://api.wc3stats.com/replays/" + replayId.toString();
 		console.log(wc3statsReplayUrl);
