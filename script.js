@@ -97,6 +97,20 @@ function difficultyToShortString(d)
 	throw `Unknown difficulty ${d}`;
 }
 
+function getDifficultyMaxBosses(d)
+{
+	if (d == DIFFICULTY.VE) {
+		return 8;
+	}
+	else if (d == DIFFICULTY.E || d == DIFFICULTY.M) {
+		return 9;
+	}
+	else if (d == DIFFICULTY.N || d == DIFFICULTY.H) {
+		return 10;
+	}
+	throw `Unknown difficulty ${d}`;
+}
+
 function getBossLongName(b)
 {
 	if (b == BOSS.FIRE) {
@@ -347,7 +361,7 @@ function generateHtmlTitle(data)
 		victoryDefeatString = "Victory!";
 	}
 	else {
-		victoryDefeatString = "Defeat";
+		victoryDefeatString = `Defeat (${data.bossKills}/${getDifficultyMaxBosses(data.difficulty)})`;
 	}
 
 	let html = `<h1>${data.players.length} ${diffString} - ${victoryDefeatString}</h1>`;
