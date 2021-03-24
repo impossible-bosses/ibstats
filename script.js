@@ -256,6 +256,11 @@ function parseWc3StatsPlayerData(data)
 	return playerData
 }
 
+function parseWc3StatsBossData(data)
+{
+	return {};
+}
+
 function parseWc3StatsReplayData(data)
 {
 	const game = data.body.data.game;
@@ -268,6 +273,7 @@ function parseWc3StatsReplayData(data)
 		difficulty: DIFFICULTY.VE,
 		continues: false,
 		players: [],
+		bosses: [],
 		bossKills: null
 	};
 

@@ -43,21 +43,23 @@ function numberSeparateThousands(x, sep)
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, sep);
 }
 
-function difficultyStringToEnum(str)
+function secondsToTimestamp(seconds)
 {
-	for (d in DIFFICULTY) {
-		if (str == DIFFICULTY[d]) {
-			return DIFFICULTY[d];
-		}
+	const m = Math.floor(seconds / 60);
+	const s = seconds % 60;
+	let str = m.toString() + ":";
+	if (s < 10) {
+		str += "0";
 	}
-	return null;
+	str += s.toString();
+	return str;
 }
 
-function classStringToEnum(str)
+function stringToEnum(str, enumObject)
 {
-	for (c in CLASS) {
-		if (str == CLASS[c]) {
-			return CLASS[c];
+	for (k in enumObject) {
+		if (str == enumObject[k]) {
+			return enumObject[k];
 		}
 	}
 	return null;
@@ -222,7 +224,7 @@ function parseWc3StatsPlayerData(data)
 		isHost: data.isHost,
 		slot: data.slot,
 		color: data.colour,
-		class: classStringToEnum(mmdVars.class),
+		class: stringToEnum(mmdVars.class, CLASS),
 		health: mmdVars.health,
 		mana: mmdVars.mana,
 		ability: mmdVars.ability,
@@ -234,7 +236,7 @@ function parseWc3StatsPlayerData(data)
 	};
 
 	if (playerData.class == null) {
-		throw `Invalid class ${mmdVars.class}`;
+		return null;
 	}
 
 	for (b in BOSS) {
@@ -256,11 +258,6 @@ function parseWc3StatsPlayerData(data)
 	return playerData
 }
 
-function parseWc3StatsBossData(data)
-{
-	return {};
-}
-
 function parseWc3StatsReplayData(data)
 {
 	const game = data.body.data.game;
@@ -273,8 +270,9 @@ function parseWc3StatsReplayData(data)
 		difficulty: DIFFICULTY.VE,
 		continues: false,
 		players: [],
-		bosses: [],
-		bossKills: null
+		bosses: {},
+		bossKills: null,
+		totalWipes: 0
 	};
 
 	if (replayData.mapVersion == null) {
@@ -333,7 +331,7 @@ function parseWc3StatsReplayData(data)
 		throw `Invalid flag value: ${flag}`;
 	}
 
-	replayData.difficulty = difficultyStringToEnum(difficulty);
+	replayData.difficulty = stringToEnum(difficulty, DIFFICULTY);
 	if (replayData.difficulty == null) {
 		throw `Invalid difficulty value: ${difficulty}`;
 	}
@@ -350,10 +348,56 @@ function parseWc3StatsReplayData(data)
 
 	for (let i = 0; i < game.players.length; i++) {
 		const playerData = parseWc3StatsPlayerData(game.players[i]);
+		if (playerData == null) {
+			continue;
+		}
 		if (replayData.bossKills == null || replayData.bossKills < playerData.bossKills) {
 			replayData.bossKills = playerData.bossKills;
 		}
 		replayData.players.push(playerData);
+	}
+
+	for (b in BOSS) {
+		replayData.bosses[BOSS[b]] = {
+			startTimes: [],
+			wipeTimes: [],
+			killTime: null
+		};
+	}
+	for (let i = 0; i < game.events.length; i++) {
+		const e = game.events[i];
+		if (e.args.length != 1) {
+			throw `Event with more than 1 arg: ${e}`;
+		}
+		const boss = stringToEnum(e.args[0].toLowerCase(), BOSS);
+		if (boss == null) {
+			throw `Unrecognized boss in event: ${e.args[0]}`;
+		}
+
+		const eName = e.event.eventName;
+		if (eName == "bossEngage") {
+			replayData.bosses[boss].startTimes.push(e.time);
+		}
+		else if (eName == "bossKill") {
+			replayData.bosses[boss].killTime = e.time;
+		}
+		else if (eName == "bossWipe") {
+			replayData.bosses[boss].wipeTimes.push(e.time);
+			replayData.totalWipes += 1;
+		}
+		else {
+			throw `Unrecognized event ${eName}`;
+		}
+	}
+	for (b in BOSS) {
+		const bossData = replayData.bosses[BOSS[b]];
+		let expectedWipeTimes = bossData.startTimes.length;
+		if (bossData.killTime != null) {
+			expectedWipeTimes -= 1;
+		}
+		if (bossData.wipeTimes.length != expectedWipeTimes) {
+			throw `Unexpected # of wipe times for boss ${BOSS[b]}: ${bossData.wipeTimes.length}, expected ${expectedWipeTimes}`;
+		}
 	}
 
 	return replayData;
@@ -411,8 +455,16 @@ function generateHtmlKarma(data)
 
 function generateHtmlBoss(data, boss)
 {
+	const bossData = data.bosses[boss];
+	const numWipes = bossData.wipeTimes.length;
+	let continuesStr = "";
+	if (numWipes > 0) {
+		continuesStr = `${numWipes} Wipes | `;
+	}
+	const bossTime = secondsToTimestamp(bossData.killTime - bossData.startTimes[bossData.startTimes.length - 1]);
+
 	let html = `<h2 class="bossTitleLeft">${getBossLongName(boss)}</h2>`;
-	html += `<h2 class="bossTitleRight">X Continues | 1:54 <img src="${""}"/></h2>`;
+	html += `<h2 class="bossTitleRight">${continuesStr}${bossTime} <img src="${""}"/></h2>`;
 	html += `<table>`;
 	html += `<tr><th></th><th>Deaths</th><th>Damage</th><th>Healing</th><th>Healing Received</th><th>Degen</th></tr>`;
 	for (let i = 0; i < data.players.length; i++) {
@@ -441,12 +493,12 @@ function generateHtml(data)
 
 	let contString = null;
 	if (data.continues) {
-		contString = "On";
+		contString = "Enabled";
 	}
 	else {
-		contString = "Off";
+		contString = "Disabled";
 	}
-	html += `<h3>Continues ${contString} / X Used</h3>`;
+	html += `<h3>Continues ${contString} / ${data.totalWipes} Used</h3>`;
 
 	html += generateHtmlKarma(data);
 	for (b in BOSS) {
