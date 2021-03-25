@@ -289,6 +289,9 @@ function parseWc3StatsReplayData(data)
 			if (flag == null) {
 				flag = flagPlayer;
 			}
+			else if (flagPlayer == null) {
+				continue;
+			}
 			else if (flag != flagPlayer) {
 				throw `Inconsistent flags: ${flag} and ${flagPlayer}`;
 			}
@@ -297,6 +300,9 @@ function parseWc3StatsReplayData(data)
 		const difficultyPlayer = player.variables.difficulty;
 		if (difficulty == null) {
 			difficulty = difficultyPlayer;
+		}
+		else if (difficultyPlayer == null) {
+			continue;
 		}
 		else if (difficulty != difficultyPlayer) {
 			throw `Inconsistent difficulties: ${difficulty} and ${difficultyPlayer}`;
@@ -430,11 +436,11 @@ function generateHtmlPlayer(playerData)
 	return html;
 }
 
-function generateHtmlKarma(data)
+function generateHtmlOverallStats(data)
 {
-	let html = `<h2>Karma</h2>`;
+	let html = `<h2>Overall Stats</h2>`;
 	html += `<table>`;
-	html += `<tr><th></th><th>Health</th><th>Mana</th><th>Ability</th><th>MS</th></tr>`;
+	html += `<tr><th></th><th>Coins</th><th>Health</th><th>Mana</th><th>Ability</th><th>MS</th></tr>`;
 	for (let i = 0; i < data.players.length; i++) {
 		const p = data.players[i];
 		let rowLighterOrNot = "";
@@ -443,6 +449,7 @@ function generateHtmlKarma(data)
 		}
 		html += `<tr class="playerRow${rowLighterOrNot}">`;
 		html += generateHtmlPlayer(p);
+		html += `<td>${p.coins}</td>`;
 		html += `<td>${p.health}</td>`;
 		html += `<td>${p.mana}</td>`;
 		html += `<td>${p.ability}</td>`;
@@ -500,7 +507,7 @@ function generateHtml(data)
 	}
 	html += `<h3>Continues ${contString} / ${data.totalWipes} Used</h3>`;
 
-	html += generateHtmlKarma(data);
+	html += generateHtmlOverallStats(data);
 	for (b in BOSS) {
 		html += generateHtmlBoss(data, BOSS[b]);
 	}
