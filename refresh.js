@@ -83,8 +83,8 @@ async function refreshReplays(filePath, fullRefresh)
 
     if (numNewReplays == 0) {
         console.log("No new replays");
-    //}
-    //else {
+    }
+    else {
         fs.writeFileSync(filePath, JSON.stringify(newStoredReplays, null, 4));
         console.log(`Updated and saved ${numNewReplays} new replays`);
     }
