@@ -90,4 +90,4 @@ async function refreshReplays(filePath, fullRefresh)
     }
 }
 
-refreshReplays("replays.json", false);
+refreshReplays("data/replays.json", false);
