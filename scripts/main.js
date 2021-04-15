@@ -1,5 +1,10 @@
 function generateHtmlReplay(replay)
 {
+	const versionString = mapVersionToString(replay.mapVersion);
+	if (replay.mapVersion < MAP_VERSION.V1_11_4) {
+		return `<p style="font-size: 14pt; margin: 0; margin-bottom: 12pt;>${replay.name} | ${versionString} (old version, no stats)</p>`;
+	}
+
 	const diffString = difficultyToShortString(replay.difficulty);
 	let victoryDefeatString = null;
 	if (replay.win) {
@@ -12,7 +17,7 @@ function generateHtmlReplay(replay)
 	let html = "";
 	html += `<p style="font-size: 14pt; margin: 0; margin-bottom: 12pt;">`;
 	html += `<a href="game?id=${replay.id}">`;
-	html += `${replay.players.length} ${diffString} ${victoryDefeatString} | ${replay.totalWipes} continue(s) used | v${mapVersionToString(replay.mapVersion)} | ${replay.name}`
+	html += `${replay.name} | ${replay.players.length} ${diffString} ${victoryDefeatString} | ${replay.totalWipes} continue(s) used | v${versionString}`
 	html += `</a></p>`;
 	return html;
 }
