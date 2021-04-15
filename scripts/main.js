@@ -33,7 +33,6 @@ function generateHtml(data)
 	for (let i = 0; i < replaysDescending.length; i++) {
 		html += generateHtmlReplay(replaysDescending[i]);
 	}
-	console.log(html);
 	return html;
 }
 
@@ -42,5 +41,21 @@ $(document).ready(function() {
 		console.log(data);
 		const html = generateHtml(data);
 		document.getElementById("thinWrapper").innerHTML = html;
+
+		$.get("https://api.wc3stats.com/replays?search=Impossible.Bosses&limit=0", function(data2) {
+			console.log(data2);
+			let numMissing = 0;
+			for (let i = 0; i < data2.body.length; i++) {
+				let r = data2.body[i];
+				if (isValidReplay(r) && !data.hasOwnProperty(r.id)) {
+					numMissing++;
+					console.log(`Missing replay ${r.id}`);
+				}
+			}
+
+			if (numMissing != 0) {
+				document.getElementById("thinWrapper").innerHTML = `<h3 style="color:#cc4444">Missing ${numMissing} new replays</h3>` + document.getElementById("thinWrapper").innerHTML
+			}
+		});
 	});
 });

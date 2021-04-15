@@ -460,10 +460,12 @@ function parseWc3StatsReplayData(data)
 	return replayData;
 }
 
+function isValidReplay(replay)
+{
+	return replay.ladder != null && replay.season != null && !replay.isVoid && replay.players.length > 1;
+}
+
 module.exports = {
-	DIFFICULTY: DIFFICULTY,
-	CLASS: CLASS,
-	BOSS: BOSS,
-	MAP_VERSION: MAP_VERSION,
-	parseWc3StatsReplayData: parseWc3StatsReplayData
+	parseWc3StatsReplayData: parseWc3StatsReplayData,
+	isValidReplay: isValidReplay
 };

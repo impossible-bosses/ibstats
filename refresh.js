@@ -1,6 +1,6 @@
 const https = require("https");
 const fs = require("fs");
-const replay = require("./scripts/replay");
+const replay_ = require("./scripts/replay");
 
 const URL_WC3STATS_API = "https://api.wc3stats.com";
 
@@ -38,13 +38,9 @@ async function getAllIbReplays()
 
     let replays = [];
     for (let i = 0; i < allReplays.length; i++) {
-        if (allReplays[i].ladder == null || allReplays[i].season == null || allReplays[i].isVoid) {
-            continue;
+        if (replay_.isValidReplay(allReplays[i])) {
+            replays.push(allReplays[i]);
         }
-        if (allReplays[i].players.length <= 1) {
-            continue;
-        }
-        replays.push(allReplays[i]);
     }
 
     return replays;
@@ -68,7 +64,7 @@ async function refreshReplays(filePath, fullRefresh)
             const wc3StatsDataRaw = await getRequest(urlReplay);
             const wc3StatsData = JSON.parse(wc3StatsDataRaw);
             try {
-                const replayData = replay.parseWc3StatsReplayData(wc3StatsData);
+                const replayData = replay_.parseWc3StatsReplayData(wc3StatsData);
                 newStoredReplays[id] = replayData;
                 numNewReplays++;
             }
