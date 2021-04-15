@@ -1,8 +1,11 @@
+let replays_ = {};
+let loaded_ = false;
+
 function generateHtmlReplay(replay)
 {
 	const versionString = mapVersionToString(replay.mapVersion);
 	if (replay.mapVersion < MAP_VERSION.V1_11_4) {
-		return `<p style="font-size: 14pt; margin: 0; margin-bottom: 12pt;>${replay.name} | ${versionString} (old version, no stats)</p>`;
+		return `<tr><td>${replay.name}</td><td>-</td><td>-</td><td>-</td><td>-</td><td>${versionString}</td></tr>`
 	}
 
 	const diffString = difficultyToShortString(replay.difficulty);
@@ -14,11 +17,15 @@ function generateHtmlReplay(replay)
 		victoryDefeatString = `Defeat (${replay.bossKills}/${getDifficultyMaxBosses(replay.difficulty)})`;
 	}
 
-	let html = "";
-	html += `<p style="font-size: 14pt; margin: 0; margin-bottom: 12pt;">`;
-	html += `<a href="game?id=${replay.id}">`;
-	html += `${replay.name} | ${replay.players.length} ${diffString} ${victoryDefeatString} | ${replay.totalWipes} continue(s) used | v${versionString}`
-	html += `</a></p>`;
+	let html = `<tr style="border-bottom: thin solid; border-bottom-color: #FFFFFF;">`;
+	html += `<td><a href="game?id=${replay.id}">${replay.name}</a></td>`;
+	html += `<td>${replay.players.length}</td>`;
+	//html += `<td>${replay.difficulty}</td>`;
+	html += `<td>${diffString}</td>`;
+	html += `<td>${victoryDefeatString}</td>`;
+	html += `<td>${replay.totalWipes}</td>`;
+	html += `<td>${versionString}</td>`;
+	html += `</tr>`;
 	return html;
 }
 
@@ -34,33 +41,45 @@ function generateHtml(data)
 		return r1.playedOn < r2.playedOn;
 	});
 
-	let html = "<h2>Matches</h2>";
+	let html = "<h2>Matches</h2><table>";
+	html += "<tr><th>Game Name</th><th>Players</th><th>Difficulty</th><th>?</th><th>Continues Used</th><th>Version</th></tr>";
 	for (let i = 0; i < replaysDescending.length; i++) {
 		html += generateHtmlReplay(replaysDescending[i]);
 	}
+	html += "</table>";
+
+	html += `<p><button id="refreshButton">Refresh</button></p>`;
 	return html;
 }
 
 $(document).ready(function() {
 	$.get("./data/replays.json", function(data) {
-		console.log(data);
 		const html = generateHtml(data);
 		document.getElementById("thinWrapper").innerHTML = html;
+		replays_ = data;
+		loaded_ = true;
 
-		$.get("https://api.wc3stats.com/replays?search=Impossible.Bosses&limit=0", function(data2) {
-			console.log(data2);
-			let numMissing = 0;
-			for (let i = 0; i < data2.body.length; i++) {
-				let r = data2.body[i];
-				if (isValidReplay(r) && !data.hasOwnProperty(r.id)) {
-					numMissing++;
-					console.log(`Missing replay ${r.id}`);
+		$("#refreshButton").click(function() {
+			const htmlPrev = document.getElementById("thinWrapper").innerHTML;
+			document.getElementById("thinWrapper").innerHTML = htmlPrev + `<h4>Checking for new lobbies...</h4>`;
+			$.get("https://api.wc3stats.com/replays?search=Impossible.Bosses&limit=0", function(data) {
+				console.log(data);
+				let numMissing = 0;
+				for (let i = 0; i < data.body.length; i++) {
+					let r = data.body[i];
+					if (isValidReplay(r) && !replays_.hasOwnProperty(r.id)) {
+						numMissing++;
+						console.log(`Missing replay ${r.id}`);
+					}
 				}
-			}
 
-			if (numMissing != 0) {
-				document.getElementById("thinWrapper").innerHTML = `<h3 style="color:#cc4444">Missing ${numMissing} new replays</h3>` + document.getElementById("thinWrapper").innerHTML
-			}
+				if (numMissing != 0) {
+					document.getElementById("thinWrapper").innerHTML = htmlPrev + `<h4 style="color:#cc4444">Missing ${numMissing} new replay(s)</h4>`;
+				}
+				else {
+					document.getElementById("thinWrapper").innerHTML = htmlPrev;
+				}
+			});
 		});
 	});
 });
