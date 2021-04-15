@@ -2,6 +2,7 @@
     "82696": {
         "id": 82696,
         "name": "shaoh45",
+        "wc3Version": 130,
         "mapVersion": 0,
         "host": "Varlock",
         "length": 3247,
@@ -18,6 +19,7 @@
     "82968": {
         "id": 82968,
         "name": "ibce",
+        "wc3Version": 130,
         "mapVersion": 1,
         "host": "Varlock",
         "length": 2669,
@@ -34,6 +36,7 @@
     "84621": {
         "id": 84621,
         "name": "patio_11161",
+        "wc3Version": 130,
         "mapVersion": 2,
         "host": "Varlock",
         "length": 459,
@@ -50,6 +53,7 @@
     "84631": {
         "id": 84631,
         "name": "patio_11188",
+        "wc3Version": 130,
         "mapVersion": 2,
         "host": "Varlock",
         "length": 2520,
@@ -66,6 +70,7 @@
     "87661": {
         "id": 87661,
         "name": "kiiskifish78",
+        "wc3Version": 130,
         "mapVersion": 0,
         "host": "Varlock",
         "length": 3059,
@@ -82,6 +87,7 @@
     "90062": {
         "id": 90062,
         "name": "IMPOSSIBLE BOSSES [HIVE]",
+        "wc3Version": 132,
         "mapVersion": 0,
         "host": "Zavan#2985",
         "length": 257,
@@ -98,6 +104,7 @@
     "91637": {
         "id": 91637,
         "name": "Impossible bosses",
+        "wc3Version": 132,
         "mapVersion": 0,
         "host": "Balthazar#1541",
         "length": 1203,
@@ -114,6 +121,7 @@
     "95595": {
         "id": 95595,
         "name": "Impossilble bosses",
+        "wc3Version": 132,
         "mapVersion": 0,
         "host": "Balthazar#1541",
         "length": 1502,
@@ -130,6 +138,7 @@
     "95738": {
         "id": 95738,
         "name": "ibh2",
+        "wc3Version": 128,
         "mapVersion": 0,
         "host": "DeathKnight",
         "length": 2736,
@@ -147,6 +156,7 @@
     "99805": {
         "id": 99805,
         "name": "ibh",
+        "wc3Version": 128,
         "mapVersion": 0,
         "host": "DeathKnight",
         "length": 2418,
@@ -163,6 +173,7 @@
     "99810": {
         "id": 99810,
         "name": "ibt",
+        "wc3Version": 128,
         "mapVersion": 4,
         "host": "DeathKnight",
         "length": 2391,
@@ -435,6 +446,7 @@
     "99971": {
         "id": 99971,
         "name": "patio_11114",
+        "wc3Version": 130,
         "mapVersion": 4,
         "host": "Varlock",
         "length": 1923,
@@ -1343,6 +1355,7 @@
     "100502": {
         "id": 100502,
         "name": "ibh",
+        "wc3Version": 128,
         "mapVersion": 4,
         "host": "DeathKnight",
         "length": 2573,
@@ -2259,6 +2272,7 @@
     "100995": {
         "id": 100995,
         "name": "ibh2",
+        "wc3Version": 128,
         "mapVersion": 5,
         "host": "Dov",
         "length": 2584,
@@ -3174,6 +3188,7 @@
     "101036": {
         "id": 101036,
         "name": "ibh",
+        "wc3Version": 128,
         "mapVersion": 5,
         "host": "DeathKnight",
         "length": 3065,
@@ -4084,6 +4099,7 @@
     "101046": {
         "id": 101046,
         "name": "ibh",
+        "wc3Version": 128,
         "mapVersion": 5,
         "host": "DeathKnight",
         "length": 1559,
@@ -4959,6 +4975,7 @@
     "101067": {
         "id": 101067,
         "name": "ibh",
+        "wc3Version": 128,
         "mapVersion": 5,
         "host": "DeathKnight",
         "length": 2790,
@@ -5874,6 +5891,7 @@
     "101241": {
         "id": 101241,
         "name": "ibh",
+        "wc3Version": 128,
         "mapVersion": 5,
         "host": "DeathKnight",
         "length": 3070,
@@ -6791,6 +6809,7 @@
     "101252": {
         "id": 101252,
         "name": "ibh",
+        "wc3Version": 128,
         "mapVersion": 5,
         "host": "DeathKnight",
         "length": 2459,
@@ -7706,6 +7725,7 @@
     "101294": {
         "id": 101294,
         "name": "ibh",
+        "wc3Version": 128,
         "mapVersion": 5,
         "host": "DeathKnight",
         "length": 3258,
@@ -8514,6 +8534,7 @@
     "101359": {
         "id": 101359,
         "name": "ibce",
+        "wc3Version": 130,
         "mapVersion": 5,
         "host": "Varlock",
         "length": 2985,
@@ -9432,6 +9453,7 @@
     "101468": {
         "id": 101468,
         "name": "ibh",
+        "wc3Version": 128,
         "mapVersion": 6,
         "host": "DeathKnight",
         "length": 3067,
@@ -10343,6 +10365,7 @@
     "101478": {
         "id": 101478,
         "name": "ibh2",
+        "wc3Version": 128,
         "mapVersion": 6,
         "host": "DeathKnight",
         "length": 3122,
@@ -11150,6 +11173,7 @@
     "101527": {
         "id": 101527,
         "name": "ibh",
+        "wc3Version": 128,
         "mapVersion": 6,
         "host": "DeathKnight",
         "length": 2504,
@@ -11959,6 +11983,7 @@
     "101728": {
         "id": 101728,
         "name": "ibh",
+        "wc3Version": 128,
         "mapVersion": 6,
         "host": "DeathKnight",
         "length": 2829,
@@ -12768,6 +12793,7 @@
     "101859": {
         "id": 101859,
         "name": "ibh2",
+        "wc3Version": 128,
         "mapVersion": 0,
         "host": "DeathKnight",
         "length": 2993,
@@ -12784,6 +12810,7 @@
     "101870": {
         "id": 101870,
         "name": "Impossible Bosses New Version",
+        "wc3Version": 132,
         "mapVersion": 6,
         "host": "Balthazar#1541",
         "length": 1280,
@@ -13581,6 +13608,7 @@
     "101888": {
         "id": 101888,
         "name": "Impossible bosses",
+        "wc3Version": 132,
         "mapVersion": 6,
         "host": "Balthazar#1541",
         "length": 2569,
@@ -14391,6 +14419,7 @@
     "101925": {
         "id": 101925,
         "name": "ibh",
+        "wc3Version": 128,
         "mapVersion": 6,
         "host": "DeathKnight",
         "length": 589,
@@ -15227,6 +15256,7 @@
     "101932": {
         "id": 101932,
         "name": "ibh",
+        "wc3Version": 128,
         "mapVersion": 6,
         "host": "DeathKnight",
         "length": 3254,
@@ -16137,6 +16167,7 @@
     "101939": {
         "id": 101939,
         "name": "ibh2",
+        "wc3Version": 128,
         "mapVersion": 6,
         "host": "DeathKnight",
         "length": 2170,
@@ -17049,6 +17080,7 @@
     "101946": {
         "id": 101946,
         "name": "ibh",
+        "wc3Version": 128,
         "mapVersion": 6,
         "host": "DeathKnight",
         "length": 2215,
@@ -17828,6 +17860,7 @@
     "102116": {
         "id": 102116,
         "name": "ibh",
+        "wc3Version": 128,
         "mapVersion": 6,
         "host": "DeathKnight",
         "length": 2898,
@@ -18636,6 +18669,7 @@
     "102364": {
         "id": 102364,
         "name": "ibh",
+        "wc3Version": 128,
         "mapVersion": 6,
         "host": "DeathKnight",
         "length": 915,
@@ -19482,6 +19516,7 @@
     "103502": {
         "id": 103502,
         "name": "ibh2",
+        "wc3Version": 128,
         "mapVersion": 6,
         "host": "DeathKnight",
         "length": 1713,
@@ -20253,6 +20288,7 @@
     "103678": {
         "id": 103678,
         "name": "ibh",
+        "wc3Version": 128,
         "mapVersion": 6,
         "host": "DeathKnight",
         "length": 2452,
@@ -21165,6 +21201,7 @@
     "103698": {
         "id": 103698,
         "name": "ibh",
+        "wc3Version": 128,
         "mapVersion": 6,
         "host": "DeathKnight",
         "length": 3209,
@@ -22075,6 +22112,7 @@
     "103983": {
         "id": 103983,
         "name": "ibh",
+        "wc3Version": 128,
         "mapVersion": 6,
         "host": "DeathKnight",
         "length": 2561,
@@ -22990,6 +23028,7 @@
     "103997": {
         "id": 103997,
         "name": "ibh",
+        "wc3Version": 128,
         "mapVersion": 6,
         "host": "DeathKnight",
         "length": 2479,
@@ -23902,6 +23941,7 @@
     "104012": {
         "id": 104012,
         "name": "ibh",
+        "wc3Version": 128,
         "mapVersion": 6,
         "host": "DeathKnight",
         "length": 3107,
@@ -24820,6 +24860,7 @@
     "104162": {
         "id": 104162,
         "name": "IB - Inhouse",
+        "wc3Version": 132,
         "mapVersion": 6,
         "host": "Balthazar#1541",
         "length": 2752,
@@ -25724,6 +25765,7 @@
     "104505": {
         "id": 104505,
         "name": "IBN+",
+        "wc3Version": 128,
         "mapVersion": 6,
         "host": "ice-follower",
         "length": 3614,
@@ -26431,6 +26473,7 @@
     "105131": {
         "id": 105131,
         "name": "Cock strangle",
+        "wc3Version": 130,
         "mapVersion": 6,
         "host": "Varlock",
         "length": 2481,
@@ -27346,6 +27389,7 @@
     "105199": {
         "id": 105199,
         "name": "ibh2",
+        "wc3Version": 128,
         "mapVersion": 6,
         "host": "DeathKnight",
         "length": 2925,
@@ -28257,6 +28301,7 @@
     "105233": {
         "id": 105233,
         "name": "ibh",
+        "wc3Version": 128,
         "mapVersion": 6,
         "host": "DeathKnight",
         "length": 2947,
@@ -29167,6 +29212,7 @@
     "105240": {
         "id": 105240,
         "name": "ibh3",
+        "wc3Version": 128,
         "mapVersion": 6,
         "host": "DeathKnight",
         "length": 3113,
@@ -29979,6 +30025,7 @@
     "105445": {
         "id": 105445,
         "name": "ibh",
+        "wc3Version": 128,
         "mapVersion": 6,
         "host": "DeathKnight",
         "length": 2180,
@@ -30891,6 +30938,7 @@
     "105459": {
         "id": 105459,
         "name": "ibh",
+        "wc3Version": 128,
         "mapVersion": 6,
         "host": "DeathKnight",
         "length": 829,
@@ -31729,6 +31777,7 @@
     "106340": {
         "id": 106340,
         "name": "ibh",
+        "wc3Version": 128,
         "mapVersion": 6,
         "host": "DeathKnight",
         "length": 2355,

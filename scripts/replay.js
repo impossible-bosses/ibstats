@@ -41,6 +41,12 @@ const MAP_VERSION = {
 	V1_11_6: 6
 };
 
+const WC3_VERSION = {
+	V1_28: 128,
+	V1_30: 130,
+	V1_32: 132
+};
+
 function numberSeparateThousands(x, sep)
 {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, sep);
@@ -87,6 +93,20 @@ function mapFileToVersion(file)
 	}
 	else if (file == "Impossible.Bosses.v1.11.6.w3x" || file == "Impossible.Bosses.v1.11.6-no-bnet.w3x") {
 		return MAP_VERSION.V1_11_6;
+	}
+	return null;
+}
+
+function majorVersionToWc3Version(v)
+{
+	if (v == 28) {
+		return WC3_VERSION.V1_28;
+	}
+	else if (v == 30) {
+		return WC3_VERSION.V1_30;
+	}
+	else if (v == 10032) {
+		return WC3_VERSION.V1_32;
 	}
 	return null;
 }
@@ -219,6 +239,20 @@ function mapVersionToString(v)
 	throw `Unknown map version ${v}`;
 }
 
+function wc3VersionToHostingServer(v)
+{
+	if (v == WC3_VERSION.V1_28) {
+		return "M16";
+	}
+	else if (v == WC3_VERSION.V1_30) {
+		return "ENT";
+	}
+	else if (v == WC3_VERSION.V1_32) {
+		return "Battle.net";
+	}
+	throw `Unknown WC3 version ${v}`;
+}
+
 function parseWc3StatsPlayerStats(data)
 {
 	let playerStats = {
@@ -285,6 +319,7 @@ function parseWc3StatsReplayData(data)
 	let replayData = {
 		id: data.body.id,
 		name: game.name,
+		wc3Version: majorVersionToWc3Version(data.body.data.header.majorVersion),
 		mapVersion: mapFileToVersion(game.map),
 		host: game.host,
 		length: data.body.length,
@@ -299,6 +334,9 @@ function parseWc3StatsReplayData(data)
 		incomplete: false
 	};
 
+	if (replayData.wc3Version == null) {
+		throw `Unknown WC3 version, major version ${data.body.data.header.majorVersion}`;
+	}
 	if (replayData.mapVersion == null) {
 		throw `Unknown map version, file "${game.map}"`;
 	}

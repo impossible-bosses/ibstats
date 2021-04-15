@@ -4,8 +4,9 @@ let loaded_ = false;
 function generateHtmlReplay(replay)
 {
 	const versionString = mapVersionToString(replay.mapVersion);
+	const hostServerString = wc3VersionToHostingServer(replay.wc3Version);
 	if (replay.mapVersion < MAP_VERSION.V1_11_4) {
-		return `<tr><td>${replay.name}</td><td>-</td><td>-</td><td>-</td><td>-</td><td>${versionString}</td></tr>`
+		return `<tr><td>${replay.name}</td><td>-</td><td>-</td><td>-</td><td>-</td><td>${versionString}</td><td>${hostServerString}</td></tr>`
 	}
 
 	const diffString = difficultyToShortString(replay.difficulty);
@@ -20,11 +21,11 @@ function generateHtmlReplay(replay)
 	let html = `<tr style="border-bottom: thin solid; border-bottom-color: #FFFFFF;">`;
 	html += `<td><a href="game?id=${replay.id}">${replay.name}</a></td>`;
 	html += `<td>${replay.players.length}</td>`;
-	//html += `<td>${replay.difficulty}</td>`;
 	html += `<td>${diffString}</td>`;
 	html += `<td>${victoryDefeatString}</td>`;
 	html += `<td>${replay.totalWipes}</td>`;
 	html += `<td>${versionString}</td>`;
+	html += `<td>${hostServerString}</td>`;
 	html += `</tr>`;
 	return html;
 }
@@ -41,8 +42,8 @@ function generateHtml(data)
 		return r1.playedOn < r2.playedOn;
 	});
 
-	let html = "<h2>Matches</h2><table>";
-	html += "<tr><th>Game Name</th><th>Players</th><th>Difficulty</th><th>?</th><th>Continues Used</th><th>Version</th></tr>";
+	let html = "<h1>Matches</h1><table>";
+	html += "<tr><th>Game Name</th><th>Players</th><th>Difficulty</th><th>?</th><th>Continues Used</th><th>Version</th><th>Server</th></tr>";
 	for (let i = 0; i < replaysDescending.length; i++) {
 		html += generateHtmlReplay(replaysDescending[i]);
 	}
