@@ -199,22 +199,22 @@ function classToIconPath(c)
 function mapVersionToString(v)
 {
 	if (v == MAP_VERSION.V1_10_5) {
-		return "Impossible Bosses v1.10.5";
+		return "1.10.5";
 	}
 	else if (v == MAP_VERSION.V1_11_1) {
-		return "Impossible Bosses v1.11.1";
+		return "1.11.1";
 	}
 	else if (v == MAP_VERSION.V1_11_2) {
-		return "Impossible Bosses v1.11.2";
+		return "1.11.2";
 	}
 	else if (v == MAP_VERSION.V1_11_4) {
-		return "Impossible Bosses v1.11.4";
+		return "1.11.4";
 	}
 	else if (v == MAP_VERSION.V1_11_5) {
-		return "Impossible Bosses v1.11.5";
+		return "1.11.5";
 	}
 	else if (v == MAP_VERSION.V1_11_6) {
-		return "Impossible Bosses v1.11.6";
+		return "1.11.6";
 	}
 	throw `Unknown map version ${v}`;
 }

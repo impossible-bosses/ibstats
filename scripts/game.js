@@ -10,7 +10,7 @@ function generateHtmlTitle(data)
 	}
 
 	let html = `<h1>${data.players.length} ${diffString} - ${victoryDefeatString}</h1>`;
-	html += `<h4>${mapVersionToString(data.mapVersion)}</h4>`;
+	html += `<h4>Impossible Bosses v${mapVersionToString(data.mapVersion)}</h4>`;
 	html += `<hr>`;
 	return html;
 }

@@ -43,6 +43,29 @@ h4
 	font-style: italic;
 }
 
+a
+{
+	font-weight: normal;
+	font-style: normal;
+	text-decoration: underline;
+}
+a:link
+{
+	color: inherit;
+}
+a:visited
+{
+	color: inherit;
+}
+a:hover
+{
+	color: #aa7777;
+}
+a:active
+{
+	color: inherit;
+} 
+
 hr
 {
 	margin-top: 24pt;
