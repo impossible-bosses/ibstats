@@ -1,7 +1,5 @@
-
-
 $(document).ready(function() {
-	$.get("./cached/replays.json", function(data) {
+	$.get("./data/replays.json", function(data) {
 		console.log(data);
 	});
 });

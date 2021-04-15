@@ -287,6 +287,8 @@ function parseWc3StatsReplayData(data)
 		name: game.name,
 		mapVersion: mapFileToVersion(game.map),
 		host: game.host,
+		length: data.body.length,
+		playedOn: data.body.playedOn,
 		win: false,
 		difficulty: DIFFICULTY.VE,
 		continues: false,
