@@ -57,7 +57,7 @@ async function refreshReplays(filePath, fullRefresh)
 
     for (let i = 0; i < replays.length; i++) {
         const id = replays[i].id;
-        if (fullRefresh || !storedReplays.hasOwnProperty(id)) {
+        if (fullRefresh || !(id in storedReplays)) {
             console.log(`Querying replay id ${id}...`);
 
             const urlReplay = URL_WC3STATS_API + "/replays/" + id;

@@ -11,6 +11,7 @@ function generateHtmlTitle(data)
 
 	let html = `<h1>${data.players.length} ${diffString} - ${victoryDefeatString}</h1>`;
 	html += `<h4>Impossible Bosses v${mapVersionToString(data.mapVersion)}</h4>`;
+	html += `<a href="https://wc3stats.com/games/${data.id}"><h4>View in wc3stats</h4></a>`;
 	html += `<hr>`;
 	return html;
 }
@@ -114,20 +115,20 @@ function generateHtml(data)
 
 $(document).ready(function() {
 	const urlParams = new URLSearchParams(window.location.search);
-	if (urlParams.has("id")) {
-		const replayIdString = urlParams.get("id");
-		const replayId = parseInt(replayIdString);
-		const wc3statsReplayUrl = "https://api.wc3stats.com/replays/" + replayId.toString();
-		console.log(wc3statsReplayUrl);
-		$.get(wc3statsReplayUrl, function(data) {
-			console.log(data);
-			let replayData = parseWc3StatsReplayData(data);
-			console.log(replayData);
-			let html = generateHtml(replayData);
-			document.getElementById("thinWrapper").innerHTML = html;
-		});
+	if (!urlParams.has("id")) {
+		console.error("Expected replay ID in URL, redirecting to home");
+		window.location.href = '../';
 	}
-	else {
-		console.error("Expected replay ID in URL");
-	}
+
+	const replayIdString = urlParams.get("id");
+	const replayId = parseInt(replayIdString);
+	const wc3statsReplayUrl = "https://api.wc3stats.com/replays/" + replayId.toString();
+	console.log(wc3statsReplayUrl);
+	$.get(wc3statsReplayUrl, function(data) {
+		console.log(data);
+		let replayData = parseWc3StatsReplayData(data);
+		console.log(replayData);
+		let html = generateHtml(replayData);
+		document.getElementById("thinWrapper").innerHTML = html;
+	});
 });

@@ -19,5 +19,31 @@
             "typical_methods",
             "Balthazar#1541"
         ]
+    },
+    {
+        "name": "Quistis",
+        "aliases": [
+            "Quistisx",
+            "NijiNoUma#2286"
+        ]
+    },
+    {
+        "name": "Dov",
+        "aliases": [
+            "Warlock",
+            "Mebo#31353"
+        ]
+    },
+    {
+        "name": "Zaisev",
+        "aliases": [
+            "Psychedelic#31736"
+        ]
+    },
+    {
+        "name": "ice-follower",
+        "aliases": [
+            "IceIceFollower"
+        ]
     }
 ]

@@ -5,6 +5,13 @@ const DIFFICULTY = {
 	N: "Normal",
 	H: "Hard",
 };
+let DIFFICULTIES_SORTED = [
+	DIFFICULTY.VE,
+	DIFFICULTY.E,
+	DIFFICULTY.M,
+	DIFFICULTY.N,
+	DIFFICULTY.H
+];
 
 const BOSS = {
 	FIRE: "fire",
@@ -31,6 +38,18 @@ const CLASS = {
 	WARLOCK: "Warlock",
 	WARRIOR: "Warrior"
 };
+let CLASSES_SORTED = [
+	CLASS.DK,
+	CLASS.DRUID,
+	CLASS.FM,
+	CLASS.IM,
+	CLASS.PALADIN,
+	CLASS.PRIEST,
+	CLASS.RANGER,
+	CLASS.ROGUE,
+	CLASS.WARLOCK,
+	CLASS.WARRIOR
+];
 
 const MAP_VERSION = {
 	V1_10_5: 0,
@@ -503,7 +522,10 @@ function isValidReplay(replay)
 	return replay.ladder != null && replay.season != null && !replay.isVoid && replay.players.length > 1;
 }
 
-module.exports = {
-	parseWc3StatsReplayData: parseWc3StatsReplayData,
-	isValidReplay: isValidReplay
-};
+if (typeof window === 'undefined') {
+	// Exports for node.js
+	module.exports = {
+		parseWc3StatsReplayData: parseWc3StatsReplayData,
+		isValidReplay: isValidReplay
+	};
+}
