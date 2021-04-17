@@ -268,13 +268,13 @@ const ACHIEVEMENTS = {
 			return achievementWinDifficultyNoDeaths(playerSortedReplays, players, player, DIFFICULTY.H);
 		}
 	},
-	"Swiss Army Knife (Normal)": {
+	"Classy (Normal)": {
 		description: "Win the game on Normal difficulty with all classes.",
 		condition: function(playerSortedReplays, players, player) {
 			return achievementWinDifficultyAllClasses(playerSortedReplays, players, player, DIFFICULTY.N);
 		}
 	},
-	"Swiss Army Knife (Hard)": {
+	"Classy (Hard)": {
 		description: "Win the game on Hard difficulty with all classes.",
 		condition: function(playerSortedReplays, players, player) {
 			return achievementWinDifficultyAllClasses(playerSortedReplays, players, player, DIFFICULTY.H);
