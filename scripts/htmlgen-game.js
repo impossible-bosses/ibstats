@@ -95,7 +95,9 @@ function generateHtmlBoss(replay, players, boss)
 
 function generateHtml(replay, players)
 {
-	let html = generateHtmlTitle(replay);
+	let html = "";
+	html += `<h2 style="position: absolute; left: 30%;"><a href="..">&lt; BACK</a></h2>`;
+	html += generateHtmlTitle(replay);
 
 	let contString = null;
 	if (replay.continues) {
