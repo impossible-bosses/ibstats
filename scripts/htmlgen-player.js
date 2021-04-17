@@ -37,7 +37,7 @@ function generateHtmlPlayerReplayInsideTr(replay, player, players)
 	return html;
 }
 
-function generateHtmlPlayerClasses(replays, games, players, player)
+function generateHtmlPlayerClasses(playerSortedReplays, players, player)
 {
 	let playerClassData = {};
 	for (c in CLASS) {
@@ -51,8 +51,8 @@ function generateHtmlPlayerClasses(replays, games, players, player)
 		}
 	}
 
-	for (let i = 0; i < games.length; i++) {
-		const replay = replays[games[i]];
+	for (let i = 0; i < playerSortedReplays.length; i++) {
+		const replay = playerSortedReplays[i];
 		const index = getPlayerIndexInReplay(replay, player, players);
 		const playerData = replay.players[index];
 		playerClassData[playerData.class].played[replay.difficulty]++;
@@ -93,25 +93,48 @@ function generateHtmlPlayerClasses(replays, games, players, player)
 	return html;
 }
 
+function generateHtmlPlayerAchievements(playerSortedReplays, players, player)
+{
+	const achievementHits = getPlayerAchievementHits(playerSortedReplays, players, player);
+	console.log(achievementHits);
+
+	let html = "";
+	html += `<h2>Achievements</h2>`;
+	for (a in achievementHits) {
+		const hits = achievementHits[a];
+		console.log(a);
+		console.log(hits);
+		console.log(hits[0]);
+		let status = "&#x2717;";
+		let earnedString = "";
+		if (hits.length > 0) {
+			const date = new Date(hits[0].time * 1000);
+			const dateString = date.toLocaleDateString();
+			status = " &#x2713;";
+			earnedString = ` &mdash; earned ${dateString} on <a href="../game?id=${hits[0].replay.id}">${hits[0].replay.name}</a>`;
+		}
+		html += `<p><b>${status} ${a}</b>${earnedString}</p>`;
+		html += `<p><i>${ACHIEVEMENTS[a].description}</i></p>`;
+	}
+	return html;
+}
+
 function generateHtml(replays, players, player)
 {
-	const playerGamesMap = getPlayerGamesMap(replays, players);
-	const games = playerGamesMap[player] || [];
+	const sortedReplays = getPlayerSortedReplays(replays, players, player);
 
 	let html = "";
 	html += `<h1>${player}</h1>`;
-	html += `<h4>${games.length} games played</h4>`;
+	const aliases = getPlayerAliases(players, player);
+	if (aliases.length > 0) {
+		html += `<h4>( aka ${aliases.join(", ")} )</h4>`;
+	}
+	html += `<h4>${sortedReplays.length} games played</h4>`;
 	html += `<hr>`;
 
-	let sortedReplays = [];
-	for (let i = 0; i < games.length; i++) {
-		sortedReplays.push(replays[games[i]]);
-	}
-	sortedReplays.sort(function(r1, r2) {
-		return r1.playedOn < r2.playedOn;
-	});
+	html += generateHtmlPlayerClasses(sortedReplays, players, player);
 
-	html += generateHtmlPlayerClasses(replays, games, players, player);
+	html += generateHtmlPlayerAchievements(sortedReplays, players, player);
 
 	html += `<h2>Recent Games</h2>`;
 	html += `<table>`;

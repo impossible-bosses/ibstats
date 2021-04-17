@@ -1,10 +1,6 @@
 let replays_ = null;
 let players_ = null;
 
-function getWorldFirst(replays, players, difficulty, wc3Version)
-{
-}
-
 function generateHtmlReplayInsideTr(replay)
 {
 	const versionString = mapVersionToString(replay.mapVersion);
@@ -68,6 +64,7 @@ function generateHtmlPlayerInsideTr(replays, players, player, games)
 function generateHtml(replays, players)
 {
 	let html = ``;
+	html += `<p><i>To whoever is looking at this in the early stages: this is a work in progress - priority is to play around with all the new data we have available after wc3stats/MMD support in v1.11+. For now, everything is in very simple, plain, and untrimmed table formats.</i></p>`
 
 	// Players section
 	const playerGamesMap = getPlayerGamesMap(replays, players);
@@ -98,20 +95,69 @@ function generateHtml(replays, players)
 	// Leaderboards section
 	html += `<h1>Leaderboards</h1>`;
 	html += `<h2>Achievements</h2>`;
-	const worldFirstDifficulties = [
-		DIFFICULTY.N,
-		DIFFICULTY.H
-	];
-	for (let i = 0; i < worldFirstDifficulties.length; i++) {
+	let playerAchievementHits = {};
+	for (const player in playerGamesMap) {
+		const sortedReplays = getPlayerSortedReplays(replays, players, player);
+		playerAchievementHits[player] = getPlayerAchievementHits(sortedReplays, players, player);
 	}
-	html += `<p>World First: Normal Win &#x2713;</p>`;
-	html += `<p>World First: Hard Win</p>`;
-	html += `<p>M16 First: Normal Win</p>`;
-	html += `<p>M16 First: Hard Win</p>`;
-	html += `<p>ENT First: Normal Win</p>`;
-	html += `<p>ENT First: Hard Win</p>`;
-	html += `<p>Battle.net First: Normal Win</p>`;
-	html += `<p>Battle.net First: Hard Win</p>`;
+	let sortedAchievementPlayerHits = {};
+	for (a in ACHIEVEMENTS) {
+		sortedAchievementPlayerHits[a] = [];
+	}
+	for (const player in playerAchievementHits) {
+		for (a in playerAchievementHits[player]) {
+			const hits = playerAchievementHits[player][a];
+			for (let i = 0; i < hits.length; i++) {
+				sortedAchievementPlayerHits[a].push({
+					player: player,
+					hit: hits[i]
+				});
+			}
+		}
+	}
+	for (a in ACHIEVEMENTS) {
+		sortedAchievementPlayerHits[a].sort(function(e1, e2) {
+			return e1.hit.time > e2.hit.time;
+		});
+
+		const playerHits = sortedAchievementPlayerHits[a];
+		let firstPlayerHits = [];
+		let firstTime = 0;
+		let firstReplay = null;
+		for (let i = 0; i < playerHits.length; i++) {
+			const hit = playerHits[i].hit;
+			if (firstTime == 0) {
+				firstTime = hit.time;
+				firstReplay = hit.replay;
+			}
+			if (firstTime == hit.time) {
+				if (firstReplay != hit.replay) {
+					console.error(`Achievement ${a} first in different replays`);
+					continue;
+				}
+				firstPlayerHits.push(playerHits[i]);
+			}
+		}
+
+		let status = "&#x2717;";
+		let earnedString = "";
+		if (firstPlayerHits.length > 0) {
+			const date = new Date(firstTime * 1000);
+			const dateString = date.toLocaleDateString();
+			status = " &#x2713;";
+			let firstPlayersString = "";
+			for (let i = 0; i < firstPlayerHits.length; i++) {
+				const player = firstPlayerHits[i].player;
+				if (i != 0) {
+					firstPlayersString += ", ";
+				}
+				firstPlayersString += `<a href="player?name=${player}">${player}</a>`;
+			}
+			earnedString = ` &mdash; first earned ${dateString} by <i>${firstPlayersString}</i> on <a href="../game?id=${firstReplay.id}">${firstReplay.name}</a>`;
+		}
+		html += `<p><b>${status} ${a}</b>${earnedString}</p>`;
+		html += `<p><i>${ACHIEVEMENTS[a].description}</i></p>`;
+	}
 
 	// Games section
 	let replaysDescending = [];
@@ -137,8 +183,8 @@ function generateHtml(replays, players)
 	}
 	html += `</table>`;
 
-	html += `<br><br>`;
-	html += `<p><button id="refreshButton">Refresh</button></p>`;
+	//html += `<br><br>`;
+	//html += `<p><button id="refreshButton">Refresh</button></p>`;
 	html += `<br><br><br><br><br>`;
 
 	return html;
