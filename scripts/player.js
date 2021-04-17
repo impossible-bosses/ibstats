@@ -84,7 +84,7 @@ function getPlayerSortedReplays(replays, players, player)
 		sortedReplays.push(replays[games[i]]);
 	}
 	sortedReplays.sort(function(r1, r2) {
-		return r1.playedOn < r2.playedOn;
+		return r2.playedOn - r1.playedOn;
 	});
 
 	return sortedReplays;

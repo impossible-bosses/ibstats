@@ -1,6 +1,56 @@
 let replays_ = null;
 let players_ = null;
 
+function generateHtmlPlayerProgress(playerSortedReplays, players, player)
+{
+	let progress = {};
+	for (let d in DIFFICULTY) {
+		progress[DIFFICULTY[d]] = {
+			win: false,
+			maxBossKills: 0
+		};
+	}
+
+	for (let i = 0; i < playerSortedReplays.length; i++) {
+		const replay = playerSortedReplays[i];
+		if (progress[replay.difficulty].win) {
+			continue;
+		}
+		if (replay.win) {
+			progress[replay.difficulty].win = true;
+			progress[replay.difficulty].maxBossKills = 0;
+		}
+		else {
+			if (progress[replay.difficulty].maxBossKills < replay.bossKills) {
+				progress[replay.difficulty].maxBossKills = replay.bossKills;
+			}
+		}
+	}
+
+	let html = "";
+	html += `<table>`;
+	html += `<tr>`;
+	for (let i = 0; i < DIFFICULTIES_SORTED.length; i++) {
+		html += `<th>${DIFFICULTIES_SORTED[i]}</th>`;
+	}
+	html += `</tr><tr>`;
+	for (let i = 0; i < DIFFICULTIES_SORTED.length; i++) {
+		const prog = progress[DIFFICULTIES_SORTED[i]];
+		const maxBosses = getDifficultyMaxBosses(DIFFICULTIES_SORTED[i]);
+		let string = "&#x2717;"; // X
+		if (prog.win) {
+			string = "&#x2713;"; // check
+		}
+		else if (prog.maxBossKills > 0) {
+			string = `${prog.maxBossKills} / ${maxBosses}`;
+		}
+		html += `<td>${string}</td>`;
+	}
+	html += `</tr></table>`;
+
+	return html;
+}
+
 function generateHtmlPlayerReplayInsideTr(replay, player, players)
 {
 	const versionString = mapVersionToString(replay.mapVersion);
@@ -96,25 +146,25 @@ function generateHtmlPlayerClasses(playerSortedReplays, players, player)
 function generateHtmlPlayerAchievements(playerSortedReplays, players, player)
 {
 	const achievementHits = getPlayerAchievementHits(playerSortedReplays, players, player);
-	console.log(achievementHits);
 
 	let html = "";
 	html += `<h2>Achievements</h2>`;
 	for (a in achievementHits) {
 		const hits = achievementHits[a];
-		console.log(a);
-		console.log(hits);
-		console.log(hits[0]);
-		let status = "&#x2717;";
+		let status = "&#x2717;"; // X
 		let earnedString = "";
 		if (hits.length > 0) {
 			const date = new Date(hits[0].time * 1000);
 			const dateString = date.toLocaleDateString();
-			status = " &#x2713;";
-			earnedString = ` &mdash; earned ${dateString} on <a href="../game?id=${hits[0].replay.id}">${hits[0].replay.name}</a>`;
+			status = " &#x2713;"; // check
+			earnedString = ` &mdash; first earned ${dateString} on <a href="../game?id=${hits[0].replay.id}">${hits[0].replay.name}</a>`;
 		}
-		html += `<p><b>${status} ${a}</b>${earnedString}</p>`;
-		html += `<p><i>${ACHIEVEMENTS[a].description}</i></p>`;
+		let style = "color: #777;";
+		if (hits.length > 0) {
+			style = "";
+		}
+		html += `<p style="${style}"><b>${status} ${a}</b>${earnedString}</p>`;
+		html += `<p style="${style}"><i>${ACHIEVEMENTS[a].description}</i></p>`;
 	}
 	return html;
 }
@@ -131,6 +181,8 @@ function generateHtml(replays, players, player)
 	}
 	html += `<h4>${sortedReplays.length} games played</h4>`;
 	html += `<hr>`;
+
+	html += generateHtmlPlayerProgress(sortedReplays, players, player);
 
 	html += generateHtmlPlayerClasses(sortedReplays, players, player);
 

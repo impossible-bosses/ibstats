@@ -76,7 +76,7 @@ function generateHtml(replays, players)
 		});
 	}
 	playerGamesSorted.sort(function(e1, e2) {
-		return e1.games.length < e2.games.length;
+		return e2.games.length - e1.games.length;
 	});
 
 	html += `<h1>Players</h1><table>`;
@@ -117,7 +117,7 @@ function generateHtml(replays, players)
 	}
 	for (a in ACHIEVEMENTS) {
 		sortedAchievementPlayerHits[a].sort(function(e1, e2) {
-			return e1.hit.time > e2.hit.time;
+			return e1.hit.time - e2.hit.time;
 		});
 
 		const playerHits = sortedAchievementPlayerHits[a];
@@ -139,12 +139,12 @@ function generateHtml(replays, players)
 			}
 		}
 
-		let status = "&#x2717;";
+		let status = "&#x2717;"; // X
 		let earnedString = "";
 		if (firstPlayerHits.length > 0) {
 			const date = new Date(firstTime * 1000);
 			const dateString = date.toLocaleDateString();
-			status = " &#x2713;";
+			status = "&#x2713;"; // check
 			let firstPlayersString = "";
 			for (let i = 0; i < firstPlayerHits.length; i++) {
 				const player = firstPlayerHits[i].player;
@@ -155,8 +155,12 @@ function generateHtml(replays, players)
 			}
 			earnedString = ` &mdash; first earned ${dateString} by <i>${firstPlayersString}</i> on <a href="../game?id=${firstReplay.id}">${firstReplay.name}</a>`;
 		}
-		html += `<p><b>${status} ${a}</b>${earnedString}</p>`;
-		html += `<p><i>${ACHIEVEMENTS[a].description}</i></p>`;
+		let style = "color: #777;";
+		if (firstPlayerHits.length > 0) {
+			style = "";
+		}
+		html += `<p style="${style}"><b>${status} ${a}</b>${earnedString}</p>`;
+		html += `<p style="${style}"><i>${ACHIEVEMENTS[a].description}</i></p>`;
 	}
 
 	// Games section
@@ -167,7 +171,7 @@ function generateHtml(replays, players)
 		}
 	}
 	replaysDescending.sort(function(r1, r2) {
-		return r1.playedOn < r2.playedOn;
+		return r2.playedOn - r1.playedOn;
 	});
 
 	html += `<h1>Recent Games</h1><table>`;
