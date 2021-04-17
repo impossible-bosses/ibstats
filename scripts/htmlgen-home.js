@@ -139,6 +139,8 @@ function generateHtml(replays, players)
 		html += `<p style="${style}"><i>${ACHIEVEMENTS[a].description}</i></p>`;
 	}
 
+	html += `<p>Coming soon - top damage, healing... coins? deaths?</p>`
+
 	// Players section
 	let playerGamesSorted = [];
 	for (const player in playerGamesMap) {
