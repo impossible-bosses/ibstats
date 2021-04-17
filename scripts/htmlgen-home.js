@@ -66,31 +66,7 @@ function generateHtml(replays, players)
 	let html = ``;
 	html += `<p><i>To whoever is looking at this in the early stages: this is a work in progress - priority is to play around with all the new data we have available after wc3stats/MMD support in v1.11+. For now, everything is in very simple, plain, and untrimmed table formats.</i></p>`
 
-	// Players section
 	const playerGamesMap = getPlayerGamesMap(replays, players);
-	let playerGamesSorted = [];
-	for (const player in playerGamesMap) {
-		playerGamesSorted.push({
-			player: player,
-			games: playerGamesMap[player]
-		});
-	}
-	playerGamesSorted.sort(function(e1, e2) {
-		return e2.games.length - e1.games.length;
-	});
-
-	html += `<h1>Players</h1><table>`;
-	html += `<tr><th>Player</th><th>Games Played</th><th>Wins</th><th>Wins (N)</th><th>Wins (H)</th></tr>`;
-	for (let i = 0; i < playerGamesSorted.length; i++) {
-		let rowLighterOrNot = "";
-		if (i % 2 == 1) {
-			rowLighterOrNot = "rowLighter";
-		}
-		html += `<tr style="height: 28pt;" class="${rowLighterOrNot}">`;
-		html += generateHtmlPlayerInsideTr(replays, players, playerGamesSorted[i].player, playerGamesSorted[i].games);
-		html += `</tr>`;
-	}
-	html += `</table>`;
 
 	// Leaderboards section
 	html += `<h1>Leaderboards</h1>`;
@@ -162,6 +138,31 @@ function generateHtml(replays, players)
 		html += `<p style="${style}"><b>${status} ${a}</b>${earnedString}</p>`;
 		html += `<p style="${style}"><i>${ACHIEVEMENTS[a].description}</i></p>`;
 	}
+
+	// Players section
+	let playerGamesSorted = [];
+	for (const player in playerGamesMap) {
+		playerGamesSorted.push({
+			player: player,
+			games: playerGamesMap[player]
+		});
+	}
+	playerGamesSorted.sort(function(e1, e2) {
+		return e2.games.length - e1.games.length;
+	});
+
+	html += `<h1>Players</h1><table>`;
+	html += `<tr><th>Player</th><th>Games Played</th><th>Wins</th><th>Wins (N)</th><th>Wins (H)</th></tr>`;
+	for (let i = 0; i < playerGamesSorted.length; i++) {
+		let rowLighterOrNot = "";
+		if (i % 2 == 1) {
+			rowLighterOrNot = "rowLighter";
+		}
+		html += `<tr style="height: 28pt;" class="${rowLighterOrNot}">`;
+		html += generateHtmlPlayerInsideTr(replays, players, playerGamesSorted[i].player, playerGamesSorted[i].games);
+		html += `</tr>`;
+	}
+	html += `</table>`;
 
 	// Games section
 	let replaysDescending = [];
