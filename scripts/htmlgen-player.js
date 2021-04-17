@@ -151,6 +151,9 @@ function generateHtmlPlayerAchievements(playerSortedReplays, players, player)
 	html += `<h2>Achievements</h2>`;
 	for (a in achievementHits) {
 		const hits = achievementHits[a];
+		if (hits.length == 0 && ACHIEVEMENTS[a].hideUnachieved) {
+			continue;
+		}
 		let status = "&#x2717;"; // X
 		let earnedString = "";
 		if (hits.length > 0) {

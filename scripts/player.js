@@ -202,6 +202,48 @@ const ACHIEVEMENTS = {
 			return achievementWinDifficultyWc3Version(playerSortedReplays, players, player, DIFFICULTY.H);
 		}
 	},
+	"M16 Win (Normal)": {
+		hideUnachieved: true,
+		description: "Win the game on Normal difficulty, hosted on M16 servers.",
+		condition: function(playerSortedReplays, players, player) {
+			return achievementWinDifficultyWc3Version(playerSortedReplays, players, player, DIFFICULTY.N, WC3_VERSION.V1_28);
+		}
+	},
+	"M16 Win (Hard)": {
+		hideUnachieved: true,
+		description: "Win the game on Hard difficulty, hosted on M16 servers.",
+		condition: function(playerSortedReplays, players, player) {
+			return achievementWinDifficultyWc3Version(playerSortedReplays, players, player, DIFFICULTY.H, WC3_VERSION.V1_28);
+		}
+	},
+	"ENT Win (Normal)": {
+		hideUnachieved: true,
+		description: "Win the game on Normal difficulty, hosted on ENT servers.",
+		condition: function(playerSortedReplays, players, player) {
+			return achievementWinDifficultyWc3Version(playerSortedReplays, players, player, DIFFICULTY.N, WC3_VERSION.V1_30);
+		}
+	},
+	"ENT Win (Hard)": {
+		hideUnachieved: true,
+		description: "Win the game on Hard difficulty, hosted on ENT servers.",
+		condition: function(playerSortedReplays, players, player) {
+			return achievementWinDifficultyWc3Version(playerSortedReplays, players, player, DIFFICULTY.H, WC3_VERSION.V1_30);
+		}
+	},
+	"Battle.net Win (Normal)": {
+		hideUnachieved: true,
+		description: "Win the game on Normal difficulty, hosted on Battle.net.",
+		condition: function(playerSortedReplays, players, player) {
+			return achievementWinDifficultyWc3Version(playerSortedReplays, players, player, DIFFICULTY.N, WC3_VERSION.V1_32);
+		}
+	},
+	"Battle.net Win (Hard)": {
+		hideUnachieved: true,
+		description: "Win the game on Hard difficulty, hosted on Battle.net.",
+		condition: function(playerSortedReplays, players, player) {
+			return achievementWinDifficultyWc3Version(playerSortedReplays, players, player, DIFFICULTY.H, WC3_VERSION.V1_32);
+		}
+	},
 	"No Second Chances (Normal)": {
 		description: "Win the game on Normal difficulty without using continues.",
 		condition: function(playerSortedReplays, players, player) {
