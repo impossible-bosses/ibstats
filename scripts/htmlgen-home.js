@@ -64,12 +64,14 @@ function generateHtmlPlayerInsideTr(replays, players, player, games)
 function generateHtml(replays, players)
 {
 	let html = ``;
-	html += `<p><i>To whoever is looking at this in the early stages: this is a work in progress - priority is to play around with all the new data we have available after wc3stats/MMD support in v1.11+. For now, everything is in very simple, plain, and untrimmed table formats.</i></p>`
+	html += `<p>To whoever is looking at this in the early stages: this is a work in progress - the priority at the moment is to play around with all the new data we have available after wc3stats/MMD support in v1.11+. For now, everything is in very simple, plain, and untrimmed table formats.</p>`;
+	html += `<p><b>NOTE:</b> To avoid spamming wc3stats with requests for now, the recent games list doesn't automatically update; it must be manually updated. If you uploaded a game and it's not listed yet, just let Patio know.</p>`
 
 	const playerGamesMap = getPlayerGamesMap(replays, players);
 
 	// Leaderboards section
 	html += `<h1>Leaderboards</h1>`;
+	html += `<p>Coming soon - top damage, healing... coins? deaths? Also really need some color in this page.</p>`;
 	html += `<h2>Achievements</h2>`;
 	let playerAchievementHits = {};
 	for (const player in playerGamesMap) {
@@ -138,8 +140,6 @@ function generateHtml(replays, players)
 		html += `<p style="${style}"><b>${status} ${a}</b>${earnedString}</p>`;
 		html += `<p style="${style}"><i>${ACHIEVEMENTS[a].description}</i></p>`;
 	}
-
-	html += `<p>Coming soon - top damage, healing... coins? deaths?</p>`;
 
 	// Players section
 	let playerGamesSorted = [];
