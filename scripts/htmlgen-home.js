@@ -135,7 +135,7 @@ function generateHtml(replays, players)
 				}
 				firstPlayersString += `<a href="player?name=${player}">${player}</a>`;
 			}
-			earnedString = ` &mdash; first earned ${dateString} by <i>${firstPlayersString}</i> on <a href="../game?id=${firstReplay.id}">${firstReplay.name}</a>`;
+			earnedString = ` &mdash; first earned ${dateString} by <i>${firstPlayersString}</i> on <a href="game?id=${firstReplay.id}">${firstReplay.name}</a>`;
 		}
 		html += `<div class="${frameClass}">`;
 		html += `<p style="${style}"><b>${status} ${a}</b>${earnedString}</p>`;
