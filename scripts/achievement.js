@@ -6,12 +6,12 @@ achievement "hit" format:
 }
 */
 
-function achievementWinDifficultyWc3Version(playerSortedReplays, players, player, difficulty, wc3Version=null)
+function achievementWinDifficultyWc3Version(playerSortedReplays, players, player, difficulty=null, wc3Version=null)
 {
 	let hits = [];
 	for (let i = playerSortedReplays.length - 1; i >= 0; i--) {
 		const replay = playerSortedReplays[i];
-		if (replay.win && replay.difficulty == difficulty && (wc3Version == null || replay.wc3Version == wc3Version)) {
+		if (replay.win && (difficulty == null || replay.difficulty == difficulty) && (wc3Version == null || replay.wc3Version == wc3Version)) {
 			hits.push({
 				time: replay.playedOn,
 				replay: replay
@@ -37,7 +37,7 @@ function achievementWinDifficultyNoContinues(playerSortedReplays, players, playe
 	return hits;
 }
 
-function achievementWinDifficultyNoDeaths(playerSortedReplays, players, player, difficulty)
+function achievementWinDifficultyNoDeaths(playerSortedReplays, players, player, difficulty=null)
 {
 	const winHits = achievementWinDifficultyWc3Version(playerSortedReplays, players, player, difficulty);
 	let hits = [];
@@ -45,7 +45,7 @@ function achievementWinDifficultyNoDeaths(playerSortedReplays, players, player, 
 		const replay = winHits[i].replay;
 		const ind = getPlayerIndexInReplay(replay, player, players);
 		const deaths = replay.players[ind].statsOverall.deaths;
-		if (replay.win && replay.difficulty == difficulty && deaths == 0) {
+		if (replay.win && deaths == 0) {
 			hits.push({
 				time: winHits[i].time,
 				replay: replay
@@ -55,7 +55,7 @@ function achievementWinDifficultyNoDeaths(playerSortedReplays, players, player, 
 	return hits;
 }
 
-function achievementWinDifficultyAllClasses(playerSortedReplays, players, player, difficulty)
+function achievementWinDifficultyAllClasses(playerSortedReplays, players, player, difficulty=null)
 {
 	let classWinMap = {};
 	for (const c in CLASS) {
@@ -162,6 +162,12 @@ const ACHIEVEMENTS = {
 		description: "Win the game on Hard difficulty without using continues.",
 		condition: function(playerSortedReplays, players, player) {
 			return achievementWinDifficultyNoContinues(playerSortedReplays, players, player, DIFFICULTY.H);
+		}
+	},
+	"Ace": {
+		description: "Win the game on any difficulty without dying.",
+		condition: function(playerSortedReplays, players, player) {
+			return achievementWinDifficultyNoDeaths(playerSortedReplays, players, player);
 		}
 	},
 	"Ace (Normal)": {
