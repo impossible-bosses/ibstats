@@ -154,7 +154,16 @@ function generateHtmlPlayerAchievements(playerSortedReplays, players, player)
 		if (hits.length == 0 && ACHIEVEMENTS[a].hideUnachieved) {
 			continue;
 		}
-		let status = "&#x2717;"; // X
+		let playerHits = [];
+		if (hits.length > 0) {
+			playerHits = [{
+				player: player,
+				hit: hits[0]
+			}];
+		}
+
+		html += generateHtmlAchievement(a, playerHits, "..");
+		/*let status = "&#x2717;"; // X
 		let earnedString = "";
 		if (hits.length > 0) {
 			const date = new Date(hits[0].time * 1000);
@@ -167,7 +176,7 @@ function generateHtmlPlayerAchievements(playerSortedReplays, players, player)
 			style = "";
 		}
 		html += `<p style="${style}"><b>${status} ${a}</b>${earnedString}</p>`;
-		html += `<p style="${style}"><i>${ACHIEVEMENTS[a].description}</i></p>`;
+		html += `<p style="${style}"><i>${ACHIEVEMENTS[a].description}</i></p>`;*/
 	}
 	return html;
 }

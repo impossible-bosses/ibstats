@@ -12,7 +12,11 @@ function generateHtmlTitle(replay)
 		victoryDefeatString = `Defeat (${replay.bossKills}/${getDifficultyMaxBosses(replay.difficulty)})`;
 	}
 
-	let html = `<h1>${replay.players.length} ${diffString} - ${victoryDefeatString}</h1>`;
+	const date = new Date(replay.playedOn * 1000);
+	const dateString = date.toLocaleDateString();
+
+	let html = `<h1>${replay.players.length} ${diffString} &mdash; ${victoryDefeatString}</h1>`;
+	html += `<h4>${dateString}</h4>`;
 	html += `<h4>Impossible Bosses v${mapVersionToString(replay.mapVersion)}</h4>`;
 	html += `<a href="https://wc3stats.com/games/${replay.id}"><h4>View in wc3stats</h4></a>`;
 	html += `<hr>`;
@@ -106,7 +110,7 @@ function generateHtml(replay, players)
 	else {
 		contString = "Disabled";
 	}
-	html += `<h3>Continues ${contString} / ${replay.totalWipes} Used</h3>`;
+	html += `<h3>Continues ${contString} (${replay.totalWipes} Used)</h3>`;
 
 	html += generateHtmlOverallStats(replay, players);
 	for (b in BOSS) {
