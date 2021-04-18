@@ -71,7 +71,7 @@ function generateHtml(replays, players)
 
 	// Leaderboards section
 	html += `<h1>Leaderboards</h1>`;
-	html += `<p>Coming soon - top damage, healing... coins? deaths? Also really need some color in this page.</p>`;
+	html += `<p>Coming soon - top damage, healing... coins? deaths? Also really need some more color in this page.</p>`;
 	html += `<h2>Achievements</h2>`;
 	let playerAchievementHits = {};
 	for (const player in playerGamesMap) {
@@ -117,12 +117,16 @@ function generateHtml(replays, players)
 			}
 		}
 
+		let frameClass = "achievementFrame";
+		let style = "color: #777;";
 		let status = "&#x2717;"; // X
 		let earnedString = "";
 		if (firstPlayerHits.length > 0) {
+			frameClass += " achievementFrameEarned";
+			style = "";
+			status = "&#x2713;"; // check
 			const date = new Date(firstTime * 1000);
 			const dateString = date.toLocaleDateString();
-			status = "&#x2713;"; // check
 			let firstPlayersString = "";
 			for (let i = 0; i < firstPlayerHits.length; i++) {
 				const player = firstPlayerHits[i].player;
@@ -133,12 +137,10 @@ function generateHtml(replays, players)
 			}
 			earnedString = ` &mdash; first earned ${dateString} by <i>${firstPlayersString}</i> on <a href="../game?id=${firstReplay.id}">${firstReplay.name}</a>`;
 		}
-		let style = "color: #777;";
-		if (firstPlayerHits.length > 0) {
-			style = "";
-		}
+		html += `<div class="${frameClass}">`;
 		html += `<p style="${style}"><b>${status} ${a}</b>${earnedString}</p>`;
 		html += `<p style="${style}"><i>${ACHIEVEMENTS[a].description}</i></p>`;
+		html += `</div>`;
 	}
 
 	// Players section
