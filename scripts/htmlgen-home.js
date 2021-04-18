@@ -64,6 +64,9 @@ function generateHtmlPlayerInsideTr(replays, players, player, games)
 function generateHtml(replays, players)
 {
 	let html = ``;
+	html += `<h1>IB Stats</h1>`;
+	html += `<hr>`;
+
 	html += `<p>To whoever is looking at this in the early stages: this is a work in progress - the priority at the moment is to play around with all the new data we have available after wc3stats/MMD support in v1.11+. For now, everything is in very simple, plain, and untrimmed table formats.</p>`;
 	html += `<p><b>NOTE:</b> To avoid spamming wc3stats with requests for now, the recent games list doesn't automatically update; it must be manually updated. If you uploaded a game and it's not listed yet, just let Patio know.</p>`
 
