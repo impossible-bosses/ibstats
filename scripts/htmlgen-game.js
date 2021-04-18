@@ -136,14 +136,26 @@ $(document).ready(function() {
 
 	const replayIdString = urlParams.get("id");
 	const replayId = parseInt(replayIdString);
-	const wc3statsReplayUrl = "https://api.wc3stats.com/replays/" + replayId.toString();
-	$.get(wc3statsReplayUrl, function(data) {
-		console.log(data);
-		let replay = parseWc3StatsReplayData(data);
-		console.log(replay);
-		replay_ = replay;
-		if (players_ != null) {
-			generateHtmlFromGlobals();
+
+	$.get("../data/replays.json", function(data) {
+		if (replayId in data) {
+			replay_ = data[replayId];
+			if (players_ != null) {
+				generateHtmlFromGlobals();
+			}
+		}
+		else {
+			console.log("New replay, not in cache. Querying wc3stats...");
+			const wc3statsReplayUrl = "https://api.wc3stats.com/replays/" + replayId.toString();
+			$.get(wc3statsReplayUrl, function(data) {
+				console.log(data);
+				let replay = parseWc3StatsReplayData(data);
+				console.log(replay);
+				replay_ = replay;
+				if (players_ != null) {
+					generateHtmlFromGlobals();
+				}
+			});
 		}
 	});
 
