@@ -304,8 +304,14 @@ function parseWc3StatsPlayerData(data)
 		ability: mmdVars.ability,
 		ms: mmdVars.movementSpeed,
 		coins: mmdVars.coins,
-		statsOverall: parseWc3StatsPlayerStats(mmdVars),
 		bossKills: 0,
+		statsOverall: {
+			deaths: 0,
+			dmg: 0,
+			hl: 0,
+			hrl: 0,
+			degen: 0
+		},
 		statsBoss: {}
 	};
 
@@ -313,13 +319,6 @@ function parseWc3StatsPlayerData(data)
 		return null;
 	}
 
-	let statsOverallSum = {
-		deaths: 0,
-		dmg: 0,
-		hl: 0,
-		hlr: 0,
-		degen: 0
-	};
 	for (b in BOSS) {
 		let mmdVarsBoss = {};
 		for (k in mmdVars) {
@@ -332,6 +331,11 @@ function parseWc3StatsPlayerData(data)
 		const bossStats = parseWc3StatsPlayerStats(mmdVarsBoss);
 		if (bossStats.deaths != null) {
 			playerData.bossKills += 1;
+			for (k in playerData.statsOverall) {
+				if (k in bossStats && bossStats[k] != null) {
+					playerData.statsOverall[k] += bossStats[k];
+				}
+			}
 		}
 		playerData.statsBoss[BOSS[b]] = bossStats;
 	}
@@ -474,6 +478,10 @@ function parseWc3StatsReplayData(data)
 			throw `Unrecognized boss in event: ${e.args[0]}`;
 		}
 
+		if (replayData.difficulty == DIFFICULTY.VE && boss == BOSS.ANCIENT) {
+			// Sneak peek Ancient intro, ignore
+			continue;
+		}
 		const eName = e.event.eventName;
 		if (boss == BOSS.FIRE && eName == "bossEngage") {
 			if (remake) {
