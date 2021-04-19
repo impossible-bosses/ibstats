@@ -67,8 +67,8 @@ function generateHtml(replays, players)
 	html += `<hr class="big">`;
 
 	html += `<div class="thinWrapper">`;
-	html += `<p>To whoever is looking at this in the early stages: this is a work in progress - the priority at the moment is to play around with all the new data we have available after wc3stats/MMD support in v1.11+. For now, everything is in very simple, plain, and untrimmed table formats.</p>`;
-	html += `<p><b>NOTE:</b> To avoid spamming wc3stats with requests for now, the recent games list doesn't automatically update; it must be manually updated. If you uploaded a game and it's not listed yet, just let Patio know.</p>`;
+	html += `<p class="temp">To whoever is looking at this in the early stages: this is a work in progress - the priority at the moment is to play around with all the new data we have available after wc3stats/MMD support in v1.11+. For now, everything is in very simple, plain, and untrimmed table formats.</p>`;
+	html += `<p class="temp"><b>NOTE:</b> To avoid spamming wc3stats with requests for now, the recent games list doesn't automatically update; it must be manually updated. If you uploaded a game and it's not listed yet, just let Patio know.</p>`;
 
 	const playerGamesMap = getPlayerGamesMap(replays, players);
 	let replaysDescending = [];
@@ -83,11 +83,11 @@ function generateHtml(replays, players)
 
 	// Leaderboards section
 	html += `<h1>Leaderboards</h1>`;
-	html += `<p>TODO: organize things into seperate tabs/sections</p>`;
-	html += `<p>Coming soon - top damage, healing... coins? deaths?</p>`;
+	html += `<p class="temp">TODO: organize things into seperate tabs/sections</p>`;
+	html += `<p class="temp">Coming soon - top damage, healing... coins? deaths?</p>`;
 
 	html += `<h2>Fastest Kills</h2>`;
-	html += `<p><b>NOTE:</b> kill times shown here might be different from the ones printed in-game, but they are still consistent and comparable across games.</p>`;
+	html += `<p><b>NOTE:</b> kill times shown here might be different from the ones printed in-game.</p>`;
 	html += `<br>`;
 	html += `<table class="tableFastestKills">`;
 	html += `<thead><tr><th style="width: 200pt;"></th>`;
@@ -143,6 +143,7 @@ function generateHtml(replays, players)
 	html += `</table>`;
 
 	html += `<h2>Achievements</h2>`;
+	html += `<p class="temp">TODO: condense achievements by difficulty; only show the highest difficulty earned, with the possibility of clicking in for all difficulties.</p>`;
 	let playerAchievementHits = {};
 	for (const player in playerGamesMap) {
 		const sortedReplays = getPlayerSortedReplays(replays, players, player);
