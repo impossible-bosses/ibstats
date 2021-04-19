@@ -161,10 +161,11 @@ function generateHtml(replay, players)
 	html += `<br><br><br><br><br>`;
 
 	let left = true;
-	for (b in BOSS) {
-		let bossData = replay.bosses[BOSS[b]];
+	for (let i = 0; i < BOSSES_SORTED.length; i++) {
+		const boss = BOSSES_SORTED[i];
+		const bossData = replay.bosses[boss];
 		if (bossData.killTime != null) {
-			html += generateHtmlBoss(replay, players, BOSS[b], left);
+			html += generateHtmlBoss(replay, players, boss, left);
 		}
 		left = !left;
 	}

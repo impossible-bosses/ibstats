@@ -5,7 +5,7 @@ const DIFFICULTY = {
 	N: "Normal",
 	H: "Hard",
 };
-let DIFFICULTIES_SORTED = [
+const DIFFICULTIES_SORTED = [
 	DIFFICULTY.VE,
 	DIFFICULTY.E,
 	DIFFICULTY.M,
@@ -25,6 +25,18 @@ const BOSS = {
 	ANCIENT: "ancient",
 	DEMONIC: "demonic"
 };
+const BOSSES_SORTED = [
+	BOSS.FIRE,
+	BOSS.WATER,
+	BOSS.BRUTE,
+	BOSS.THUNDER,
+	BOSS.DRUID,
+	BOSS.SHADOW,
+	BOSS.ICE,
+	BOSS.LIGHT,
+	BOSS.ANCIENT,
+	BOSS.DEMONIC
+];
 
 const CLASS = {
 	DK: "Death Knight",
@@ -38,7 +50,7 @@ const CLASS = {
 	WARLOCK: "Warlock",
 	WARRIOR: "Warrior"
 };
-let CLASSES_SORTED = [
+const CLASSES_SORTED = [
 	CLASS.DK,
 	CLASS.DRUID,
 	CLASS.FM,

@@ -71,10 +71,74 @@ function generateHtml(replays, players)
 	html += `<p><b>NOTE:</b> To avoid spamming wc3stats with requests for now, the recent games list doesn't automatically update; it must be manually updated. If you uploaded a game and it's not listed yet, just let Patio know.</p>`
 
 	const playerGamesMap = getPlayerGamesMap(replays, players);
+	let replaysDescending = [];
+	for (const id in replays) {
+		if (replays[id] != null) {
+			replaysDescending.push(replays[id]);
+		}
+	}
+	replaysDescending.sort(function(r1, r2) {
+		return r2.playedOn - r1.playedOn;
+	});
 
 	// Leaderboards section
 	html += `<h1>Leaderboards</h1>`;
 	html += `<p>Coming soon - top damage, healing... coins? deaths? Also really need some more color in this page.</p>`;
+
+	html += `<h2>Fastest Kills</h2>`;
+	html += `<table class="tableFastestKills">`;
+	html += `<thead><tr><th style="width: 200pt;"></th>`;
+	for (let i = 0; i < DIFFICULTIES_SORTED.length; i++) {
+		html += `<th>${DIFFICULTIES_SORTED[i]}</th>`;
+	}
+	html += `</tr></thead>`;
+	html += `<tbody>`;
+	for (let i = 0; i < BOSSES_SORTED.length; i++) {
+		const boss = BOSSES_SORTED[i];
+		let fastestTimes = {};
+		let fastestReplays = {};
+		for (const d in DIFFICULTY) {
+			fastestTimes[DIFFICULTY[d]] = Number.POSITIVE_INFINITY;
+			fastestReplays[DIFFICULTY[d]] = null;
+		}
+		// Start from oldest, to preserve older records
+		for (let j = replaysDescending.length - 1; j >= 0; j--) {
+			const replay = replaysDescending[j];
+			if (!(boss in replay.bosses)) {
+				continue;
+			}
+			const bossData = replay.bosses[boss];
+			if (bossData.killTime != null) {
+				const time = bossData.killTime - bossData.startTimes[bossData.startTimes.length - 1];
+				if (time < fastestTimes[replay.difficulty]) {
+					fastestTimes[replay.difficulty] = time;
+					fastestReplays[replay.difficulty] = replay;
+				}
+			}
+		}
+
+		let rowLighterOrNot = "";
+		if (i % 2 == 1) {
+			rowLighterOrNot = "rowLighter";
+		}
+		html += `<tr class="${rowLighterOrNot}">`;
+		html += `<td class="alignCenter" style="width: 200pt;">${getBossLongName(boss)}</td>`;
+		for (let j = 0; j < DIFFICULTIES_SORTED.length; j++) {
+			const d = DIFFICULTIES_SORTED[j];
+			const replay = fastestReplays[d];
+			if (replay != null) {
+				const time = fastestTimes[d];
+				html += `<td><a href="game?id=${replay.id}">${secondsToTimestamp(time)}</a></td>`;
+			}
+			else {
+				html += `<td>-</td>`;
+			}
+		}
+		html += `</tr>`;
+	}
+	html += `</tbody>`;
+	html += `</table>`;
+
 	html += `<h2>Achievements</h2>`;
 	let playerAchievementHits = {};
 	for (const player in playerGamesMap) {
@@ -146,7 +210,7 @@ function generateHtml(replays, players)
 		if (i % 2 == 1) {
 			rowLighterOrNot = "rowLighter";
 		}
-		html += `<tr style="height: 28pt;" class="${rowLighterOrNot}">`;
+		html += `<tr class="${rowLighterOrNot}">`;
 		html += generateHtmlPlayerInsideTr(replays, players, playerGamesSorted[i].player, playerGamesSorted[i].games);
 		html += `</tr>`;
 	}
@@ -154,16 +218,6 @@ function generateHtml(replays, players)
 	html += `</table>`;
 
 	// Games section
-	let replaysDescending = [];
-	for (const id in replays) {
-		if (replays[id] != null) {
-			replaysDescending.push(replays[id]);
-		}
-	}
-	replaysDescending.sort(function(r1, r2) {
-		return r2.playedOn - r1.playedOn;
-	});
-
 	html += `<h1>Recent Games</h1>`;
 	html += `<table class="tableGames">`;
 	html += `<thead>`;
@@ -175,10 +229,6 @@ function generateHtml(replays, players)
 		const replay = replaysDescending[i];
 		if (replay.mapVersion >= MAP_VERSION.V1_11_4 && replay.bossKills == null) {
 			continue;
-		}
-		let rowLighterOrNot = "";
-		if (index % 2 == 1) {
-			//rowLighterOrNot = "rowLighter";
 		}
 		html += `<tr class="${replay.win ? "win" : "lose"}">`;
 		html += generateHtmlReplayInsideTr(replay);

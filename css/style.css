@@ -124,7 +124,9 @@ th.alignCenter, td.alignCenter
 	width: 40%;
 }
 
-table.tablePlayers > tbody > tr, table.tableGames > tbody > tr
+table.tableFastestKills > tbody > tr,
+table.tablePlayers > tbody > tr,
+table.tableGames > tbody > tr
 {
 	height: 32pt;
 }
