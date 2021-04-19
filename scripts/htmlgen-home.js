@@ -83,9 +83,12 @@ function generateHtml(replays, players)
 
 	// Leaderboards section
 	html += `<h1>Leaderboards</h1>`;
-	html += `<p>Coming soon - top damage, healing... coins? deaths? Also really need some more color in this page.</p>`;
+	html += `<p>TODO: organize things into seperate tabs/sections</p>`;
+	html += `<p>Coming soon - top damage, healing... coins? deaths?</p>`;
 
 	html += `<h2>Fastest Kills</h2>`;
+	html += `<p><b>NOTE:</b> kill times shown here might be different from the ones printed in-game, but they are still consistent and comparable across games.</p>`;
+	html += `<br>`;
 	html += `<table class="tableFastestKills">`;
 	html += `<thead><tr><th style="width: 200pt;"></th>`;
 	for (let i = 0; i < DIFFICULTIES_SORTED.length; i++) {
@@ -122,7 +125,7 @@ function generateHtml(replays, players)
 			rowLighterOrNot = "rowLighter";
 		}
 		html += `<tr class="${rowLighterOrNot}">`;
-		html += `<td class="alignCenter" style="width: 200pt;">${getBossLongName(boss)}</td>`;
+		html += `<td class="alignCenter" style="width: 200pt; color: ${BOSS_COLORS[boss]};">${getBossLongName(boss)}</td>`;
 		for (let j = 0; j < DIFFICULTIES_SORTED.length; j++) {
 			const d = DIFFICULTIES_SORTED[j];
 			const replay = fastestReplays[d];

@@ -105,17 +105,6 @@ function generateHtmlOverallStats(replay, players)
 
 function generateHtmlBoss(replay, players, boss, left)
 {
-	let BOSS_COLORS = {};
-	BOSS_COLORS[BOSS.FIRE] = "#FF8000";
-	BOSS_COLORS[BOSS.WATER] = "#0000A0";
-	BOSS_COLORS[BOSS.BRUTE] = "#804000";
-	BOSS_COLORS[BOSS.THUNDER] = "#80FFFF";
-	BOSS_COLORS[BOSS.DRUID] = "#A2F4AC";
-	BOSS_COLORS[BOSS.SHADOW] = "#808080";
-	BOSS_COLORS[BOSS.ICE] = "#004080";
-	BOSS_COLORS[BOSS.LIGHT] = "#FFFF80";
-	BOSS_COLORS[BOSS.ANCIENT] = "#FFFF00";
-	BOSS_COLORS[BOSS.DEMONIC] = "#800000";
 	const bossData = replay.bosses[boss];
 	const numWipes = bossData.wipeTimes.length;
 	let continuesStr = "";
