@@ -115,17 +115,18 @@ th, td
 	padding-bottom: 72pt;
 	width: 100%;
 }
-.bossBackground img
+.bossBackground > img
 {
 	position: absolute;
 	top: 0;
 	height: 100%;
+	filter: brightness(100%);
 }
-.bossBackground img.left
+.bossBackground > img.left
 {
 	left: 0;
 }
-.bossBackground img.right
+.bossBackground > img.right
 {
 	right: 0;
 }

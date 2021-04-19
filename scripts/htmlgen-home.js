@@ -67,6 +67,7 @@ function generateHtml(replays, players)
 	html += `<h1>IB Stats</h1>`;
 	html += `<hr class="big">`;
 
+	html += `<div class="thinWrapper">`;
 	html += `<p>To whoever is looking at this in the early stages: this is a work in progress - the priority at the moment is to play around with all the new data we have available after wc3stats/MMD support in v1.11+. For now, everything is in very simple, plain, and untrimmed table formats.</p>`;
 	html += `<p><b>NOTE:</b> To avoid spamming wc3stats with requests for now, the recent games list doesn't automatically update; it must be manually updated. If you uploaded a game and it's not listed yet, just let Patio know.</p>`
 
@@ -135,8 +136,8 @@ function generateHtml(replays, players)
 		return e2.games.length - e1.games.length;
 	});
 
-	//html += `<h1>Players</h1>`;
-	html += `<h1>Players</h1><table>`;
+	html += `<h1>Players</h1>`;
+	html += `<table>`;
 	html += `<tr><th>Player</th><th>Games Played</th><th>Wins</th><th>Wins (N)</th><th>Wins (H)</th></tr>`;
 	for (let i = 0; i < playerGamesSorted.length; i++) {
 		let rowLighterOrNot = "";
@@ -172,6 +173,7 @@ function generateHtml(replays, players)
 		html += `</tr>`;
 	}
 	html += `</table>`;
+	html += `</div>`; // thinWrapper
 
 	html += `<br><br><br><br><br>`;
 

@@ -163,20 +163,6 @@ function generateHtmlPlayerAchievements(playerSortedReplays, players, player)
 		}
 
 		html += generateHtmlAchievement(a, playerHits, "..");
-		/*let status = "&#x2717;"; // X
-		let earnedString = "";
-		if (hits.length > 0) {
-			const date = new Date(hits[0].time * 1000);
-			const dateString = date.toLocaleDateString();
-			status = " &#x2713;"; // check
-			earnedString = ` &mdash; first earned ${dateString} on <a href="../game?id=${hits[0].replay.id}">${hits[0].replay.name}</a>`;
-		}
-		let style = "color: #777;";
-		if (hits.length > 0) {
-			style = "";
-		}
-		html += `<p style="${style}"><b>${status} ${a}</b>${earnedString}</p>`;
-		html += `<p style="${style}"><i>${ACHIEVEMENTS[a].description}</i></p>`;*/
 	}
 	return html;
 }
@@ -195,10 +181,9 @@ function generateHtml(replays, players, player)
 	html += `<h4>${sortedReplays.length} games played</h4>`;
 	html += `<hr class="big">`;
 
+	html += `<div class="thinWrapper">`;
 	html += generateHtmlPlayerProgress(sortedReplays, players, player);
-
 	html += generateHtmlPlayerClasses(sortedReplays, players, player);
-
 	html += generateHtmlPlayerAchievements(sortedReplays, players, player);
 
 	html += `<h2>Recent Games</h2>`;
@@ -214,6 +199,7 @@ function generateHtml(replays, players, player)
 		html += `</tr>`;
 	}
 	html += `</table>`;
+	html += `</div>`; // thinWrapper
 
 	html += `<br><br><br><br><br>`;
 
