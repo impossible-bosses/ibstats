@@ -41,7 +41,7 @@ function generateHtmlStatsTable(replay, players, boss)
 {
 	let html = "";
 	html += `<table>`;
-	html += `<tr><th></th><th>Deaths</th><th>Damage</th><th>Healing</th><th>Healing Received</th><th>SW Healing Received</th><th>Degen</th></tr>`;
+	html += `<tr><th></th><th>Deaths</th><th>Damage</th><th>Healing</th><th>Healing Received</th><th>Degen</th></tr>`;
 	for (let i = 0; i < replay.players.length; i++) {
 		const p = replay.players[i];
 		let rowLighterOrNot = "";
@@ -61,7 +61,6 @@ function generateHtmlStatsTable(replay, players, boss)
 		html += `<td>${numberSeparateThousands(Math.round(pb.dmg), " ")}</td>`;
 		html += `<td>${numberSeparateThousands(Math.round(pb.hl), " ")}</td>`;
 		html += `<td>${numberSeparateThousands(Math.round(pb.hlr), " ")}</td>`;
-		html += `<td>${numberSeparateThousands(Math.round(pb.hlrSw), " ")}</td>`;
 		html += `<td>${numberSeparateThousands(Math.round(pb.degen), " ")}</td>`;
 		html += `</tr>`;
 	}
