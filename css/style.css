@@ -143,8 +143,9 @@ table.tableStats > * > th, td
 {
 	position: relative;
 	margin: 0;
-	padding-top: 24pt;
-	padding-bottom: 72pt;
+	margin-bottom: 18pt;
+	padding-top: 18pt;
+	padding-bottom: 48pt;
 	width: 100%;
 }
 .bossBackground > img

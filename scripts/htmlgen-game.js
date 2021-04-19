@@ -75,7 +75,7 @@ function generateHtmlOverallStats(replay, players)
 	html += `<div class="thinWrapper">`;
 	html += `<table class="tableStats">`;
 	html += `<thead>`;
-	html += `<tr><th></th><th>Coins</th><th>Health</th><th>Mana</th><th>Ability</th><th>MS</th></tr>`;
+	html += `<tr><th></th><th>Coins</th><th>Health</th><th>Mana</th><th>Ability</th><th>MS</th><th>APM</th></tr>`;
 	html += `</thead>`;
 	html += `<tbody>`;
 	for (let i = 0; i < replay.players.length; i++) {
@@ -91,6 +91,7 @@ function generateHtmlOverallStats(replay, players)
 		html += `<td>${p.mana}</td>`;
 		html += `<td>${p.ability}</td>`;
 		html += `<td>${p.ms}</td>`;
+		html += `<td>${p.apm}</td>`;
 		html += `</tr>`;
 	}
 	html += `</tbody>`;

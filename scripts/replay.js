@@ -298,6 +298,7 @@ function parseWc3StatsPlayerData(data)
 		isHost: data.isHost,
 		slot: data.slot,
 		color: data.colour,
+		apm: data.apm,
 		class: stringToEnum(mmdVars.class, CLASS),
 		health: mmdVars.health,
 		mana: mmdVars.mana,
