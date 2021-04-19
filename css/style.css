@@ -79,25 +79,42 @@ hr.big
 	margin-bottom: 48pt;
 }
 
+table, tr, th, td
+{
+	margin: 0;
+	padding: 0;
+}
 table
 {
 	width: 100%;
-	margin: 0 auto;
 }
 th, td
 {
-	width: 60pt;
+	text-align: right;
+	padding-right: 6pt;
+}
+th.alignCenter, td.alignCenter
+{
+	padding-right: 0;
+}
+
+.alignLeft
+{
+	text-align: left;
+}
+.alignCenter
+{
 	text-align: center;
+}
+.alignRight
+{
+	text-align: right;
 }
 
 #everything
 {
 	margin: 0;
 	width: 100%;
-	/*margin-left: 30%;
-	margin-right: 30%;
-	width: 40%;
-	min-width: 600pt;*/
 }
 
 .thinWrapper
@@ -105,6 +122,21 @@ th, td
 	margin-left: 30%;
 	margin-right: 30%;
 	width: 40%;
+}
+
+table.tablePlayers > tbody > tr, table.tableGames > tbody > tr
+{
+	height: 32pt;
+}
+
+table.tableGames > tbody > .win
+{
+	background-color: #1d351c;
+}
+
+table.tableStats > * > th, td
+{
+	width: 60pt;
 }
 
 .bossBackground
@@ -138,9 +170,17 @@ th, td
 	padding-top: 2pt; padding-bottom: 2pt;
 	margin-bottom: 8pt;
 }
-.achievementFrameEarned
+.achievementFrame.earned
 {
 	background-color: #1d351c;
+}
+.achievementFrame > p
+{
+	color: #888888;
+}
+.achievementFrame.earned > p
+{
+	color: inherit;
 }
 
 .playerRow
@@ -148,7 +188,7 @@ th, td
 }
 .rowLighter
 {
-	background-color: #252525;
+	background-color: #FFFFFF30;
 }
 
 .playerImageName

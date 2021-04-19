@@ -198,13 +198,9 @@ const ACHIEVEMENTS = {
 
 function generateHtmlAchievement(achievement, playerHits, homePath)
 {
-	let frameClass = "achievementFrame";
-	let style = "color: #888;";
 	let status = "&#x2717;"; // X
 	let earnedString = "";
 	if (playerHits.length > 0) {
-		frameClass += " achievementFrameEarned";
-		style = "";
 		status = "&#x2713;"; // check
 
 		const firstTime = playerHits[0].hit.time;
@@ -223,9 +219,9 @@ function generateHtmlAchievement(achievement, playerHits, homePath)
 	}
 
 	let html = "";
-	html += `<div class="${frameClass}">`;
-	html += `<p style="${style}"><b>${status} ${a}</b>${earnedString}</p>`;
-	html += `<p style="${style}"><i>${ACHIEVEMENTS[a].description}</i></p>`;
+	html += `<div class="achievementFrame${playerHits.length > 0 ? " earned" : ""}">`;
+	html += `<p><b>${status} ${a}</b>${earnedString}</p>`;
+	html += `<p><i>${ACHIEVEMENTS[a].description}</i></p>`;
 	html += `</div>`;
 	return html;
 }

@@ -8,25 +8,24 @@ function generateHtmlReplayInsideTr(replay)
 	const date = new Date(replay.playedOn * 1000);
 	const dateString = date.toLocaleDateString();
 
-	if (replay.mapVersion < MAP_VERSION.V1_11_4) {
-		return `<td>${replay.name}</td><td>-</td><td>-</td><td>-</td><td>-</td><td>${versionString}</td><td>${hostServerString}</td><td>${dateString}</td>`
-	}
+	let html = "";
+	if (replay.mapVersion >= MAP_VERSION.V1_11_4) {
+		const diffString = difficultyToShortString(replay.difficulty);
+		const maxBosses = getDifficultyMaxBosses(replay.difficulty);
 
-	const diffString = difficultyToShortString(replay.difficulty);
-	let victoryDefeatString = null;
-	if (replay.win) {
-		victoryDefeatString = "Victory!";
+		html += `<td class="alignCenter"><a href="game?id=${replay.id}">${replay.name}</a></td>`;
+		html += `<td>${replay.players.length}</td>`;
+		html += `<td>${diffString}</td>`;
+		html += `<td>${replay.win ? maxBosses : replay.bossKills}/${maxBosses}</td>`;
+		html += `<td>${replay.totalWipes}</td>`;
 	}
 	else {
-		victoryDefeatString = `Defeat (${replay.bossKills}/${getDifficultyMaxBosses(replay.difficulty)})`;
+		html += `<td class="alignCenter">${replay.name}</td>`;
+		html += `<td>-</td>`;
+		html += `<td>-</td>`;
+		html += `<td>-</td>`;
+		html += `<td>-</td>`;
 	}
-
-	let html = "";
-	html += `<td><a href="game?id=${replay.id}">${replay.name}</a></td>`;
-	html += `<td>${replay.players.length}</td>`;
-	html += `<td>${diffString}</td>`;
-	html += `<td>${victoryDefeatString}</td>`;
-	html += `<td>${replay.totalWipes}</td>`;
 	html += `<td>${versionString}</td>`;
 	html += `<td>${hostServerString}</td>`;
 	html += `<td>${dateString}</td>`;
@@ -53,7 +52,7 @@ function generateHtmlPlayerInsideTr(replays, players, player, games)
 	const winsPercentage = Math.round(wins / games.length * 100);
 
 	let html = "";
-	html += `<td><a href="player?name=${encodeURIComponent(player)}">${player}</a></td>`;
+	html += `<td class="alignCenter"><a href="player?name=${encodeURIComponent(player)}">${player}</a></td>`;
 	html += `<td>${games.length}</td>`;
 	html += `<td>${wins}</td>`;
 	html += `<td>${winsN}</td>`;
@@ -137,8 +136,11 @@ function generateHtml(replays, players)
 	});
 
 	html += `<h1>Players</h1>`;
-	html += `<table>`;
-	html += `<tr><th>Player</th><th>Games Played</th><th>Wins</th><th>Wins (N)</th><th>Wins (H)</th></tr>`;
+	html += `<table class="tablePlayers">`;
+	html += `<thead>`;
+	html += `<tr><th class="alignCenter">Player</th><th>Games Played</th><th>Wins</th><th>Wins (N)</th><th>Wins (H)</th></tr>`;
+	html += `</thead>`;
+	html += `<tbody>`;
 	for (let i = 0; i < playerGamesSorted.length; i++) {
 		let rowLighterOrNot = "";
 		if (i % 2 == 1) {
@@ -148,6 +150,7 @@ function generateHtml(replays, players)
 		html += generateHtmlPlayerInsideTr(replays, players, playerGamesSorted[i].player, playerGamesSorted[i].games);
 		html += `</tr>`;
 	}
+	html += `</tbody>`;
 	html += `</table>`;
 
 	// Games section
@@ -161,17 +164,28 @@ function generateHtml(replays, players)
 		return r2.playedOn - r1.playedOn;
 	});
 
-	html += `<h1>Recent Games</h1><table>`;
-	html += `<tr><th style="width: 200pt;">Game Name</th><th>Players</th><th>Difficulty</th><th>?</th><th>Continues Used</th><th>Version</th><th>Server</th><th>Date</th></tr>`;
+	html += `<h1>Recent Games</h1>`;
+	html += `<table class="tableGames">`;
+	html += `<thead>`;
+	html += `<tr><th class="alignCenter" style="width: 200pt;">Game Name</th><th>Players</th><th>Difficulty</th><th>Boss Kills</th><th>Continues</th><th>Version</th><th>Server</th><th>Date</th></tr>`;
+	html += `</thead>`;
+	html += `<tbody>`;
+	let index = 0;
 	for (let i = 0; i < replaysDescending.length; i++) {
-		let rowLighterOrNot = "";
-		if (i % 2 == 1) {
-			rowLighterOrNot = "rowLighter";
+		const replay = replaysDescending[i];
+		if (replay.mapVersion >= MAP_VERSION.V1_11_4 && replay.bossKills == null) {
+			continue;
 		}
-		html += `<tr style="height: 28pt;" class="${rowLighterOrNot}">`;
-		html += generateHtmlReplayInsideTr(replaysDescending[i]);
+		let rowLighterOrNot = "";
+		if (index % 2 == 1) {
+			//rowLighterOrNot = "rowLighter";
+		}
+		html += `<tr class="${replay.win ? "win" : "lose"}">`;
+		html += generateHtmlReplayInsideTr(replay);
 		html += `</tr>`;
+		index++;
 	}
+	html += `</tbody>`;
 	html += `</table>`;
 	html += `</div>`; // thinWrapper
 

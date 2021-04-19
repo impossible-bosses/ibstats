@@ -40,7 +40,7 @@ function generateHtmlPlayer(players, playerData)
 function generateHtmlStatsTable(replay, players, boss)
 {
 	let html = "";
-	html += `<table>`;
+	html += `<table class="tableStats">`;
 	html += `<tr><th></th><th>Deaths</th><th>Damage</th><th>Healing</th><th>Healing Received</th><th>Degen</th></tr>`;
 	for (let i = 0; i < replay.players.length; i++) {
 		const p = replay.players[i];
@@ -73,8 +73,11 @@ function generateHtmlOverallStats(replay, players)
 	let html = "";
 
 	html += `<div class="thinWrapper">`;
-	html += `<table>`;
+	html += `<table class="tableStats">`;
+	html += `<thead>`;
 	html += `<tr><th></th><th>Coins</th><th>Health</th><th>Mana</th><th>Ability</th><th>MS</th></tr>`;
+	html += `</thead>`;
+	html += `<tbody>`;
 	for (let i = 0; i < replay.players.length; i++) {
 		const p = replay.players[i];
 		let rowLighterOrNot = "";
@@ -90,6 +93,7 @@ function generateHtmlOverallStats(replay, players)
 		html += `<td>${p.ms}</td>`;
 		html += `</tr>`;
 	}
+	html += `</tbody>`;
 	html += `</table>`;
 
 	html += `<h2>Overall Stats</h2>`;
