@@ -135,6 +135,7 @@ function generateHtml(replays, players)
 		return e2.games.length - e1.games.length;
 	});
 
+	//html += `<h1>Players</h1>`;
 	html += `<h1>Players</h1><table>`;
 	html += `<tr><th>Player</th><th>Games Played</th><th>Wins</th><th>Wins (N)</th><th>Wins (H)</th></tr>`;
 	for (let i = 0; i < playerGamesSorted.length; i++) {

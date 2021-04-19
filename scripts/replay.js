@@ -313,6 +313,13 @@ function parseWc3StatsPlayerData(data)
 		return null;
 	}
 
+	let statsOverallSum = {
+		deaths: 0,
+		dmg: 0,
+		hl: 0,
+		hlr: 0,
+		degen: 0
+	};
 	for (b in BOSS) {
 		let mmdVarsBoss = {};
 		for (k in mmdVars) {

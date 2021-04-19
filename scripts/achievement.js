@@ -199,7 +199,7 @@ const ACHIEVEMENTS = {
 function generateHtmlAchievement(achievement, playerHits, homePath)
 {
 	let frameClass = "achievementFrame";
-	let style = "color: #777;";
+	let style = "color: #888;";
 	let status = "&#x2717;"; // X
 	let earnedString = "";
 	if (playerHits.length > 0) {
