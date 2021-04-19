@@ -65,7 +65,7 @@ function generateHtml(replays, players)
 {
 	let html = ``;
 	html += `<h1>IB Stats</h1>`;
-	html += `<hr>`;
+	html += `<hr class="big">`;
 
 	html += `<p>To whoever is looking at this in the early stages: this is a work in progress - the priority at the moment is to play around with all the new data we have available after wc3stats/MMD support in v1.11+. For now, everything is in very simple, plain, and untrimmed table formats.</p>`;
 	html += `<p><b>NOTE:</b> To avoid spamming wc3stats with requests for now, the recent games list doesn't automatically update; it must be manually updated. If you uploaded a game and it's not listed yet, just let Patio know.</p>`
@@ -173,8 +173,6 @@ function generateHtml(replays, players)
 	}
 	html += `</table>`;
 
-	//html += `<br><br>`;
-	//html += `<p><button id="refreshButton">Refresh</button></p>`;
 	html += `<br><br><br><br><br>`;
 
 	return html;
@@ -183,30 +181,7 @@ function generateHtml(replays, players)
 function generateHtmlFromGlobals()
 {
 	let html = generateHtml(replays_, players_);
-	document.getElementById("thinWrapper").innerHTML = html;
-
-	$("#refreshButton").click(function() {
-		const htmlPrev = document.getElementById("thinWrapper").innerHTML;
-		document.getElementById("thinWrapper").innerHTML = htmlPrev + `<h4>Checking for new lobbies...</h4>`;
-		$.get("https://api.wc3stats.com/replays?search=Impossible.Bosses&limit=0", function(data) {
-			console.log(data);
-			let numMissing = 0;
-			for (let i = 0; i < data.body.length; i++) {
-				let r = data.body[i];
-				if (isValidReplay(r) && !(r.id in replays_)) {
-					numMissing++;
-					console.log(`Missing replay ${r.id}`);
-				}
-			}
-
-			if (numMissing != 0) {
-				document.getElementById("thinWrapper").innerHTML = htmlPrev + `<h4 style="color:#cc4444">Missing ${numMissing} new replay(s)</h4>`;
-			}
-			else {
-				document.getElementById("thinWrapper").innerHTML = htmlPrev;
-			}
-		});
-	});
+	document.getElementById("everything").innerHTML = html;
 }
 
 $(document).ready(function() {

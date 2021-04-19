@@ -193,7 +193,7 @@ function generateHtml(replays, players, player)
 		html += `<h4>( aka ${aliases.join(", ")} )</h4>`;
 	}
 	html += `<h4>${sortedReplays.length} games played</h4>`;
-	html += `<hr>`;
+	html += `<hr class="big">`;
 
 	html += generateHtmlPlayerProgress(sortedReplays, players, player);
 
@@ -223,7 +223,7 @@ function generateHtml(replays, players, player)
 function generateHtmlFromGlobals(player)
 {
 	let html = generateHtml(replays_, players_, player);
-	document.getElementById("thinWrapper").innerHTML = html;
+	document.getElementById("everything").innerHTML = html;
 }
 
 $(document).ready(function() {

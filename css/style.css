@@ -70,6 +70,11 @@ a:active
 
 hr
 {
+	color: #ffffff;
+	margin-bottom: 24pt;
+}
+hr.big
+{
 	margin-top: 24pt;
 	margin-bottom: 48pt;
 }
@@ -85,12 +90,44 @@ th, td
 	text-align: center;
 }
 
-#thinWrapper
+#everything
+{
+	margin: 0;
+	width: 100%;
+	/*margin-left: 30%;
+	margin-right: 30%;
+	width: 40%;
+	min-width: 600pt;*/
+}
+
+.thinWrapper
 {
 	margin-left: 30%;
 	margin-right: 30%;
 	width: 40%;
-	min-width: 600pt;
+}
+
+.bossBackground
+{
+	position: relative;
+	margin: 0;
+	padding-top: 24pt;
+	padding-bottom: 72pt;
+	width: 100%;
+}
+.bossBackground img
+{
+	position: absolute;
+	top: 0;
+	height: 100%;
+}
+.bossBackground img.left
+{
+	left: 0;
+}
+.bossBackground img.right
+{
+	right: 0;
 }
 
 .achievementFrame
@@ -172,6 +209,10 @@ th, td
 	color: #e55bb0;
 }
 
+.bossTitle
+{
+	overflow: hidden;
+}
 .bossTitleLeft
 {
 	float: left;

@@ -19,7 +19,7 @@ function generateHtmlTitle(replay)
 	html += `<h4>${dateString}</h4>`;
 	html += `<h4>Impossible Bosses v${mapVersionToString(replay.mapVersion)}</h4>`;
 	html += `<a href="https://wc3stats.com/games/${replay.id}"><h4>View in wc3stats</h4></a>`;
-	html += `<hr>`;
+	html += `<hr class="big">`;
 	return html;
 }
 
@@ -73,6 +73,7 @@ function generateHtmlOverallStats(replay, players)
 {
 	let html = "";
 
+	html += `<div class="thinWrapper">`;
 	html += `<table>`;
 	html += `<tr><th></th><th>Coins</th><th>Health</th><th>Mana</th><th>Ability</th><th>MS</th></tr>`;
 	for (let i = 0; i < replay.players.length; i++) {
@@ -94,11 +95,23 @@ function generateHtmlOverallStats(replay, players)
 
 	html += `<h2>Overall Stats</h2>`;
 	html += generateHtmlStatsTable(replay, players, null);
+	html += `</div>`;
 	return html;
 }
 
-function generateHtmlBoss(replay, players, boss)
+function generateHtmlBoss(replay, players, boss, left)
 {
+	let BOSS_COLORS = {};
+	BOSS_COLORS[BOSS.FIRE] = "#FF8000";
+	BOSS_COLORS[BOSS.WATER] = "#0000A0";
+	BOSS_COLORS[BOSS.BRUTE] = "#804000";
+	BOSS_COLORS[BOSS.THUNDER] = "#80FFFF";
+	BOSS_COLORS[BOSS.DRUID] = "#A2F4AC";
+	BOSS_COLORS[BOSS.SHADOW] = "#808080";
+	BOSS_COLORS[BOSS.ICE] = "#004080";
+	BOSS_COLORS[BOSS.LIGHT] = "#FFFF80";
+	BOSS_COLORS[BOSS.ANCIENT] = "#FFFF00";
+	BOSS_COLORS[BOSS.DEMONIC] = "#800000";
 	const bossData = replay.bosses[boss];
 	const numWipes = bossData.wipeTimes.length;
 	let continuesStr = "";
@@ -110,29 +123,18 @@ function generateHtmlBoss(replay, players, boss)
 	}
 	const bossTime = secondsToTimestamp(bossData.killTime - bossData.startTimes[bossData.startTimes.length - 1]);
 
-	let html = `<h2 class="bossTitleLeft">${getBossLongName(boss)}</h2>`;
-	html += `<h2 class="bossTitleRight">${continuesStr}${bossTime} <img src="${""}"/></h2>`;
+	let html = "";
+	html += `<div class="bossBackground" style="background-color: ${BOSS_COLORS[boss]}60;">`;
+	html += `<img class="${left ? "left" : "right"}" src="../images/etch-${boss}.png"/>`;
+	html += `<div class="thinWrapper">`;
+	html += `<div class="bossTitle">`;
+	html += `<h2 class="${left ? "bossTitleLeft" : "bossTitleLeft"}">${getBossLongName(boss)}</h2>`;
+	html += `<h2 class="${left ? "bossTitleRight" : "bossTitleRight"}">${continuesStr}${bossTime}</h2>`;
+	html += `</div>`;
+	html += `<hr>`;
 	html += generateHtmlStatsTable(replay, players, boss);
-	/*html += `<table>`;
-	html += `<tr><th></th><th>Deaths</th><th>Damage</th><th>Healing</th><th>Healing Received</th><th>SW Healing Received</th><th>Degen</th></tr>`;
-	for (let i = 0; i < replay.players.length; i++) {
-		const p = replay.players[i];
-		let rowLighterOrNot = "";
-		if (i % 2 == 1) {
-			rowLighterOrNot = " rowLighter";
-		}
-		const pb = p.statsBoss[boss];
-		html += `<tr class="playerRow${rowLighterOrNot}">`;
-		html += generateHtmlPlayer(players, p);
-		html += `<td>${pb.deaths}</td>`;
-		html += `<td>${numberSeparateThousands(Math.round(pb.dmg), " ")}</td>`;
-		html += `<td>${numberSeparateThousands(Math.round(pb.hl), " ")}</td>`;
-		html += `<td>${numberSeparateThousands(Math.round(pb.hlr), " ")}</td>`;
-		html += `<td>${numberSeparateThousands(Math.round(pb.hlrSw), " ")}</td>`;
-		html += `<td>${numberSeparateThousands(Math.round(pb.degen), " ")}</td>`;
-		html += `</tr>`;
-	}
-	html += `</table>`;*/
+	html += `</div>`;
+	html += `</div>`;
 	return html;
 }
 
@@ -149,14 +151,18 @@ function generateHtml(replay, players)
 	else {
 		contString = "Disabled";
 	}
-	html += `<h3>Continues ${contString} (${replay.totalWipes} Used)</h3>`;
-
+	html += `<h4>Continues ${contString} (${replay.totalWipes} Used)</h4>`;
+	html += `<br><br><br>`;
 	html += generateHtmlOverallStats(replay, players);
+	html += `<br><br><br><br><br>`;
+
+	let left = true;
 	for (b in BOSS) {
 		let bossData = replay.bosses[BOSS[b]];
 		if (bossData.killTime != null) {
-			html += generateHtmlBoss(replay, players, BOSS[b]);
+			html += generateHtmlBoss(replay, players, BOSS[b], left);
 		}
+		left = !left;
 	}
 
 	html += `<br><br><br><br><br>`;
@@ -167,7 +173,7 @@ function generateHtml(replay, players)
 function generateHtmlFromGlobals()
 {
 	let html = generateHtml(replay_, players_);
-	document.getElementById("thinWrapper").innerHTML = html;
+	document.getElementById("everything").innerHTML = html;
 }
 
 $(document).ready(function() {
