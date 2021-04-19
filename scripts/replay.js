@@ -309,7 +309,8 @@ function parseWc3StatsPlayerData(data)
 			deaths: 0,
 			dmg: 0,
 			hl: 0,
-			hrl: 0,
+			hlr: 0,
+			hlrSw: 0,
 			degen: 0
 		},
 		statsBoss: {}

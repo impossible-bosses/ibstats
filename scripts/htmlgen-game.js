@@ -36,9 +36,43 @@ function generateHtmlPlayer(players, playerData)
 	return html;
 }
 
+// Use boss=null for overall stats
+function generateHtmlStatsTable(replay, players, boss)
+{
+	let html = "";
+	html += `<table>`;
+	html += `<tr><th></th><th>Deaths</th><th>Damage</th><th>Healing</th><th>Healing Received</th><th>SW Healing Received</th><th>Degen</th></tr>`;
+	for (let i = 0; i < replay.players.length; i++) {
+		const p = replay.players[i];
+		let rowLighterOrNot = "";
+		if (i % 2 == 1) {
+			rowLighterOrNot = " rowLighter";
+		}
+		let pb = null;
+		if (boss == null) {
+			pb = p.statsOverall;
+		}
+		else {
+			pb = p.statsBoss[boss];
+		}
+		html += `<tr class="playerRow${rowLighterOrNot}">`;
+		html += generateHtmlPlayer(players, p);
+		html += `<td>${pb.deaths}</td>`;
+		html += `<td>${numberSeparateThousands(Math.round(pb.dmg), " ")}</td>`;
+		html += `<td>${numberSeparateThousands(Math.round(pb.hl), " ")}</td>`;
+		html += `<td>${numberSeparateThousands(Math.round(pb.hlr), " ")}</td>`;
+		html += `<td>${numberSeparateThousands(Math.round(pb.hlrSw), " ")}</td>`;
+		html += `<td>${numberSeparateThousands(Math.round(pb.degen), " ")}</td>`;
+		html += `</tr>`;
+	}
+	html += `</table>`;
+	return html;
+}
+
 function generateHtmlOverallStats(replay, players)
 {
-	let html = `<h2>Overall Stats</h2>`;
+	let html = "";
+
 	html += `<table>`;
 	html += `<tr><th></th><th>Coins</th><th>Health</th><th>Mana</th><th>Ability</th><th>MS</th></tr>`;
 	for (let i = 0; i < replay.players.length; i++) {
@@ -57,6 +91,9 @@ function generateHtmlOverallStats(replay, players)
 		html += `</tr>`;
 	}
 	html += `</table>`;
+
+	html += `<h2>Overall Stats</h2>`;
+	html += generateHtmlStatsTable(replay, players, null);
 	return html;
 }
 
@@ -75,8 +112,9 @@ function generateHtmlBoss(replay, players, boss)
 
 	let html = `<h2 class="bossTitleLeft">${getBossLongName(boss)}</h2>`;
 	html += `<h2 class="bossTitleRight">${continuesStr}${bossTime} <img src="${""}"/></h2>`;
-	html += `<table>`;
-	html += `<tr><th></th><th>Deaths</th><th>Damage</th><th>Healing</th><th>Healing Received</th><th>Degen</th></tr>`;
+	html += generateHtmlStatsTable(replay, players, boss);
+	/*html += `<table>`;
+	html += `<tr><th></th><th>Deaths</th><th>Damage</th><th>Healing</th><th>Healing Received</th><th>SW Healing Received</th><th>Degen</th></tr>`;
 	for (let i = 0; i < replay.players.length; i++) {
 		const p = replay.players[i];
 		let rowLighterOrNot = "";
@@ -90,10 +128,11 @@ function generateHtmlBoss(replay, players, boss)
 		html += `<td>${numberSeparateThousands(Math.round(pb.dmg), " ")}</td>`;
 		html += `<td>${numberSeparateThousands(Math.round(pb.hl), " ")}</td>`;
 		html += `<td>${numberSeparateThousands(Math.round(pb.hlr), " ")}</td>`;
+		html += `<td>${numberSeparateThousands(Math.round(pb.hlrSw), " ")}</td>`;
 		html += `<td>${numberSeparateThousands(Math.round(pb.degen), " ")}</td>`;
 		html += `</tr>`;
 	}
-	html += `</table>`;
+	html += `</table>`;*/
 	return html;
 }
 
