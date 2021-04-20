@@ -205,8 +205,11 @@ function generateHtmlAchievementSingle(a, playerReplays, homePath, difficulty, o
 			}
 			playersString += `<a href="${homePath}/player?name=${player}">${player}</a>`;
 		}
-		earnedString += `<p>- <i>First earned ${dateString} on <b>${difficulty}</b> difficulty by</i></p>`;
-		earnedString += `<p>${playersString} on <a href="${homePath}/game?id=${replay0.id}">${replay0.name}</a></p>`;
+		earnedString += `<p>`;
+		earnedString += `- <i>First earned ${dateString} on <b>${difficulty}</b> difficulty by</i>`;
+		earnedString += `<br>`;
+		earnedString += `${playersString} on <a href="${homePath}/game?id=${replay0.id}">${replay0.name}</a>`;
+		earnedString += `</p>`;
 	}
 	else {
 		earnedString += `<p>- <i>Unearned on <b>${difficulty}</b> difficulty.</i></p>`;
@@ -218,7 +221,7 @@ function generateHtmlAchievementSingle(a, playerReplays, homePath, difficulty, o
 		earnedClass += " earned";
 	}
 	html += `<div class="achievementFrame ${earnedClass} ${outer ? "collapsible" : ""}">`;
-	html += `<p><b>${status} ${a}</b> &mdash; ${ACHIEVEMENTS[a].description}</p>`;
+	html += `<p class="title"><b>${status} ${a}</b> &mdash; ${ACHIEVEMENTS[a].description}</p>`;
 	html += `${earnedString}`;
 	html += `</div>`;
 	return html;
