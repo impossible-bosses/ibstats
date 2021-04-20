@@ -63,7 +63,8 @@ function generateHtmlPlayerInsideTr(replays, players, player, games)
 function generateHtml(replays, players)
 {
 	let html = ``;
-	html += `<h1>IB Stats</h1>`;
+	html += `<h1>Impossible Bosses</h1>`;
+	html += `<h3>Game Stats Page</h3>`;
 	html += `<hr class="big">`;
 
 	html += `<div class="thinWrapper">`;
