@@ -185,16 +185,6 @@ const ACHIEVEMENTS = {
 			return achievementWinAllClasses(playerSortedReplays, players, player);
 		}
 	},
-	"Impossible": {
-		description: "This achievement is impossible to get. Just testing.",
-		condition: function(playerSortedReplays, players, player) {
-			let hits = {};
-			for (const d in DIFFICULTY) {
-				hits[DIFFICULTY[d]] = [];
-			}
-			return hits;
-		}
-	},
 };
 
 function generateHtmlAchievementSingle(a, playerReplays, homePath, difficulty, outer)
