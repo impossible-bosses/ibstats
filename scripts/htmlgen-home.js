@@ -65,9 +65,9 @@ function generateHtml(replays, players)
 	let html = ``;
 	html += `<h1>Impossible Bosses</h1>`;
 	html += `<h3>Game Stats Page</h3>`;
+	html += `<div class="thinWrapper">`;
 	html += `<hr class="big">`;
 
-	html += `<div class="thinWrapper">`;
 	html += `<p class="temp">To whoever is looking at this in the early stages: this is a work in progress - the priority at the moment is to play around with all the new data we have available after wc3stats/MMD support in v1.11+. For now, everything is in very simple, plain, and untrimmed table formats.</p>`;
 	html += `<p class="temp"><b>NOTE:</b> To avoid spamming wc3stats with requests for now, the recent games list doesn't automatically update; it must be manually updated. If you uploaded a game and it's not listed yet, just let Patio know.</p>`;
 
@@ -144,52 +144,58 @@ function generateHtml(replays, players)
 	html += `</table>`;
 
 	html += `<h2>Achievements</h2>`;
-	html += `<p class="temp">TODO: condense achievements by difficulty; only show the highest difficulty earned, with the possibility of clicking in for all difficulties.</p>`;
-	let playerAchievementHits = {};
+	let sortedAchievementDifficultyPlayerReplays = {};
+	for (const a in ACHIEVEMENTS) {
+		sortedAchievementDifficultyPlayerReplays[a] = {};
+		for (const d in DIFFICULTY) {
+			sortedAchievementDifficultyPlayerReplays[a][DIFFICULTY[d]] = [];
+		}
+	}
 	for (const player in playerGamesMap) {
 		const sortedReplays = getPlayerSortedReplays(replays, players, player);
-		playerAchievementHits[player] = getPlayerAchievementHits(sortedReplays, players, player);
-	}
-	let sortedAchievementPlayerHits = {};
-	for (a in ACHIEVEMENTS) {
-		sortedAchievementPlayerHits[a] = [];
-	}
-	for (const player in playerAchievementHits) {
-		for (a in playerAchievementHits[player]) {
-			const hits = playerAchievementHits[player][a];
-			for (let i = 0; i < hits.length; i++) {
-				sortedAchievementPlayerHits[a].push({
-					player: player,
-					hit: hits[i]
-				});
-			}
-		}
-	}
-	for (a in ACHIEVEMENTS) {
-		sortedAchievementPlayerHits[a].sort(function(e1, e2) {
-			return e1.hit.time - e2.hit.time;
-		});
-
-		const playerHits = sortedAchievementPlayerHits[a];
-		let firstPlayerHits = [];
-		let firstTime = 0;
-		let firstReplay = null;
-		for (let i = 0; i < playerHits.length; i++) {
-			const hit = playerHits[i].hit;
-			if (firstTime == 0) {
-				firstTime = hit.time;
-				firstReplay = hit.replay;
-			}
-			if (firstTime == hit.time) {
-				if (firstReplay != hit.replay) {
-					console.error(`Achievement ${a} first in different replays`);
-					continue;
+		const hits = getPlayerAchievementHits(sortedReplays, players, player);
+		for (const a in ACHIEVEMENTS) {
+			for (const d in DIFFICULTY) {
+				const diff = DIFFICULTY[d];
+				for (let i = 0; i < hits[a][diff].length; i++) {
+					sortedAchievementDifficultyPlayerReplays[a][diff].push({
+						player: player,
+						replay: hits[a][diff][i]
+					});
 				}
-				firstPlayerHits.push(playerHits[i]);
 			}
 		}
+	}
+	for (const a in ACHIEVEMENTS) {
+		let difficultyFirstPlayerReplays = {};
+		for (const d in DIFFICULTY) {
+			const diff = DIFFICULTY[d];
+			sortedAchievementDifficultyPlayerReplays[a][diff].sort(function(e1, e2) {
+				return e1.replay.playedOn - e2.replay.playedOn;
+			});
 
-		html += generateHtmlAchievement(a, firstPlayerHits, ".");
+			const playerReplays = sortedAchievementDifficultyPlayerReplays[a][diff];
+			let firstPlayerReplays = [];
+			let firstReplay = null;
+			for (let i = 0; i < playerReplays.length; i++) {
+				const replay = playerReplays[i].replay;
+				if (firstReplay == null) {
+					firstReplay = replay;
+				}
+				if (replay.playedOn == firstReplay.playedOn) {
+					if (replay != firstReplay) {
+						console.error(`Achievement ${a} was first in different replays`);
+						continue;
+					}
+					firstPlayerReplays.push({
+						player: playerReplays[i].player,
+						replay: replay
+					});
+				}
+			}
+			difficultyFirstPlayerReplays[diff] = firstPlayerReplays;
+		}
+		html += generateHtmlAchievement(a, difficultyFirstPlayerReplays, ".");
 	}
 
 	// Players section
@@ -253,6 +259,7 @@ function generateHtmlFromGlobals()
 {
 	let html = generateHtml(replays_, players_);
 	document.getElementById("everything").innerHTML = html;
+	registerCollapsibles();
 }
 
 $(document).ready(function() {

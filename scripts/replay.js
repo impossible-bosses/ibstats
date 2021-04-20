@@ -126,6 +126,19 @@ function stringToEnum(str, enumObject)
 	return null;
 }
 
+function compareDifficulties(d1, d2)
+{
+	const ind1 = DIFFICULTIES_SORTED.indexOf(d1);
+	if (ind1 == -1) {
+		throw `Invalid difficulty ${d1}`;
+	}
+	const ind2 = DIFFICULTIES_SORTED.indexOf(d2);
+	if (ind2 == -1) {
+		throw `Invalid difficulty ${d2}`;
+	}
+	return ind1 - ind2;
+}
+
 function mapFileToVersion(file)
 {
 	if (file == "Impossible.Bosses.v1.10.5.w3x" || file == "Impossible.Bosses.v1.10.5 (1).w3x" || file == "Impossible.Bosses.v1.10.5-ent.w3x" || file == "Impossible.Bosses.v1.10.5_1.28Fix.w3x") {

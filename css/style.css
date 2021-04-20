@@ -116,6 +116,16 @@ th.alignCenter, td.alignCenter
 	text-align: right;
 }
 
+.collapsible
+{
+	transition: filter 100ms;
+}
+.collapsible:hover
+{
+	filter: brightness(1.25);
+	cursor: pointer;
+}
+
 #everything
 {
 	margin: 0;
@@ -171,6 +181,11 @@ table.tableStats > * > th, td
 	right: 0;
 }
 
+.achievementsInner
+{
+	padding-left: 28pt;
+}
+
 .achievementFrame
 {
 	background-color: #222;
@@ -178,7 +193,7 @@ table.tableStats > * > th, td
 	padding-top: 2pt; padding-bottom: 2pt;
 	margin-bottom: 8pt;
 }
-.achievementFrame.earned
+.achievementFrame.collapsible.earned.H
 {
 	background-color: #1d351c;
 }

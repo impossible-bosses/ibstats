@@ -146,23 +146,27 @@ function generateHtmlPlayerClasses(playerSortedReplays, players, player)
 function generateHtmlPlayerAchievements(playerSortedReplays, players, player)
 {
 	const achievementHits = getPlayerAchievementHits(playerSortedReplays, players, player);
-
 	let html = "";
 	html += `<h2>Achievements</h2>`;
-	for (a in achievementHits) {
-		const hits = achievementHits[a];
-		if (hits.length == 0 && ACHIEVEMENTS[a].hideUnachieved) {
-			continue;
-		}
-		let playerHits = [];
-		if (hits.length > 0) {
-			playerHits = [{
-				player: player,
-				hit: hits[0]
-			}];
-		}
+	for (const a in ACHIEVEMENTS) {
+		let difficultyPlayerReplays = {};
+		let noHits = true;
+		for (const d in DIFFICULTY) {
+			const diff = DIFFICULTY[d];
+			difficultyPlayerReplays[diff] = [];
 
-		html += generateHtmlAchievement(a, playerHits, "..");
+			const hits = achievementHits[a][diff];
+			if (hits.length > 0) {
+				noHits = false;
+				difficultyPlayerReplays[diff] = [{
+					player: player,
+					replay: hits[0]
+				}];
+			}
+		}
+		if (!(noHits && ACHIEVEMENTS[a].hideUnachieved)) {
+			html += generateHtmlAchievement(a, difficultyPlayerReplays, "..");
+		}
 	}
 	return html;
 }
@@ -179,9 +183,9 @@ function generateHtml(replays, players, player)
 		html += `<h4>( aka ${aliases.join(", ")} )</h4>`;
 	}
 	html += `<h4>${sortedReplays.length} games played</h4>`;
+	html += `<div class="thinWrapper">`;
 	html += `<hr class="big">`;
 
-	html += `<div class="thinWrapper">`;
 	html += generateHtmlPlayerProgress(sortedReplays, players, player);
 	html += generateHtmlPlayerClasses(sortedReplays, players, player);
 	html += generateHtmlPlayerAchievements(sortedReplays, players, player);
@@ -210,6 +214,7 @@ function generateHtmlFromGlobals(player)
 {
 	let html = generateHtml(replays_, players_, player);
 	document.getElementById("everything").innerHTML = html;
+	registerCollapsibles();
 }
 
 $(document).ready(function() {

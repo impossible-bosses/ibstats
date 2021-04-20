@@ -19,7 +19,6 @@ function generateHtmlTitle(replay)
 	html += `<h4>${dateString}</h4>`;
 	html += `<h4>Impossible Bosses v${mapVersionToString(replay.mapVersion)}</h4>`;
 	html += `<a href="https://wc3stats.com/games/${replay.id}"><h4>View in wc3stats</h4></a>`;
-	html += `<hr class="big">`;
 	return html;
 }
 
@@ -137,6 +136,10 @@ function generateHtml(replay, players)
 	html += `<h2 style="position: absolute; left: 30%;"><a href="..">&lt; BACK</a></h2>`;
 	html += generateHtmlTitle(replay);
 
+	html += `<div class="thinWrapper">`;
+	html += `<hr class="big">`;
+	html += `</div>`;
+
 	let contString = null;
 	if (replay.continues) {
 		contString = "Enabled";
@@ -168,6 +171,7 @@ function generateHtmlFromGlobals()
 {
 	let html = generateHtml(replay_, players_);
 	document.getElementById("everything").innerHTML = html;
+	registerCollapsibles();
 }
 
 $(document).ready(function() {
