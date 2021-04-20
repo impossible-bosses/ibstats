@@ -205,11 +205,11 @@ function generateHtmlAchievementSingle(a, playerReplays, homePath, difficulty, o
 			}
 			playersString += `<a href="${homePath}/player?name=${player}">${player}</a>`;
 		}
-		earnedString += `<p><i>First earned ${dateString} on <b>${difficulty}</b> difficulty by</i></p>`;
+		earnedString += `<p>- <i>First earned ${dateString} on <b>${difficulty}</b> difficulty by</i></p>`;
 		earnedString += `<p>${playersString} on <a href="${homePath}/game?id=${replay0.id}">${replay0.name}</a></p>`;
 	}
 	else {
-		earnedString += `<p><i>Unearned on <b>${difficulty}</b> difficulty.</i></p>`;
+		earnedString += `<p>- <i>Unearned on <b>${difficulty}</b> difficulty.</i></p>`;
 	}
 
 	let html = "";
