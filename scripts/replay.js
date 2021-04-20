@@ -89,6 +89,16 @@ const WC3_VERSION = {
 	V1_32: 132
 };
 
+function maybeNull(v)
+{
+	if (v == null) {
+		return "n/a";
+	}
+	else {
+		return v;
+	}
+}
+
 function numberSeparateThousands(x, sep)
 {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, sep);

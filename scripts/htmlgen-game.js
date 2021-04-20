@@ -86,12 +86,12 @@ function generateHtmlOverallStats(replay, players)
 		}
 		html += `<tr class="playerRow${rowLighterOrNot}">`;
 		html += generateHtmlPlayer(players, p);
-		html += `<td>${p.coins}</td>`;
-		html += `<td>${p.health}</td>`;
-		html += `<td>${p.mana}</td>`;
-		html += `<td>${p.ability}</td>`;
-		html += `<td>${p.ms}</td>`;
-		html += `<td>${p.apm}</td>`;
+		html += `<td>${maybeNull(p.coins)}</td>`;
+		html += `<td>${maybeNull(p.health)}</td>`;
+		html += `<td>${maybeNull(p.mana)}</td>`;
+		html += `<td>${maybeNull(p.ability)}</td>`;
+		html += `<td>${maybeNull(p.ms)}</td>`;
+		html += `<td>${maybeNull(p.apm)}</td>`;
 		html += `</tr>`;
 	}
 	html += `</tbody>`;
