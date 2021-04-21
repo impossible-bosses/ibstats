@@ -256,6 +256,7 @@ table.tableStats > * > th, td
 {
 	text-align: center;
 	width: 12pt;
+	font-size: inherit;
 }
 
 .topPlayer
