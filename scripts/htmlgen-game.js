@@ -29,7 +29,7 @@ function generateHtmlPlayer(players, playerData)
 	let html = `<td class="playerImageName">`;
 	html += `<img src="${iconPath}"/>`;
 	html += `<div class="player player${playerData.slot}">`;
-	html += `<a href="../player?name=${player}">${playerData.name}</a>`;
+	html += `<a href="../player?name=${encodeURIComponent(player)}">${playerData.name}</a>`;
 	html += `</div>`;
 	html += `</td>`;
 	return html;
@@ -56,11 +56,11 @@ function generateHtmlStatsTable(replay, players, boss)
 		}
 		html += `<tr class="playerRow${rowLighterOrNot}">`;
 		html += generateHtmlPlayer(players, p);
-		html += `<td>${pb.deaths}</td>`;
-		html += `<td>${numberSeparateThousands(Math.round(pb.dmg), " ")}</td>`;
-		html += `<td>${numberSeparateThousands(Math.round(pb.hl), " ")}</td>`;
-		html += `<td>${numberSeparateThousands(Math.round(pb.hlr), " ")}</td>`;
-		html += `<td>${numberSeparateThousands(Math.round(pb.degen), " ")}</td>`;
+		html += `<td>${intToStringMaybeNull(pb.deaths)}</td>`;
+		html += `<td>${floatToStringMaybeNull(pb.dmg)}</td>`;
+		html += `<td>${floatToStringMaybeNull(pb.hl)}</td>`;
+		html += `<td>${floatToStringMaybeNull(pb.hlr)}</td>`;
+		html += `<td>${floatToStringMaybeNull(pb.degen)}</td>`;
 		html += `</tr>`;
 	}
 	html += `</table>`;
@@ -74,7 +74,7 @@ function generateHtmlOverallStats(replay, players)
 	html += `<div class="thinWrapper">`;
 	html += `<table class="tableStats">`;
 	html += `<thead>`;
-	html += `<tr><th></th><th>Coins</th><th>Health</th><th>Mana</th><th>Ability</th><th>MS</th><th>APM</th></tr>`;
+	html += `<tr><th></th><th>Boss Kills</th><th>Coins</th><th>Health</th><th>Mana</th><th>Ability</th><th>MS</th><th>APM</th></tr>`;
 	html += `</thead>`;
 	html += `<tbody>`;
 	for (let i = 0; i < replay.players.length; i++) {
@@ -85,12 +85,13 @@ function generateHtmlOverallStats(replay, players)
 		}
 		html += `<tr class="playerRow${rowLighterOrNot}">`;
 		html += generateHtmlPlayer(players, p);
-		html += `<td>${maybeNull(p.coins)}</td>`;
-		html += `<td>${maybeNull(p.health)}</td>`;
-		html += `<td>${maybeNull(p.mana)}</td>`;
-		html += `<td>${maybeNull(p.ability)}</td>`;
-		html += `<td>${maybeNull(p.ms)}</td>`;
-		html += `<td>${maybeNull(p.apm)}</td>`;
+		html += `<td>${p.bossKills}</td>`;
+		html += `<td>${intToStringMaybeNull(p.coins)}</td>`;
+		html += `<td>${intToStringMaybeNull(p.health)}</td>`;
+		html += `<td>${intToStringMaybeNull(p.mana)}</td>`;
+		html += `<td>${intToStringMaybeNull(p.ability)}</td>`;
+		html += `<td>${intToStringMaybeNull(p.ms)}</td>`;
+		html += `<td>${intToStringMaybeNull(p.apm)}</td>`;
 		html += `</tr>`;
 	}
 	html += `</tbody>`;
@@ -130,6 +131,13 @@ function generateHtml(replay, players)
 
 	html += `<div class="thinWrapper">`;
 	html += `<hr class="big">`;
+	if (replay.remakeData) {
+		html += `<div class="temp">`;
+		html += `<h2>Warning: In-game Remake</h2>`;
+		html += `<p>An in-game remake was used in this game. This invalidates data for all bosses that were re-played in the remake. Overall progress and boss kills are still properly recorded, though.</p>`;
+		html += `</div>`;
+		html += `<br><br>`;
+	}
 	html += `</div>`;
 
 	let contString = null;

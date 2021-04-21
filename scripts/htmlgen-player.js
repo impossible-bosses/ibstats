@@ -16,13 +16,15 @@ function generateHtmlPlayerProgress(playerSortedReplays, players, player)
 		if (progress[replay.difficulty].win) {
 			continue;
 		}
-		if (replay.win) {
+		const ind = getPlayerIndexInReplay(replay, player, players);
+		const bossKills = replay.players[ind].bossKills;
+		if (replay.win && bossKills == replay.bossKills) {
 			progress[replay.difficulty].win = true;
 			progress[replay.difficulty].maxBossKills = 0;
 		}
 		else {
-			if (progress[replay.difficulty].maxBossKills < replay.bossKills) {
-				progress[replay.difficulty].maxBossKills = replay.bossKills;
+			if (progress[replay.difficulty].maxBossKills < bossKills) {
+				progress[replay.difficulty].maxBossKills = bossKills;
 			}
 		}
 	}
@@ -106,7 +108,7 @@ function generateHtmlPlayerClasses(playerSortedReplays, players, player)
 		const index = getPlayerIndexInReplay(replay, player, players);
 		const playerData = replay.players[index];
 		playerClassData[playerData.class].played[replay.difficulty]++;
-		if (replay.win) {
+		if (replay.win && playerData.bossKills == replay.bossKills) {
 			playerClassData[playerData.class].won[replay.difficulty]++;
 		}
 	}

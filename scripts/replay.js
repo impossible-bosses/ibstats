@@ -89,19 +89,29 @@ const WC3_VERSION = {
 	V1_32: 132
 };
 
-function maybeNull(v)
-{
-	if (v == null) {
-		return "n/a";
-	}
-	else {
-		return v;
-	}
-}
-
 function numberSeparateThousands(x, sep)
 {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, sep);
+}
+
+function intToStringMaybeNull(i)
+{
+	if (i == null) {
+		return "n/a";
+	}
+	else {
+		return i.toString();
+	}
+}
+
+function floatToStringMaybeNull(f)
+{
+	if (f == null) {
+		return "n/a";
+	}
+	else {
+		return numberSeparateThousands(Math.round(f), " ");
+	}
 }
 
 function secondsToTimestamp(seconds)
@@ -341,7 +351,22 @@ function parseWc3StatsPlayerStats(data)
 	};
 
 	if (data.hasOwnProperty("sWHealingReceived")) {
-		playerStats.hlrSw = data.sWHealingReceived;
+		// buggy, don't load
+		// playerStats.hlrSw = data.sWHealingReceived;
+	}
+
+	let allZero = true;
+	for (const stat in playerStats) {
+		if (playerStats[stat] != null && playerStats[stat] != 0) {
+			allZero = false;
+			break;
+		}
+	}
+	if (allZero) {
+		// Assume it's a leaver, set all data to null
+		for (const stat in playerStats) {
+			playerStats[stat] = null;
+		}
 	}
 
 	return playerStats;
@@ -368,7 +393,7 @@ function parseWc3StatsPlayerData(data)
 			dmg: 0,
 			hl: 0,
 			hlr: 0,
-			hlrSw: 0,
+			hlrSw: null,
 			degen: 0
 		},
 		statsBoss: {}
@@ -420,6 +445,7 @@ function parseWc3StatsReplayData(data)
 		bosses: {},
 		bossKills: null,
 		totalWipes: 0,
+		remakeData: false,
 		incomplete: false
 	};
 
@@ -526,6 +552,7 @@ function parseWc3StatsReplayData(data)
 			killTime: null
 		};
 	}
+	let fireEngaged = false;
 	let remake = false;
 	for (let i = 0; i < game.events.length; i++) {
 		const e = game.events[i];
@@ -543,11 +570,27 @@ function parseWc3StatsReplayData(data)
 		}
 		const eName = e.event.eventName;
 		if (boss == BOSS.FIRE && eName == "bossEngage") {
-			if (remake) {
-				// In-game remake, skip remaining events
-				break;
+			if (fireEngaged) {
+				remake = true;
 			}
-			remake = true;
+			fireEngaged = true;
+		}
+		if (remake) {
+			if (eName == "bossKill") {
+				replayData.remakeData = true;
+				replayData.bosses[boss].startTimes = [];
+				replayData.bosses[boss].wipeTimes = [];
+				replayData.bosses[boss].killTime = null;
+				for (let j = 0; j < replayData.players.length; j++) {
+					for (const stat in replayData.players[j].statsOverall) {
+						replayData.players[j].statsOverall[stat] = null;
+					}
+					for (const stat in replayData.players[j].statsBoss[boss]) {
+						replayData.players[j].statsBoss[boss][stat] = null;
+					}
+				}
+			}
+			continue;
 		}
 		if (eName == "bossEngage") {
 			if (replayData.bosses[boss].startTimes.indexOf(e.time) != -1) {
