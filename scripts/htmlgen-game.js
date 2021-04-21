@@ -125,7 +125,7 @@ function generateHtmlBoss(replay, players, boss, left)
 function generateHtml(replay, players)
 {
 	let html = "";
-	html += `<h2 style="position: absolute; left: 30%;"><a href="..">&lt; BACK</a></h2>`;
+	html += `<h2 class="backButton"><a href="..">&lt; BACK</a></h2>`;
 	html += generateHtmlTitle(replay);
 
 	html += `<div class="thinWrapper">`;

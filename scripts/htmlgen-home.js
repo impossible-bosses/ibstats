@@ -64,11 +64,9 @@ function generateHtmlBossTopStat(replaysDescending, players, boss, stat)
 			const valueString = numberSeparateThousands(Math.round(s.value), " ");
 			html += `<td>`;
 			html += `<div class="topPlayer">`;
+			html += `<div class="topPlayerName">${s.player}</div>`;
 			html += `<div class="topPlayerImage"><img src="${iconPath}"/></div>`;
-			html += `<div class="topPlayerInfo">`;
-			html += `<a href="game?id=${s.replayId}">${valueString}</a>`;
-			html += `<br><div class="topPlayerName">${s.player}</div>`;
-			html += `</div>`; // topPlayerInfo
+			html += `<div class="topPlayerValue"><a href="game?id=${s.replayId}">${valueString}</a></div>`;
 			html += `</div>`; // topPlayer
 			html += `</td>`;
 		}
@@ -76,6 +74,7 @@ function generateHtmlBossTopStat(replaysDescending, players, boss, stat)
 	}
 	html += `</tbody>`;
 	html += `</table>`;
+	html += `<p class="temp">TODO: button to expand list, maybe to 10 rows...</p>`;
 	return html;
 }
 
@@ -148,6 +147,7 @@ function generateHtmlBoss(replaysDescending, players, boss)
 	}
 	html += `</tbody>`;
 	html += `</table>`;
+	html += `<p class="temp">TODO: button to expand list, maybe to 10 rows...</p>`;
 
 	html += `<h3>Top Damage</h3>`;
 	html += generateHtmlBossTopStat(replaysDescending, players, boss, "dmg");
@@ -224,7 +224,6 @@ function generateHtml(replays, players)
 {
 	let html = ``;
 	html += `<h1>Impossible Bosses</h1>`;
-	html += `<h4>Game Stats Page</h4>`;
 	html += `<div class="thinWrapper">`;
 
 	html += `<div class="tabSection">`;
@@ -235,6 +234,7 @@ function generateHtml(replays, players)
 
 	html += `<hr class="big">`;
 
+	html += `<p class="temp">Welcome! This is a work in progress - some things still look janky, and many things are bound to change. If you see anything you don't like, or want to see more of something, or have any other suggestions, just PM Patio. Also, don't try looking at this site on a phone yet, it will be bad :)</p>`;
 	html += `<p class="temp"><b>NOTE:</b> To avoid spamming wc3stats with requests for now, new replays aren't automatically added to the stats set - updating the games list requires manual intervention. If you uploaded a game and it's not listed yet, just let Patio know.</p>`;
 	html += `</div>`; // thinWrapper
 

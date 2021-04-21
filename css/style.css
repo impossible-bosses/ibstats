@@ -173,6 +173,12 @@ th.alignCenter, td.alignCenter
 	min-width: 500pt;
 }
 
+.backButton
+{
+	position: absolute;
+	left: 25%;
+}
+
 table.tableFastestKills > tbody > tr,
 table.tablePlayers > tbody > tr,
 table.tableGames > tbody > tr
@@ -211,7 +217,7 @@ table.tableStats > * > th, td
 	top: 0;
 	height: 100%;
 	max-height: 500pt;
-	filter: brightness(100%);
+	opacity: 75%;
 }
 .bossBackground > img.left
 {
@@ -263,14 +269,6 @@ table.tableStats > * > th, td
 {
 	overflow: hidden;
 }
-.topPlayerInfo
-{
-	float: right;
-}
-.topPlayerName
-{
-	font-size: 12pt;
-}
 .topPlayerImage
 {
 	float: left;
@@ -280,6 +278,18 @@ table.tableStats > * > th, td
 .topPlayerImage > img
 {
 	width: 100%;
+}
+.topPlayerValue
+{
+	float: right;
+	margin-top: 2pt;
+}
+.topPlayerName
+{
+	margin-left: 8pt;
+	font-size: 12pt;
+	text-align: left;
+	font-style: italic;
 }
 
 
