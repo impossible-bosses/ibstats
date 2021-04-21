@@ -47,15 +47,34 @@
         ]
     },
     {
-        "name": "Archimonde666",
+        "name": "Noway",
         "aliases": [
-            "Archi#2763"
+            "Nowayouthere"
+        ]
+    },
+    {
+        "name": "Archi",
+        "aliases": [
+            "Archi#2763",
+            "Archimonde666"
         ]
     },
     {
         "name": "Sartaglo",
         "aliases": [
             "Sartaglo#11296"
+        ]
+    },
+    {
+        "name": "CaptainPanic",
+        "aliases": [
+            "CaptainPanic#1602"
+        ]
+    },
+    {
+        "name": "Shanderne",
+        "aliases": [
+            "Shanderne#1323"
         ]
     }
 ]

@@ -72,7 +72,7 @@ function generateHtmlPlayerReplayInsideTr(replay, player, players)
 	}
 
 	const playerIndex = getPlayerIndexInReplay(replay, player, players);
-	const iconPath = classToIconPath(replay.players[playerIndex].class);
+	const iconPath = classToIconPath(replay.players[playerIndex].class, "..");
 
 	let html = "";
 	html += `<td><a href="../game?id=${replay.id}">${replay.name}</a></td>`;
@@ -121,7 +121,7 @@ function generateHtmlPlayerClasses(playerSortedReplays, players, player)
 	html += `</tr>`;
 	for (let i = 0; i < CLASSES_SORTED.length; i++) {
 		const c = CLASSES_SORTED[i];
-		const iconPath = classToIconPath(c);
+		const iconPath = classToIconPath(c, "..");
 		html += `<tr>`;
 		html += `<td><img src="${iconPath}"/></td>`;
 		for (let j = 0; j < DIFFICULTIES_SORTED.length; j++) {

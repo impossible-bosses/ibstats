@@ -13,13 +13,10 @@ html, body
 	font-family: Raleway, sans-serif;
 }
 
-h1, h3, h4
+h1
 {
 	width: 100%;
 	text-align: center;
-}
-h1
-{
 	font-weight: bold;
 	font-size: 32pt;
 }
@@ -38,6 +35,8 @@ h3
 }
 h4
 {
+	width: 100%;
+	text-align: center;
 	font-size: 14pt;
 	font-weight: normal;
 	font-style: italic;
@@ -88,11 +87,6 @@ hr.big
 	margin-bottom: 48pt;
 }
 
-table, tr, th, td
-{
-	margin: 0;
-	padding: 0;
-}
 table
 {
 	width: 100%;
@@ -120,6 +114,40 @@ th.alignCenter, td.alignCenter
 	text-align: right;
 }
 
+/* TABS -------------------------------------------------------------------- */
+.tabSection
+{
+	overflow: hidden;
+}
+.tabSelector
+{
+	float: left;
+	font-size: 18pt;
+	margin-right: 48pt;
+	font-weight: normal;
+	font-style: normal;
+	text-decoration: underline;
+}
+.tabSelector:hover
+{
+	color: #aa7777;
+	cursor: pointer;
+}
+.tabSelector.active
+{
+	color: #aa7777;
+}
+
+.tabContent
+{
+	display: none;
+}
+.tabContent.active
+{
+	display: inherit;
+}
+
+/* COLLAPSIBLES ------------------------------------------------------------ */
 .collapsible
 {
 	transition: filter 100ms;
@@ -130,6 +158,7 @@ th.alignCenter, td.alignCenter
 	cursor: pointer;
 }
 
+/* OTHER ------------------------------------------------------------------- */
 #everything
 {
 	margin: 0;
@@ -138,9 +167,10 @@ th.alignCenter, td.alignCenter
 
 .thinWrapper
 {
-	margin-left: 30%;
-	margin-right: 30%;
-	width: 40%;
+	margin-left: 25%;
+	margin-right: 25%;
+	width: 50%;
+	min-width: 500pt;
 }
 
 table.tableFastestKills > tbody > tr,
@@ -160,13 +190,19 @@ table.tableStats > * > th, td
 	width: 60pt;
 }
 
+.rowLighter
+{
+	background-color: #FFFFFF30;
+}
+
+/* BOSS FRAME -------------------------------------------------------------- */
 .bossBackground
 {
 	position: relative;
 	margin: 0;
 	margin-bottom: 18pt;
-	padding-top: 18pt;
-	padding-bottom: 48pt;
+	padding: 0;
+	padding-bottom: 32pt;
 	width: 100%;
 }
 .bossBackground > img
@@ -174,6 +210,7 @@ table.tableStats > * > th, td
 	position: absolute;
 	top: 0;
 	height: 100%;
+	max-height: 500pt;
 	filter: brightness(100%);
 }
 .bossBackground > img.left
@@ -185,6 +222,67 @@ table.tableStats > * > th, td
 	right: 0;
 }
 
+.bossTitle
+{
+	overflow: hidden;
+}
+.bossTitleLeft
+{
+	float: left;
+}
+.bossTitleRight
+{
+	float: right;
+}
+
+/* BOSS LEADERBOARD -------------------------------------------------------- */
+.tableFastestKills > * > tr
+{
+	height: 24pt;
+}
+.tableTopStat > * > tr > th
+{
+	text-align: right;
+	width: 18%;
+	padding-bottom: 8pt;
+}
+.tableTopStat > * > tr > td
+{
+	text-align: right;
+	width: 18%;
+	font-size: 18pt;
+}
+.tableTopStat > * > tr > .columnRank
+{
+	text-align: center;
+	width: 12pt;
+}
+
+.topPlayer
+{
+	overflow: hidden;
+}
+.topPlayerInfo
+{
+	float: right;
+}
+.topPlayerName
+{
+	font-size: 12pt;
+}
+.topPlayerImage
+{
+	float: left;
+	width: 32pt;
+	margin-left: 8pt;
+}
+.topPlayerImage > img
+{
+	width: 100%;
+}
+
+
+/* ACHIEVEMENTS ------------------------------------------------------------ */
 .achievementsInner
 {
 	padding-left: 28pt;
@@ -210,12 +308,9 @@ table.tableStats > * > th, td
 	color: inherit;
 }
 
+/* PLAYER ------------------------------------------------------------------ */
 .playerRow
 {
-}
-.rowLighter
-{
-	background-color: #FFFFFF30;
 }
 
 .playerImageName
@@ -275,17 +370,4 @@ table.tableStats > * > th, td
 .player7
 {
 	color: #e55bb0;
-}
-
-.bossTitle
-{
-	overflow: hidden;
-}
-.bossTitleLeft
-{
-	float: left;
-}
-.bossTitleRight
-{
-	float: right;
 }

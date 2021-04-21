@@ -210,6 +210,17 @@ function getDifficultyMaxBosses(d)
 	throw `Unknown difficulty ${d}`;
 }
 
+function isBossInDifficulty(b, d)
+{
+	if (d == DIFFICULTY.VE && (b == BOSS.ANCIENT || b == BOSS.DEMONIC)) {
+		return false;
+	}
+	if ((d == DIFFICULTY.E || d == DIFFICULTY.M) && b == BOSS.DEMONIC) {
+		return false;
+	}
+	return true;
+}
+
 function getBossLongName(b)
 {
 	if (b == BOSS.FIRE) {
@@ -245,9 +256,9 @@ function getBossLongName(b)
 	throw `Unknown boss ${b}`;
 }
 
-function classToIconPath(c)
+function classToIconPath(c, imagesPath)
 {
-	let path = IMAGES_PATH + "images/";
+	let path = imagesPath + "/images/";
 	if (c == CLASS.DK) {
 		path += "icon-dk.png";
 	}
@@ -583,6 +594,18 @@ function parseWc3StatsReplayData(data)
 function isValidReplay(replay)
 {
 	return replay.ladder != null && replay.season != null && !replay.isVoid && replay.players.length > 1;
+}
+
+function replayGetBossKillTime(replay, boss)
+{
+	if (!(boss in replay.bosses)) {
+		return null;
+	}
+	const bossData = replay.bosses[boss];
+	if (bossData.killTime == null) {
+		return null;
+	}
+	return bossData.killTime - bossData.startTimes[bossData.startTimes.length - 1];
 }
 
 if (typeof window === 'undefined') {

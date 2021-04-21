@@ -25,7 +25,7 @@ function generateHtmlTitle(replay)
 function generateHtmlPlayer(players, playerData)
 {
 	const player = getPlayerFromAlias(players, playerData.name);
-	const iconPath = classToIconPath(playerData.class);
+	const iconPath = classToIconPath(playerData.class, "..");
 	let html = `<td class="playerImageName">`;
 	html += `<img src="${iconPath}"/>`;
 	html += `<div class="player player${playerData.slot}">`;
@@ -116,17 +116,9 @@ function generateHtmlBoss(replay, players, boss, left)
 	const bossTime = secondsToTimestamp(bossData.killTime - bossData.startTimes[bossData.startTimes.length - 1]);
 
 	let html = "";
-	html += `<div class="bossBackground" style="background-color: ${BOSS_COLORS[boss]}60;">`;
-	html += `<img class="${left ? "left" : "right"}" src="../images/etch-${boss}.png"/>`;
-	html += `<div class="thinWrapper">`;
-	html += `<div class="bossTitle">`;
-	html += `<h2 class="${left ? "bossTitleLeft" : "bossTitleLeft"}">${getBossLongName(boss)}</h2>`;
-	html += `<h2 class="${left ? "bossTitleRight" : "bossTitleRight"}">${continuesStr}${bossTime}</h2>`;
-	html += `</div>`;
-	html += `<hr>`;
-	html += generateHtmlStatsTable(replay, players, boss);
-	html += `</div>`;
-	html += `</div>`;
+	let titleRight = `${continuesStr}${bossTime}`;
+	let innerHtml = generateHtmlStatsTable(replay, players, boss);
+	html += generateHtmlBossFrame(boss, left, titleRight, innerHtml);
 	return html;
 }
 
