@@ -173,6 +173,12 @@ th.alignCenter, td.alignCenter
 	min-width: 500pt;
 }
 
+.backButton
+{
+	position: absolute;
+	left: 25%;
+}
+
 table.tableFastestKills > tbody > tr,
 table.tablePlayers > tbody > tr,
 table.tableGames > tbody > tr
