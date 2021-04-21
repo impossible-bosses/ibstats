@@ -64,11 +64,13 @@ function generateHtmlBossTopStat(replaysDescending, players, boss, stat)
 			const valueString = numberSeparateThousands(Math.round(s.value), " ");
 			html += `<td>`;
 			html += `<div class="topPlayer">`;
+			html += `<div class="topPlayerName">${s.player}</div>`;
 			html += `<div class="topPlayerImage"><img src="${iconPath}"/></div>`;
-			html += `<div class="topPlayerInfo">`;
+			html += `<div class="topPlayerValue"><a href="game?id=${s.replayId}">${valueString}</a></div>`;
+			/*html += `<div class="topPlayerInfo">`;
 			html += `<a href="game?id=${s.replayId}">${valueString}</a>`;
 			html += `<br><div class="topPlayerName">${s.player}</div>`;
-			html += `</div>`; // topPlayerInfo
+			html += `</div>`; // topPlayerInfo*/
 			html += `</div>`; // topPlayer
 			html += `</td>`;
 		}
