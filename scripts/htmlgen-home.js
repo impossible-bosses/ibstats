@@ -67,10 +67,6 @@ function generateHtmlBossTopStat(replaysDescending, players, boss, stat)
 			html += `<div class="topPlayerName">${s.player}</div>`;
 			html += `<div class="topPlayerImage"><img src="${iconPath}"/></div>`;
 			html += `<div class="topPlayerValue"><a href="game?id=${s.replayId}">${valueString}</a></div>`;
-			/*html += `<div class="topPlayerInfo">`;
-			html += `<a href="game?id=${s.replayId}">${valueString}</a>`;
-			html += `<br><div class="topPlayerName">${s.player}</div>`;
-			html += `</div>`; // topPlayerInfo*/
 			html += `</div>`; // topPlayer
 			html += `</td>`;
 		}
@@ -78,6 +74,7 @@ function generateHtmlBossTopStat(replaysDescending, players, boss, stat)
 	}
 	html += `</tbody>`;
 	html += `</table>`;
+	html += `<p class="temp">TODO: button to expand list, maybe to 10 rows...</p>`;
 	return html;
 }
 
@@ -150,6 +147,7 @@ function generateHtmlBoss(replaysDescending, players, boss)
 	}
 	html += `</tbody>`;
 	html += `</table>`;
+	html += `<p class="temp">TODO: button to expand list, maybe to 10 rows...</p>`;
 
 	html += `<h3>Top Damage</h3>`;
 	html += generateHtmlBossTopStat(replaysDescending, players, boss, "dmg");
