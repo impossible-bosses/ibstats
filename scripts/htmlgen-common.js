@@ -51,11 +51,11 @@ function registerCollapsibles()
 	}
 }
 
-function generateHtmlBossFrame(boss, left, titleRight, innerHtml)
+function generateHtmlBossFrame(boss, left, titleRight, innerHtml, imagePath)
 {
 	let html = "";
 	html += `<div class="bossBackground" style="background-color: ${BOSS_COLORS[boss]}60;">`;
-	html += `<img class="${left ? "left" : "right"}" src="../images/etch-${boss}.png"/>`;
+	html += `<img class="${left ? "left" : "right"}" src="${imagePath}/images/etch-${boss}.png"/>`;
 	html += `<div class="thinWrapper">`;
 	html += `<div class="bossTitle">`;
 	html += `<h2 class="bossTitleLeft">${getBossLongName(boss)}</h2>`;

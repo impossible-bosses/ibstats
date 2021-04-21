@@ -118,7 +118,7 @@ function generateHtmlBoss(replay, players, boss, left)
 	let html = "";
 	let titleRight = `${continuesStr}${bossTime}`;
 	let innerHtml = generateHtmlStatsTable(replay, players, boss);
-	html += generateHtmlBossFrame(boss, left, titleRight, innerHtml);
+	html += generateHtmlBossFrame(boss, left, titleRight, innerHtml, "..");
 	return html;
 }
 

@@ -315,7 +315,7 @@ function generateHtml(replays, players)
 	for (let i = 0; i < BOSSES_SORTED.length; i++) {
 		const boss = BOSSES_SORTED[i];
 		let innerHtml = generateHtmlBoss(replaysDescending, players, boss);
-		html += generateHtmlBossFrame(boss, left, "", innerHtml);
+		html += generateHtmlBossFrame(boss, left, "", innerHtml, ".");
 		left = !left;
 	}
 	html += `</div>`; // tab
