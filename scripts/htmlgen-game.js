@@ -17,7 +17,7 @@ function generateHtmlTitle(replay)
 
 	let html = `<h1>${replay.players.length} ${diffString} &mdash; ${victoryDefeatString}</h1>`;
 	html += `<h4>${replay.name}</h4>`;
-	html += `<h4>${dateString} &mdash; Impossible Bosses v${mapVersionToString(replay.mapVersion)}</h4>`;
+	html += `<h4>${dateString} &mdash; v${mapVersionToString(replay.mapVersion)}</h4>`;
 	html += `<h4><a href="https://wc3stats.com/games/${replay.id}">View in wc3stats</a></h4>`;
 	return html;
 }
