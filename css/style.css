@@ -35,7 +35,7 @@ h3
 }
 h4
 {
-	width: 100%;
+	width: auto;
 	text-align: center;
 	font-size: 14pt;
 	font-weight: normal;
@@ -177,6 +177,21 @@ th.alignCenter, td.alignCenter
 {
 	position: absolute;
 	left: 25%;
+	margin-top: 36pt;
+	font-size: 24pt;
+}
+
+.downloadButton
+{
+	position: absolute;
+	right: 25%;
+	margin-top: 36pt;
+	width: 36pt;
+	text-align: center;
+}
+.downloadButton:hover
+{
+	opacity: 75%;
 }
 
 table.tableFastestKills > tbody > tr,

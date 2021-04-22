@@ -18,7 +18,7 @@ function generateHtmlTitle(replay)
 	let html = `<h1>${replay.players.length} ${diffString} &mdash; ${victoryDefeatString}</h1>`;
 	html += `<h4>${dateString}</h4>`;
 	html += `<h4>Impossible Bosses v${mapVersionToString(replay.mapVersion)}</h4>`;
-	html += `<a href="https://wc3stats.com/games/${replay.id}"><h4>View in wc3stats</h4></a>`;
+	html += `<h4><a href="https://wc3stats.com/games/${replay.id}">View in wc3stats</a></h4>`;
 	return html;
 }
 
@@ -126,7 +126,12 @@ function generateHtmlBoss(replay, players, boss, left)
 function generateHtml(replay, players)
 {
 	let html = "";
-	html += `<h2 class="backButton"><a href="..">&lt; BACK</a></h2>`;
+	html += `<p class="backButton"><a href="..">&lt; BACK</a></p>`;
+	html += `<div class="downloadButton">`;
+	html += `<a href="https://api.wc3stats.com/replays/${replay.id}/download">`;
+	html += `<img src="../images/download.svg"/>`;
+	html += `</a>`;
+	html += `</div>`; // downloadButton
 	html += generateHtmlTitle(replay);
 
 	html += `<div class="thinWrapper">`;
