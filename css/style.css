@@ -242,6 +242,7 @@ table.tableStats > * > th, td
 	height: 100%;
 	max-height: 500pt;
 	opacity: 75%;
+	pointer-events: none;
 }
 .bossBackground > img.left
 {
