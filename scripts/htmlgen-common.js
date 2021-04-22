@@ -133,3 +133,66 @@ function generateHtmlAchievement(a, difficultyPlayerReplays, homePath)
 	html += `</div>`;
 	return html;
 }
+
+function generateHtmlGameRow(replay, players, player)
+{
+	const versionString = mapVersionToString(replay.mapVersion);
+	const hostServerString = wc3VersionToHostingServer(replay.wc3Version);
+	const date = new Date(replay.playedOn * 1000);
+	const dateString = date.toLocaleDateString();
+
+	let html = "";
+	if (replay.mapVersion >= MAP_VERSION.V1_11_4) {
+		const diffString = difficultyToShortString(replay.difficulty);
+		const maxBosses = getDifficultyMaxBosses(replay.difficulty);
+
+		html += `<td class="alignCenter"><a href="game?id=${replay.id}">${replay.name}</a></td>`;
+		if (player != null) {
+			const ind = getPlayerIndexInReplay(replay, player, players);
+			const iconPath = classToIconPath(replay.players[ind].class, "..");
+			html += `<td><img src="${iconPath}"/></td>`;
+		}
+		html += `<td>${replay.players.length}</td>`;
+		html += `<td>${diffString}</td>`;
+		html += `<td>${replay.win ? maxBosses : replay.bossKills}/${maxBosses}</td>`;
+		html += `<td>${replay.totalWipes}</td>`;
+	}
+	else {
+		html += `<td class="alignCenter">${replay.name}</td>`;
+		if (player != null) {
+			html += `<td>-</td>`;
+		}
+		html += `<td>-</td>`;
+		html += `<td>-</td>`;
+		html += `<td>-</td>`;
+		html += `<td>-</td>`;
+	}
+	html += `<td>${versionString}</td>`;
+	html += `<td>${hostServerString}</td>`;
+	html += `<td>${dateString}</td>`;
+	return html;
+}
+
+function generateHtmlGamesList(replays, players=null, player=null)
+{
+	let html = "";
+	html += `<table class="tableGames">`;
+	html += `<thead>`;
+	html += `<tr><th class="alignCenter" style="width: 200pt;">Game Name</th>${player != null ? "<th>Class</th>" : ""}<th>Players</th><th>Difficulty</th><th>Boss Kills</th><th>Continues</th><th>Version</th><th>Server</th><th>Date</th></tr>`;
+	html += `</thead>`;
+	html += `<tbody>`;
+	let index = 0;
+	for (let i = 0; i < replays.length; i++) {
+		const replay = replays[i];
+		if (replay.mapVersion >= MAP_VERSION.V1_11_4 && replay.bossKills == null) {
+			continue;
+		}
+		html += `<tr class="${replay.win ? "win" : "lose"}">`;
+		html += generateHtmlGameRow(replay, players, player);
+		html += `</tr>`;
+		index++;
+	}
+	html += `</tbody>`;
+	html += `</table>`;
+	return html;
+}

@@ -53,42 +53,6 @@ function generateHtmlPlayerProgress(playerSortedReplays, players, player)
 	return html;
 }
 
-function generateHtmlPlayerReplayInsideTr(replay, player, players)
-{
-	const versionString = mapVersionToString(replay.mapVersion);
-	const hostServerString = wc3VersionToHostingServer(replay.wc3Version);
-	const date = new Date(replay.playedOn * 1000);
-	const dateString = date.toLocaleDateString();
-
-	if (replay.mapVersion < MAP_VERSION.V1_11_4) {
-		return `<td>${replay.name}</td><td>-</td><td>-</td><td>-</td><td>-</td><td>${versionString}</td><td>${hostServerString}</td><td>${dateString}</td>`
-	}
-
-	const diffString = difficultyToShortString(replay.difficulty);
-	let victoryDefeatString = null;
-	if (replay.win) {
-		victoryDefeatString = "Victory!";
-	}
-	else {
-		victoryDefeatString = `Defeat (${replay.bossKills}/${getDifficultyMaxBosses(replay.difficulty)})`;
-	}
-
-	const playerIndex = getPlayerIndexInReplay(replay, player, players);
-	const iconPath = classToIconPath(replay.players[playerIndex].class, "..");
-
-	let html = "";
-	html += `<td><a href="../game?id=${replay.id}">${replay.name}</a></td>`;
-	html += `<td><img src="${iconPath}"/></td>`;
-	html += `<td>${replay.players.length}</td>`;
-	html += `<td>${diffString}</td>`;
-	html += `<td>${victoryDefeatString}</td>`;
-	html += `<td>${replay.totalWipes}</td>`;
-	html += `<td>${versionString}</td>`;
-	html += `<td>${hostServerString}</td>`;
-	html += `<td>${dateString}</td>`;
-	return html;
-}
-
 function generateHtmlPlayerClasses(playerSortedReplays, players, player)
 {
 	let playerClassData = {};
@@ -192,19 +156,10 @@ function generateHtml(replays, players, player)
 	html += generateHtmlPlayerClasses(sortedReplays, players, player);
 	html += generateHtmlPlayerAchievements(sortedReplays, players, player);
 
-	html += `<h2>Recent Games</h2>`;
+	html += `<h2>Games</h2>`;
+
 	html += `<table>`;
-	html += `<tr><th style="width: 200pt;">Game Name</th><th>Class</th><th>Players</th><th>Difficulty</th><th>?</th><th>Continues Used</th><th>Version</th><th>Server</th><th>Date</th></tr>`;
-	for (let i = 0; i < sortedReplays.length; i++) {
-		let rowLighterOrNot = "";
-		if (i % 2 == 1) {
-			rowLighterOrNot = "rowLighter";
-		}
-		html += `<tr style="height: 28pt;" class="${rowLighterOrNot}">`;
-		html += generateHtmlPlayerReplayInsideTr(sortedReplays[i], player, players);
-		html += `</tr>`;
-	}
-	html += `</table>`;
+	html += generateHtmlGamesList(sortedReplays, players, player);
 	html += `</div>`; // thinWrapper
 
 	html += `<br><br><br><br><br>`;

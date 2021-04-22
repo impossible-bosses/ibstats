@@ -182,37 +182,6 @@ function generateHtmlBoss(replaysDescending, players, boss)
 	return html;
 }
 
-function generateHtmlReplayInsideTr(replay)
-{
-	const versionString = mapVersionToString(replay.mapVersion);
-	const hostServerString = wc3VersionToHostingServer(replay.wc3Version);
-	const date = new Date(replay.playedOn * 1000);
-	const dateString = date.toLocaleDateString();
-
-	let html = "";
-	if (replay.mapVersion >= MAP_VERSION.V1_11_4) {
-		const diffString = difficultyToShortString(replay.difficulty);
-		const maxBosses = getDifficultyMaxBosses(replay.difficulty);
-
-		html += `<td class="alignCenter"><a href="game?id=${replay.id}">${replay.name}</a></td>`;
-		html += `<td>${replay.players.length}</td>`;
-		html += `<td>${diffString}</td>`;
-		html += `<td>${replay.win ? maxBosses : replay.bossKills}/${maxBosses}</td>`;
-		html += `<td>${replay.totalWipes}</td>`;
-	}
-	else {
-		html += `<td class="alignCenter">${replay.name}</td>`;
-		html += `<td>-</td>`;
-		html += `<td>-</td>`;
-		html += `<td>-</td>`;
-		html += `<td>-</td>`;
-	}
-	html += `<td>${versionString}</td>`;
-	html += `<td>${hostServerString}</td>`;
-	html += `<td>${dateString}</td>`;
-	return html;
-}
-
 function generateHtmlPlayerInsideTr(replays, players, player, games)
 {
 	let wins = 0;
@@ -381,24 +350,7 @@ function generateHtml(replays, players)
 	html += `<div class="tabContent tc2">`;
 	html += `<div class="thinWrapper">`;
 	html += `<h1>Uploaded Games</h1>`;
-	html += `<table class="tableGames">`;
-	html += `<thead>`;
-	html += `<tr><th class="alignCenter" style="width: 200pt;">Game Name</th><th>Players</th><th>Difficulty</th><th>Boss Kills</th><th>Continues</th><th>Version</th><th>Server</th><th>Date</th></tr>`;
-	html += `</thead>`;
-	html += `<tbody>`;
-	let index = 0;
-	for (let i = 0; i < replaysDescending.length; i++) {
-		const replay = replaysDescending[i];
-		if (replay.mapVersion >= MAP_VERSION.V1_11_4 && replay.bossKills == null) {
-			continue;
-		}
-		html += `<tr class="${replay.win ? "win" : "lose"}">`;
-		html += generateHtmlReplayInsideTr(replay);
-		html += `</tr>`;
-		index++;
-	}
-	html += `</tbody>`;
-	html += `</table>`;
+	html += generateHtmlGamesList(replaysDescending);
 	html += `</div>`; // thinWrapper
 	html += `</div>`; // tab
 

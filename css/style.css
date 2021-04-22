@@ -199,14 +199,20 @@ th.alignCenter, td.alignCenter
 
 table.tableFastestKills > tbody > tr,
 table.tablePlayers > tbody > tr,
-table.tableGames > tbody > tr
+
+.tableGames > tbody > tr
 {
 	height: 32pt;
 }
-
-table.tableGames > tbody > .win
+.tableGames > tbody > .win
 {
 	background-color: #1d351c;
+}
+.tableGames > tbody > tr > td > img
+{
+	height: 26pt;
+	margin: 0;
+	padding: 0;
 }
 
 table.tableStats > * > th, td
