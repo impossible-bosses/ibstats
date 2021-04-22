@@ -229,7 +229,7 @@ function generateHtml(replays, players)
 	html += `<div class="tabSection">`;
 	html += `<div class="tabSelector ts0 active">Leaderboards</div>`;
 	html += `<div class="tabSelector ts1">Players</div>`;
-	html += `<div class="tabSelector ts2">Match History</div>`;
+	html += `<div class="tabSelector ts2">Uploaded Games</div>`;
 	html += `</div>`; // tabSection
 
 	html += `<hr class="big">`;
@@ -358,7 +358,7 @@ function generateHtml(replays, players)
 	// Games section
 	html += `<div class="tabContent tc2">`;
 	html += `<div class="thinWrapper">`;
-	html += `<h1>Match History</h1>`;
+	html += `<h1>Uploaded Games</h1>`;
 	html += `<table class="tableGames">`;
 	html += `<thead>`;
 	html += `<tr><th class="alignCenter" style="width: 200pt;">Game Name</th><th>Players</th><th>Difficulty</th><th>Boss Kills</th><th>Continues</th><th>Version</th><th>Server</th><th>Date</th></tr>`;
