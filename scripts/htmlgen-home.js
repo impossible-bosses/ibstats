@@ -3,7 +3,30 @@ let players_ = null;
 
 const TOP_N = 3;
 
-function generateHtmlBossTopStat(replaysDescending, players, boss, stat)
+function statFunctionDps(replay, playerIndex, boss)
+{
+	const killTime = replayGetBossKillTime(replay, boss);
+	if (killTime == null) {
+		return null;
+	}
+	return replay.players[playerIndex].statsBoss[boss].dmg / killTime;
+}
+
+function statFunctionHps(replay, playerIndex, boss)
+{
+	const killTime = replayGetBossKillTime(replay, boss);
+	if (killTime == null) {
+		return null;
+	}
+	return replay.players[playerIndex].statsBoss[boss].hl / killTime;
+}
+
+function statFunctionDegen(replay, playerIndex, boss)
+{
+	return replay.players[playerIndex].statsBoss[boss].degen;
+}
+
+function generateHtmlBossTopStat(replaysDescending, players, boss, statFunction)
 {
 	let difficultyStats = {};
 	for (const d in DIFFICULTY) {
@@ -20,7 +43,7 @@ function generateHtmlBossTopStat(replaysDescending, players, boss, stat)
 		}
 		for (let j = 0; j < replay.players.length; j++) {
 			const playerData = replay.players[j];
-			const value = playerData.statsBoss[boss][stat];
+			const value = statFunction(replay, j, boss);
 			if (value != null) {
 				difficultyStats[replay.difficulty].push({
 					replayId: replay.id,
@@ -149,14 +172,14 @@ function generateHtmlBoss(replaysDescending, players, boss)
 	html += `</table>`;
 	html += `<p class="temp">TODO: button to expand list, maybe to 10 rows...</p>`;
 
-	html += `<h3>Top Damage</h3>`;
-	html += generateHtmlBossTopStat(replaysDescending, players, boss, "dmg");
+	html += `<h3>Top DPS</h3>`;
+	html += generateHtmlBossTopStat(replaysDescending, players, boss, statFunctionDps);
 
-	html += `<h3>Top Healing</h3>`;
-	html += generateHtmlBossTopStat(replaysDescending, players, boss, "hl");
+	html += `<h3>Top HPS</h3>`;
+	html += generateHtmlBossTopStat(replaysDescending, players, boss, statFunctionHps);
 
 	html += `<h3>Top Degen</h3>`;
-	html += generateHtmlBossTopStat(replaysDescending, players, boss, "degen");
+	html += generateHtmlBossTopStat(replaysDescending, players, boss, statFunctionDegen);
 
 	return html;
 }

@@ -38,9 +38,10 @@ function generateHtmlPlayer(players, playerData)
 // Use boss=null for overall stats
 function generateHtmlStatsTable(replay, players, boss)
 {
+	const killTime = replayGetBossKillTime(replay, boss);
 	let html = "";
 	html += `<table class="tableStats">`;
-	html += `<tr><th></th><th>Deaths</th><th>Damage</th><th>Healing</th><th>Healing Received</th><th>Degen</th></tr>`;
+	html += `<tr><th></th><th>Deaths</th><th>Damage</th><th>DPS</th><th>Healing</th><th>HPS</th><th>Healing Received</th><th>Degen</th></tr>`;
 	for (let i = 0; i < replay.players.length; i++) {
 		const p = replay.players[i];
 		let rowLighterOrNot = "";
@@ -58,7 +59,17 @@ function generateHtmlStatsTable(replay, players, boss)
 		html += generateHtmlPlayer(players, p);
 		html += `<td>${intToStringMaybeNull(pb.deaths)}</td>`;
 		html += `<td>${floatToStringMaybeNull(pb.dmg)}</td>`;
+		let dps = null;
+		if (killTime != null && pb.dmg != null) {
+			dps = pb.dmg / killTime;
+		}
+		html += `<td>${floatToStringMaybeNull(dps)}</td>`;
 		html += `<td>${floatToStringMaybeNull(pb.hl)}</td>`;
+		let hps = null;
+		if (killTime != null && pb.hl != null) {
+			hps = pb.hl / killTime;
+		}
+		html += `<td>${floatToStringMaybeNull(hps)}</td>`;
 		html += `<td>${floatToStringMaybeNull(pb.hlr)}</td>`;
 		html += `<td>${floatToStringMaybeNull(pb.degen)}</td>`;
 		html += `</tr>`;
