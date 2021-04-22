@@ -104,7 +104,6 @@ function generateHtmlPlayerClasses(playerSortedReplays, players, player)
 				html += `<td>${wins} W / ${losses} L</td>`;
 			}
 		}
-		html += `<td></td>`;
 		html += `</tr>`;
 	}
 	html += `</table>`;
