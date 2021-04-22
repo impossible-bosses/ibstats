@@ -269,6 +269,9 @@ function generateHtml(replays, players)
 		}
 	}
 	for (const a in ACHIEVEMENTS) {
+		if (ACHIEVEMENTS[a].hideTemp) {
+			continue;
+		}
 		let difficultyFirstPlayerReplays = {};
 		for (const d in DIFFICULTY) {
 			const diff = DIFFICULTY[d];

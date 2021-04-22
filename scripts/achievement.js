@@ -147,6 +147,7 @@ const ACHIEVEMENTS = {
 		}
 	},
 	"Win (M16)": {
+		hideTemp: true,
 		hideUnachieved: true,
 		description: "Win the game on M16 servers.",
 		condition: function(playerSortedReplays, players, player) {
@@ -168,12 +169,14 @@ const ACHIEVEMENTS = {
 		}
 	},
 	"No Second Chances": {
+		hideTemp: true,
 		description: "Win the game without using continues.",
 		condition: function(playerSortedReplays, players, player) {
 			return achievementWinNoContinues(playerSortedReplays, players, player);
 		}
 	},
 	"Ace": {
+		hideTemp: true,
 		description: "Win the game without dying.",
 		condition: function(playerSortedReplays, players, player) {
 			return achievementWinNoDeaths(playerSortedReplays, players, player);
