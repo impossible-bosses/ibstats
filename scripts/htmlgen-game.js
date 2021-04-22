@@ -158,6 +158,7 @@ function generateHtml(replay, players)
 		html += `</div>`;
 		html += `<br><br>`;
 	}
+	html += `<p class="temp"><b>NOTE:</b> At the moment, boss kill times are calculated slightly differently from the timer displayed in game, so you might see some discrepancies. This will obviously affect DPS/HPS calculations as well. The difference shouldn't be more than 2-3 seconds, though.</p>`;
 	html += `</div>`;
 
 	let contString = null;

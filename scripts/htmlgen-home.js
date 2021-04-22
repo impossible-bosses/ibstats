@@ -256,6 +256,7 @@ function generateHtml(replays, players)
 	html += `<hr class="big">`;
 
 	html += `<p class="temp">Welcome! This is a work in progress - some things still look janky, and many things are bound to change. If you see anything you don't like, or want to see more of something, or have any other suggestions, just PM Patio. Also, don't try looking at this site on a phone yet, it will be bad :)</p>`;
+	html += `<p class="temp"><b>NOTE:</b> At the moment, boss kill times are calculated slightly differently from the timer displayed in game, so you might see some discrepancies. This will obviously affect DPS/HPS calculations as well. The difference shouldn't be more than 2-3 seconds, though.</p>`;
 	html += `<p class="temp"><b>NOTE:</b> To avoid spamming wc3stats with requests for now, new replays aren't automatically added to the stats set - updating the games list requires manual intervention. If you uploaded a game and it's not listed yet, just let Patio know.</p>`;
 	html += `</div>`; // thinWrapper
 
