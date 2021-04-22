@@ -158,8 +158,7 @@ function generateHtml(replay, players)
 		html += `</div>`;
 		html += `<br><br>`;
 	}
-	html += `<p class="temp"><b>NOTE:</b> At the moment, boss kill times are calculated slightly differently from the timer displayed in game, so you might see some discrepancies. This will obviously affect DPS/HPS calculations as well. The difference shouldn't be more than 2-3 seconds, though.</p>`;
-	html += `</div>`;
+	html += `</div>`; // thinWrapper
 
 	let contString = null;
 	if (replay.continues) {
@@ -171,7 +170,13 @@ function generateHtml(replay, players)
 	html += `<h4>Continues ${contString} (${replay.totalWipes} Used)</h4>`;
 	html += `<br><br><br>`;
 	html += generateHtmlOverallStats(replay, players);
-	html += `<br><br><br><br><br>`;
+	html += `<br><br>`;
+
+	html += `<div class="thinWrapper">`;
+	html += `<p class="temp"><b>NOTE:</b> At the moment, boss kill times are calculated slightly differently from the timer displayed in game, so you might see some discrepancies. This will obviously affect DPS/HPS calculations as well. The difference shouldn't be more than 2-3 seconds, though.</p>`;
+	html += `</div>`; // thinWrapper
+
+	html += `<br><br><br>`;
 
 	let left = true;
 	for (let i = 0; i < BOSSES_SORTED.length; i++) {

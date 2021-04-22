@@ -224,9 +224,8 @@ function generateHtml(replays, players)
 
 	html += `<hr class="big">`;
 
-	html += `<p class="temp">Welcome! This is a work in progress - some things still look janky, and many things are bound to change. If you see anything you don't like, or want to see more of something, or have any other suggestions, just PM Patio. Also, don't try looking at this site on a phone yet, it will be bad :)</p>`;
-	html += `<p class="temp"><b>NOTE:</b> At the moment, boss kill times are calculated slightly differently from the timer displayed in game, so you might see some discrepancies. This will obviously affect DPS/HPS calculations as well. The difference shouldn't be more than 2-3 seconds, though.</p>`;
-	html += `<p class="temp"><b>NOTE:</b> New replays should be reflected on this site within 5 minutes of uploading to wc3stats. The games list is scanned every 5 minutes for new replays and updated accordingly. If you uploaded a game and it's not listed after 5 minutes, please PM Patio.</p>`;
+	html += `<p class="temp">Welcome! This is a work in progress - some things still look janky, and many things are bound to change. If you see anything you don't like, or want to see more of something, or have any other suggestions, just post on Discord or PM Patio. Also, don't try looking at this site on a phone yet, it will be bad :)</p>`;
+	html += `<p class="temp"><b>NOTE:</b> New replays should be reflected on this site within 5 minutes of uploading to wc3stats. The games list is scanned every 5 minutes for new replays and updated accordingly. If you uploaded a game and it's not listed after 5 minutes, just post on Discord or PM Patio.</p>`;
 	html += `</div>`; // thinWrapper
 
 	const playerGamesMap = getPlayerGamesMap(replays, players);
@@ -302,8 +301,10 @@ function generateHtml(replays, players)
 		}
 		html += generateHtmlAchievement(a, difficultyFirstPlayerReplays, ".");
 	}
+	html += `<br><br>`;
+	html += `<p class="temp"><b>NOTE:</b> At the moment, boss kill times are calculated slightly differently from the timer displayed in game, so you might see some discrepancies. This will obviously affect DPS/HPS calculations as well. The difference shouldn't be more than 2-3 seconds, though.</p>`;
 	html += `</div>`; // thinWrapper
-	html += `<br><br><br><br>`;
+	html += `<br><br>`;
 
 	let left = true;
 	for (let i = 0; i < BOSSES_SORTED.length; i++) {
