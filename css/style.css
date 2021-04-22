@@ -54,6 +54,7 @@ a
 	font-weight: normal;
 	font-style: normal;
 	text-decoration: underline;
+	transition: color 200ms;
 }
 a:link
 {
@@ -127,6 +128,7 @@ th.alignCenter, td.alignCenter
 	font-weight: normal;
 	font-style: normal;
 	text-decoration: underline;
+	transition: color 200ms;
 }
 .tabSelector:hover
 {
@@ -188,10 +190,11 @@ th.alignCenter, td.alignCenter
 	margin-top: 36pt;
 	width: 36pt;
 	text-align: center;
+	transition: opacity 200ms;
 }
 .downloadButton:hover
 {
-	opacity: 75%;
+	opacity: 60%;
 }
 
 table.tableFastestKills > tbody > tr,
