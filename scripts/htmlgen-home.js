@@ -174,10 +174,8 @@ function generateHtmlBoss(replaysDescending, players, boss)
 
 	html += `<h3>Top DPS</h3>`;
 	html += generateHtmlBossTopStat(replaysDescending, players, boss, statFunctionDps);
-
 	html += `<h3>Top HPS</h3>`;
 	html += generateHtmlBossTopStat(replaysDescending, players, boss, statFunctionHps);
-
 	html += `<h3>Top Degen</h3>`;
 	html += generateHtmlBossTopStat(replaysDescending, players, boss, statFunctionDegen);
 
