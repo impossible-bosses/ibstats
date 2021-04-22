@@ -30,25 +30,27 @@ function generateHtmlPlayerProgress(playerSortedReplays, players, player)
 	}
 
 	let html = "";
-	html += `<table>`;
-	html += `<tr>`;
+	html += `<table class="tablePlayerProgress">`;
+	html += `<thead><tr>`;
 	for (let i = 0; i < DIFFICULTIES_SORTED.length; i++) {
 		html += `<th>${DIFFICULTIES_SORTED[i]}</th>`;
 	}
-	html += `</tr><tr>`;
+	html += `</tr></thead>`;
+	html += `<tbody><tr>`;
 	for (let i = 0; i < DIFFICULTIES_SORTED.length; i++) {
 		const prog = progress[DIFFICULTIES_SORTED[i]];
 		const maxBosses = getDifficultyMaxBosses(DIFFICULTIES_SORTED[i]);
-		let string = "&#x2717;"; // X
+		let string = "-";
 		if (prog.win) {
-			string = "&#x2713;"; // check
+			string = `${maxBosses} / ${maxBosses}`;
 		}
 		else if (prog.maxBossKills > 0) {
 			string = `${prog.maxBossKills} / ${maxBosses}`;
 		}
-		html += `<td>${string}</td>`;
+		html += `<td class="${prog.win ? "" : "textDark"}">${string}</td>`;
 	}
-	html += `</tr></table>`;
+	html += `</tr></tbody>`;
+	html += `</table>`;
 
 	return html;
 }
@@ -79,7 +81,7 @@ function generateHtmlPlayerClasses(playerSortedReplays, players, player)
 
 	let html = "";
 	html += `<h2>Classes</h2>`;
-	html += `<table>`;
+	html += `<table class="tablePlayerClasses">`;
 	html += `<tr><th></th>`;
 	for (let i = 0; i < DIFFICULTIES_SORTED.length; i++) {
 		html += `<th>${DIFFICULTIES_SORTED[i]}</th>`;
@@ -88,7 +90,7 @@ function generateHtmlPlayerClasses(playerSortedReplays, players, player)
 	for (let i = 0; i < CLASSES_SORTED.length; i++) {
 		const c = CLASSES_SORTED[i];
 		const iconPath = classToIconPath(c, "..");
-		html += `<tr>`;
+		html += `<tr class=${i % 2 == 1 ? "rowLighter" : ""}>`;
 		html += `<td><img src="${iconPath}"/></td>`;
 		for (let j = 0; j < DIFFICULTIES_SORTED.length; j++) {
 			const d = DIFFICULTIES_SORTED[j];
@@ -159,7 +161,7 @@ function generateHtml(replays, players, player)
 	html += `<h2>Games</h2>`;
 
 	html += `<table>`;
-	html += generateHtmlGamesList(sortedReplays, players, player);
+	html += generateHtmlGamesList(sortedReplays, "..", players, player);
 	html += `</div>`; // thinWrapper
 
 	html += `<br><br><br><br><br>`;

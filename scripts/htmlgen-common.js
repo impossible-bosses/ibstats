@@ -134,7 +134,7 @@ function generateHtmlAchievement(a, difficultyPlayerReplays, homePath)
 	return html;
 }
 
-function generateHtmlGameRow(replay, players, player)
+function generateHtmlGameRow(replay, homePath, players, player)
 {
 	const versionString = mapVersionToString(replay.mapVersion);
 	const hostServerString = wc3VersionToHostingServer(replay.wc3Version);
@@ -146,10 +146,10 @@ function generateHtmlGameRow(replay, players, player)
 		const diffString = difficultyToShortString(replay.difficulty);
 		const maxBosses = getDifficultyMaxBosses(replay.difficulty);
 
-		html += `<td class="alignCenter"><a href="game?id=${replay.id}">${replay.name}</a></td>`;
+		html += `<td class="alignCenter"><a href="${homePath}/game?id=${replay.id}">${replay.name}</a></td>`;
 		if (player != null) {
 			const ind = getPlayerIndexInReplay(replay, player, players);
-			const iconPath = classToIconPath(replay.players[ind].class, "..");
+			const iconPath = classToIconPath(replay.players[ind].class, homePath);
 			html += `<td><img src="${iconPath}"/></td>`;
 		}
 		html += `<td>${replay.players.length}</td>`;
@@ -173,7 +173,7 @@ function generateHtmlGameRow(replay, players, player)
 	return html;
 }
 
-function generateHtmlGamesList(replays, players=null, player=null)
+function generateHtmlGamesList(replays, homePath, players=null, player=null)
 {
 	let html = "";
 	html += `<table class="tableGames">`;
@@ -188,7 +188,7 @@ function generateHtmlGamesList(replays, players=null, player=null)
 			continue;
 		}
 		html += `<tr class="${replay.win ? "win" : "lose"}">`;
-		html += generateHtmlGameRow(replay, players, player);
+		html += generateHtmlGameRow(replay, homePath, players, player);
 		html += `</tr>`;
 		index++;
 	}

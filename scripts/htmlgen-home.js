@@ -87,7 +87,7 @@ function generateHtmlBossTopStat(replaysDescending, players, boss, statFunction)
 			const valueString = numberSeparateThousands(Math.round(s.value), " ");
 			html += `<td>`;
 			html += `<div class="topPlayer">`;
-			html += `<div class="topPlayerName">${s.player}</div>`;
+			html += `<div class="topPlayerName"><a href="player?name=${encodeURIComponent(s.player)}">${s.player}</a></div>`;
 			html += `<div class="topPlayerImage"><img src="${iconPath}"/></div>`;
 			html += `<div class="topPlayerValue"><a href="game?id=${s.replayId}">${valueString}</a></div>`;
 			html += `</div>`; // topPlayer
@@ -350,7 +350,7 @@ function generateHtml(replays, players)
 	html += `<div class="tabContent tc2">`;
 	html += `<div class="thinWrapper">`;
 	html += `<h1>Uploaded Games</h1>`;
-	html += generateHtmlGamesList(replaysDescending);
+	html += generateHtmlGamesList(replaysDescending, ".");
 	html += `</div>`; // thinWrapper
 	html += `</div>`; // tab
 

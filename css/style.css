@@ -44,7 +44,7 @@ h4
 	margin-bottom: 4pt;
 }
 
-.temp
+.temp, .textDark
 {
 	color: #AAAAAA;
 }
@@ -197,8 +197,8 @@ th.alignCenter, td.alignCenter
 	opacity: 60%;
 }
 
-table.tableFastestKills > tbody > tr,
-table.tablePlayers > tbody > tr,
+.tableFastestKills > tbody > tr,
+.tablePlayers > tbody > tr,
 
 .tableGames > tbody > tr
 {
@@ -211,13 +211,21 @@ table.tablePlayers > tbody > tr,
 .tableGames > tbody > tr > td > img
 {
 	height: 26pt;
-	margin: 0;
-	padding: 0;
 }
 
-table.tableStats > * > th, td
+.tableStats > * > th, td
 {
 	width: 60pt;
+}
+
+.tablePlayerProgress > tbody > tr > td
+{
+	font-size: 18pt;
+}
+
+.tablePlayerClasses > tbody > tr > td > img
+{
+	height: 42pt;
 }
 
 .rowLighter
