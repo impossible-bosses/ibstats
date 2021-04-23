@@ -51,6 +51,21 @@ function registerCollapsibles()
 	}
 }
 
+function scrollToBossFromHash()
+{
+	let hash = window.location.hash;
+	if (hash && hash.length > 0) {
+		hash = hash.substring(1);
+	}
+
+	for (b in BOSS) {
+		if (hash == BOSS[b]) {
+			document.getElementById(hash).scrollIntoView();
+			break;
+		}
+	}
+}
+
 function numberSeparateThousands(x, sep)
 {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, sep);
@@ -91,7 +106,7 @@ function secondsToTimestamp(seconds)
 function generateHtmlBossFrame(boss, left, titleRight, innerHtml, imagePath)
 {
 	let html = "";
-	html += `<div class="bossBackground" style="background-color: ${BOSS_COLORS[boss]}60;">`;
+	html += `<div id="${boss}" class="bossBackground" style="background-color: ${BOSS_COLORS[boss]}60;">`;
 	html += `<img class="${left ? "left" : "right"}" src="${imagePath}/images/etch-${boss}.png"/>`;
 	html += `<div class="thinWrapper">`;
 	html += `<div class="bossTitle">`;

@@ -33,7 +33,7 @@ function generateHtmlBossTopStat(replaysDescending, players, boss, statFunction,
 				html += `<div class="topEntryPlayerName"><a href="player?name=${encodeURIComponent(s.player)}">${s.player}</a></div>`;
 				html += `<div class="topEntryPlayerImage"><img src="${iconPath}"/></div>`;
 			}
-			html += `<div class="topEntryValue"><a href="game?id=${s.replayId}">${valueString}</a></div>`;
+			html += `<div class="topEntryValue"><a href="game?id=${s.replayId}#${boss}">${valueString}</a></div>`;
 			html += `</div>`; // topEntry
 			html += `</td>`;
 		}
@@ -91,16 +91,16 @@ function generateHtmlPlayerInsideTr(replays, players, player, games)
 	return html;
 }
 
-function generateHtml(replays, players)
+function generateHtml(replays, players, activeTab)
 {
 	let html = ``;
 	html += `<h1>Impossible Bosses</h1>`;
 	html += `<div class="thinWrapper">`;
 
 	html += `<div class="tabSection">`;
-	html += `<div class="tabSelector ts0 active">Leaderboards</div>`;
-	html += `<div class="tabSelector ts1">Players</div>`;
-	html += `<div class="tabSelector ts2">Uploaded Games</div>`;
+	html += `<a href="#leaderboards"><div class="tabSelector ts0 ${activeTab == 0 ? "active" : ""}">Leaderboards</div></a>`;
+	html += `<a href="#players"><div class="tabSelector ts1 ${activeTab == 1 ? "active" : ""}">Players</div></a>`;
+	html += `<a href="#games"><div class="tabSelector ts2 ${activeTab == 2 ? "active" : ""}">Uploaded Games</div></a>`;
 	html += `</div>`; // tabSection
 
 	html += `<hr class="big">`;
@@ -113,7 +113,7 @@ function generateHtml(replays, players)
 	const replaysDescending = toReplayListDescending(replays);
 
 	// Leaderboards section
-	html += `<div class="tabContent tc0 active">`;
+	html += `<div class="tabContent tc0 ${activeTab == 0 ? "active" : ""}">`;
 	html += `<div class="thinWrapper">`;
 	html += `<h1>Leaderboards</h1>`;
 
@@ -189,7 +189,7 @@ function generateHtml(replays, players)
 	html += `</div>`; // tab
 
 	// Players section
-	html += `<div class="tabContent tc1">`;
+	html += `<div class="tabContent tc1 ${activeTab == 1 ? "active" : ""}">`;
 	html += `<div class="thinWrapper">`;
 	html += `<h1>Players</h1>`
 
@@ -224,7 +224,7 @@ function generateHtml(replays, players)
 	html += `</div>`; // tab
 
 	// Games section
-	html += `<div class="tabContent tc2">`;
+	html += `<div class="tabContent tc2 ${activeTab == 2 ? "active" : ""}">`;
 	html += `<div class="thinWrapper">`;
 	html += `<h1>Uploaded Games</h1>`;
 	html += generateHtmlGamesList(replaysDescending, ".");
@@ -238,10 +238,20 @@ function generateHtml(replays, players)
 
 function generateHtmlFromGlobals()
 {
-	let html = generateHtml(replays_, players_);
+	const hash = window.location.hash;
+	let activeTab = 0;
+	if (hash == "#players") {
+		activeTab = 1;
+	}
+	else if (hash == "#games") {
+		activeTab = 2;
+	}
+
+	const html = generateHtml(replays_, players_, activeTab);
 	document.getElementById("everything").innerHTML = html;
 	registerTabs();
 	registerCollapsibles();
+	scrollToBossFromHash();
 }
 
 $(document).ready(function() {

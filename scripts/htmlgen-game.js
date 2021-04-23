@@ -60,7 +60,7 @@ function generateHtmlRankedStat(replaysDescending, players, replay, playerIndex,
 	let html = "";
 	html += `<div class="${statClass}">`;
 	if (rank != null) {
-		// html += `<a href="..#">`; // TODO link directly to boss leaderboard
+		html += `<a href="../#${boss}">`;
 	}
 	html += `${formatValueFunction(value)}`
 	if (rank != null) {
@@ -76,7 +76,7 @@ function generateHtmlRankedStat(replaysDescending, players, replay, playerIndex,
 		else if (rank < 10) {
 			html += `*`;
 		}
-		// html += `</a>`; // TODO link direct...
+		html += `</a>`;
 	}
 	html += `<div class="tooltip">`;
 	if (rank != null) {
@@ -279,7 +279,7 @@ function generateHtmlFromGlobals()
 {
 	let html = generateHtml(replays_, players_, replayId_);
 	document.getElementById("everything").innerHTML = html;
-	registerCollapsibles();
+	scrollToBossFromHash();
 }
 
 $(document).ready(function() {
