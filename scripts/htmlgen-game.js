@@ -64,7 +64,10 @@ function generateHtmlRankedStat(replaysDescending, players, replay, playerIndex,
 	}
 	html += `${formatValueFunction(value)}`
 	if (rank != null) {
-		if (rank < 3) {
+		if (rank == 0) {
+			html += ` &#9733;`;
+		}
+		else if (rank < 3) {
 			html += `***`;
 		}
 		else if (rank < 5) {
