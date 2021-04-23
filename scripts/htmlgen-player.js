@@ -138,6 +138,76 @@ function generateHtmlPlayerAchievements(playerSortedReplays, players, player)
 	return html;
 }
 
+function generateHtmlPlayerLeaderboard(replays, players, player)
+{
+	// TODO too spammy...
+	const TOP_N = 3;
+	const replaysDescending = toReplayListDescending(replays);
+
+	let html = "";
+	html += `<h2>Leaderboard Presence</h2>`;
+
+	let rows = [];
+	for (let bInd = 0; bInd < BOSSES_SORTED.length; bInd++) {
+		const boss = BOSSES_SORTED[bInd];
+		const topDifficultyKillTimes = getTopDifficultyStats(replaysDescending, null, boss, statFunctionKillTime, false);
+		const topStatsData = [
+			{
+				data: getTopDifficultyStats(replaysDescending, players, boss, statFunctionDps, true),
+				name: "DPS"
+			},
+			{
+				data: getTopDifficultyStats(replaysDescending, players, boss, statFunctionHps, true),
+				name: "HPS"
+			},
+			{
+				data: getTopDifficultyStats(replaysDescending, players, boss, statFunctionDegen, true),
+				name: "degen"
+			},
+			{
+				data: getTopDifficultyStats(replaysDescending, players, boss, statFunctionDeaths, true),
+				name: "deaths"
+			},
+		];
+		for (let sInd = 0; sInd < topStatsData.length; sInd++) {
+			const topStatData = topStatsData[sInd];
+			for (let dInd = 0; dInd < DIFFICULTIES_SORTED.length; dInd++) {
+				const d = DIFFICULTIES_SORTED[DIFFICULTIES_SORTED.length - 1 - dInd];
+				for (let i = 0; i < TOP_N; i++) {
+					if (i < topStatData.data[d].length) {
+						const s = topStatData.data[d][i];
+						if (s.player == player) {
+							rows.push({
+								rank: i,
+								statName: topStatData.name,
+								boss: boss,
+								difficulty: d
+							});
+						}
+					}
+				}
+			}
+		}
+	}
+
+	rows.sort(function(r1, r2) {
+		if (r1.rank == r2.rank) {
+			if (r1.boss == r2.boss) {
+				return DIFFICULTIES_SORTED.indexOf(r1.difficulty) - DIFFICULTIES_SORTED.indexOf(r2.difficulty);
+			}
+			return BOSSES_SORTED.indexOf(r1.boss) - BOSSES_SORTED.indexOf(r2.boss);
+		}
+		return r1.rank - r2.rank;
+	});
+
+	for (let i = 0; i < rows.length; i++) {
+		const r = rows[i];
+		html += `<p><b>#${r.rank + 1}</b> ${r.statName} for "${getBossLongName(r.boss)}" on ${r.difficulty} difficulty`;
+	}
+
+	return html;
+}
+
 function generateHtml(replays, players, player)
 {
 	const sortedReplays = getPlayerSortedReplays(replays, players, player);
@@ -156,6 +226,7 @@ function generateHtml(replays, players, player)
 	html += generateHtmlPlayerProgress(sortedReplays, players, player);
 	html += generateHtmlPlayerClasses(sortedReplays, players, player);
 	html += generateHtmlPlayerAchievements(sortedReplays, players, player);
+	//html += generateHtmlPlayerLeaderboard(replays, players, player);
 
 	html += `<h2>Games</h2>`;
 
