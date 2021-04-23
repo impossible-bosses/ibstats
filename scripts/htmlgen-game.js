@@ -80,7 +80,7 @@ function generateHtmlRankedStat(replaysDescending, players, replay, playerIndex,
 	}
 	html += `<div class="tooltip">`;
 	if (rank != null) {
-		html += `Rank ${rank + 1} out of ${total} total ${statName} rankings on ${replay.difficulty} difficulty`;
+		html += `<b>Rank ${rank + 1}</b> out of ${total} ${statName} rankings on ${replay.difficulty} difficulty`;
 	}
 	else {
 		html += `Error, ranking unavailable. Plz tell Patio that something went wrong :(`;
