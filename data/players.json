@@ -1,6 +1,7 @@
 [
     {
         "name": "Patio",
+        "discord": "patio111#9416",
         "aliases": [
             "patio_111",
             "Patio#1980"
@@ -8,6 +9,7 @@
     },
     {
         "name": "BlackBluster",
+        "discord": "sebasestrelopez#2878",
         "aliases": [
             "chibakutensei",
             "BlackBluster#1799"
@@ -15,6 +17,7 @@
     },
     {
         "name": "Balthazar",
+        "discord": "Typical_methods#7470",
         "aliases": [
             "typical_methods",
             "Balthazar#1541"
@@ -22,6 +25,7 @@
     },
     {
         "name": "Quistis",
+        "discord": "Quistis#7007",
         "aliases": [
             "Quistisx",
             "NijiNoUma#2286"
@@ -29,6 +33,7 @@
     },
     {
         "name": "Dov",
+        "discord": "Dov/Warlock/Mebo#8292",
         "aliases": [
             "Warlock",
             "Mebo#31353"
@@ -36,24 +41,30 @@
     },
     {
         "name": "Zaisev",
+        "discord": "Zaisev#2251",
         "aliases": [
+            "DeathKnight",
             "Psychedelic#31736"
         ]
     },
     {
         "name": "ice-follower",
+        "discord": "ice-follower#2718",
         "aliases": [
-            "IceIceFollower"
+            "IceIceFollower",
+            "ssb817#31439"
         ]
     },
     {
         "name": "Noway",
+        "discord": "Noway#8523",
         "aliases": [
             "Nowayouthere"
         ]
     },
     {
         "name": "Archi",
+        "discord": "Archimonde666#2726",
         "aliases": [
             "Archi#2763",
             "Archimonde666"
@@ -61,20 +72,49 @@
     },
     {
         "name": "Sartaglo",
+        "discord": "Sartaglo#7486",
         "aliases": [
             "Sartaglo#11296"
         ]
     },
     {
         "name": "CaptainPanic",
+        "discord": null,
         "aliases": [
             "CaptainPanic#1602"
         ]
     },
     {
         "name": "Shanderne",
+        "discord": "Shanderne#1809",
         "aliases": [
             "Shanderne#1323"
+        ]
+    },
+    {
+        "name": "DN_Ryu",
+        "discord": "chocobear#8276",
+        "aliases": [
+            "chocobear#21639"
+        ]
+    },
+    {
+        "name": "bbakbbak2",
+        "discord": "zinger#3893",
+        "aliases": [
+            "zinger#31708"
+        ]
+    },
+    {
+        "name": "Setaria",
+        "discord": "Alkaid#7057",
+        "aliases": [
+        ]
+    },
+    {
+        "name": "IMBO",
+        "discord": "KM#6232",
+        "aliases": [
         ]
     }
 ]
