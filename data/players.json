@@ -108,13 +108,39 @@
     {
         "name": "Setaria",
         "discord": "Alkaid#7057",
-        "aliases": [
-        ]
+        "aliases": []
     },
     {
         "name": "IMBO",
         "discord": "KM#6232",
+        "aliases": []
+    },
+    {
+        "name": "Slickyism",
+        "discord": "Slickyism#3725",
         "aliases": [
+            "SlickyismTV#1233"
+        ]
+    },
+    {
+        "name": "Vunjo",
+        "discord": "Vunjo#6315",
+        "aliases": [
+            "Vunjo#2946"
+        ]
+    }
+    {
+        "name": "Heart of Brightness",
+        "discord": "Heart of Brightness#7185",
+        "aliases": [
+            "degaf#11957"
+        ]
+    }
+    {
+        "name": "Sproket",
+        "discord": "Vibin#5003",
+        "aliases": [
+            "Sproket#1680"
         ]
     }
 ]
