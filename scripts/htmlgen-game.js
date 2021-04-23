@@ -253,7 +253,6 @@ function generateHtml(replays, players, replayId)
 
 	html += `<div class="thinWrapper">`;
 	html += `<p class="temp"><b>NOTE:</b> At the moment, boss kill times are calculated slightly differently from the timer displayed in game, so you might see some discrepancies. This will obviously affect DPS/HPS calculations as well. The difference shouldn't be more than 2-3 seconds, though.</p>`;
-	html += `<p class="temp">TODO: will soon add rankings next to most boss stats here (e.g. what rank # was the kill time for each boss, in this specific match vs. matches of the same difficulty)</p>`;
 	html += `</div>`; // thinWrapper
 
 	html += `<br><br><br>`;
