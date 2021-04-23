@@ -41,7 +41,6 @@ function generateHtmlBossTopStat(replaysDescending, players, boss, statFunction,
 	}
 	html += `</tbody>`;
 	html += `</table>`;
-	html += `<p class="temp">TODO: button to expand list, maybe to 10 rows...</p>`;
 	return html;
 }
 
