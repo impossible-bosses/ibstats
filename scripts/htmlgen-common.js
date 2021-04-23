@@ -1,3 +1,5 @@
+const NOTE_KILL_TIME = "<b>NOTE:</b> At the moment, boss kill times are calculated slightly differently from the timer displayed in game, so you might see some discrepancies. This will obviously affect DPS/HPS calculations as well. The difference shouldn't be more than 2-3 seconds, though, EXCEPT if you pause the game - pauses currently count as part of your kill time. This will all be fixed in a future version.";
+
 function registerTabs()
 {
 	const MAX_TABS = 16;
