@@ -89,43 +89,6 @@ const WC3_VERSION = {
 	V1_32: 132
 };
 
-function numberSeparateThousands(x, sep)
-{
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, sep);
-}
-
-function intToStringMaybeNull(i)
-{
-	if (i == null) {
-		return "n/a";
-	}
-	else {
-		return i.toString();
-	}
-}
-
-function floatToStringMaybeNull(f)
-{
-	if (f == null) {
-		return "n/a";
-	}
-	else {
-		return numberSeparateThousands(Math.round(f), " ");
-	}
-}
-
-function secondsToTimestamp(seconds)
-{
-	const m = Math.floor(seconds / 60);
-	const s = seconds % 60;
-	let str = m.toString() + ":";
-	if (s < 10) {
-		str += "0";
-	}
-	str += s.toString();
-	return str;
-}
-
 function stringToEnum(str, enumObject)
 {
 	for (k in enumObject) {
@@ -657,4 +620,18 @@ if (typeof window === 'undefined') {
 		parseWc3StatsReplayData: parseWc3StatsReplayData,
 		isValidReplay: isValidReplay
 	};
+}
+
+function toReplayListDescending(replays)
+{
+	let replaysDescending = [];
+	for (const id in replays) {
+		if (replays[id] != null) {
+			replaysDescending.push(replays[id]);
+		}
+	}
+	replaysDescending.sort(function(r1, r2) {
+		return r2.playedOn - r1.playedOn;
+	});
+	return replaysDescending;
 }

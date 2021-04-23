@@ -274,6 +274,47 @@ th.alignCenter, td.alignCenter
 	float: right;
 }
 
+.rankKillTime, .rankStatInTable
+{
+	position: relative;
+	display: inline;
+	text-decoration: underline;
+}
+.rankKillTime > .tooltip, .rankStatInTable > .tooltip
+{
+	visibility: hidden;
+	position: absolute;
+	right: 0;
+	z-index: 1;
+	font-size: 12pt;
+
+	width: auto;
+	white-space: nowrap;
+
+	background-color: #00000060;
+	border-radius: 4pt;
+	padding: 4pt 2pt;
+}
+.rankKillTime:hover > .tooltip, .rankStatInTable:hover > .tooltip
+{
+	visibility: visible;
+}
+
+.rankKillTime > .tooltip
+{
+	top: -24pt;
+	text-align: right;
+}
+.rankKillTime:hover
+{
+}
+
+.rankStatInTable > .tooltip
+{
+	top: 18pt;
+	text-align: right;
+}
+
 /* BOSS LEADERBOARD -------------------------------------------------------- */
 .tableFastestKills > * > tr
 {
@@ -298,31 +339,31 @@ th.alignCenter, td.alignCenter
 	font-size: inherit;
 }
 
-.topPlayer
+.topEntry
 {
 	overflow: hidden;
 }
-.topPlayerImage
-{
-	float: left;
-	width: 32pt;
-	margin-left: 8pt;
-}
-.topPlayerImage > img
-{
-	width: 100%;
-}
-.topPlayerValue
-{
-	float: right;
-	margin-top: 2pt;
-}
-.topPlayerName
+.topEntryPlayerName
 {
 	margin-left: 8pt;
 	font-size: 12pt;
 	text-align: left;
 	font-style: italic;
+}
+.topEntryPlayerImage
+{
+	float: left;
+	width: 32pt;
+	margin-left: 8pt;
+}
+.topEntryPlayerImage > img
+{
+	width: 100%;
+}
+.topEntryValue
+{
+	float: right;
+	margin-top: 2pt;
 }
 
 

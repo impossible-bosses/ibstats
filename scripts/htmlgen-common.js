@@ -51,6 +51,43 @@ function registerCollapsibles()
 	}
 }
 
+function numberSeparateThousands(x, sep)
+{
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, sep);
+}
+
+function intToStringMaybeNull(i)
+{
+	if (i == null) {
+		return "n/a";
+	}
+	else {
+		return i.toString();
+	}
+}
+
+function floatToStringMaybeNull(f)
+{
+	if (f == null) {
+		return "n/a";
+	}
+	else {
+		return numberSeparateThousands(Math.round(f), " ");
+	}
+}
+
+function secondsToTimestamp(seconds)
+{
+	const m = Math.floor(seconds / 60);
+	const s = seconds % 60;
+	let str = m.toString() + ":";
+	if (s < 10) {
+		str += "0";
+	}
+	str += s.toString();
+	return str;
+}
+
 function generateHtmlBossFrame(boss, left, titleRight, innerHtml, imagePath)
 {
 	let html = "";

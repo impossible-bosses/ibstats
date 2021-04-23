@@ -3,67 +3,9 @@ let players_ = null;
 
 const TOP_N = 3;
 
-function statFunctionDps(replay, playerIndex, boss)
+function generateHtmlBossTopStat(replaysDescending, players, boss, statFunction, formatValueFunction, descending=true)
 {
-	const killTime = replayGetBossKillTime(replay, boss);
-	if (killTime == null) {
-		return null;
-	}
-	return replay.players[playerIndex].statsBoss[boss].dmg / killTime;
-}
-
-function statFunctionHps(replay, playerIndex, boss)
-{
-	const killTime = replayGetBossKillTime(replay, boss);
-	if (killTime == null) {
-		return null;
-	}
-	return replay.players[playerIndex].statsBoss[boss].hl / killTime;
-}
-
-function statFunctionDegen(replay, playerIndex, boss)
-{
-	return replay.players[playerIndex].statsBoss[boss].degen;
-}
-
-function generateHtmlBossTopStat(replaysDescending, players, boss, statFunction)
-{
-	let difficultyStats = {};
-	for (const d in DIFFICULTY) {
-		difficultyStats[DIFFICULTY[d]] = [];
-	}
-
-	for (let i = 0; i < replaysDescending.length; i++) {
-		const replay = replaysDescending[i];
-		if (replay.bossKills == null) {
-			continue;
-		}
-		if (!isBossInDifficulty(boss, replay.difficulty)) {
-			continue;
-		}
-		for (let j = 0; j < replay.players.length; j++) {
-			const playerData = replay.players[j];
-			const value = statFunction(replay, j, boss);
-			if (value != null) {
-				difficultyStats[replay.difficulty].push({
-					replayId: replay.id,
-					playedOn: replay.playedOn,
-					player: getPlayerFromAlias(players, playerData.name),
-					class: playerData.class,
-					value: value
-				});
-			}
-		}
-	}
-
-	for (const d in DIFFICULTY) {
-		difficultyStats[DIFFICULTY[d]].sort(function(s1, s2) {
-			if (s1.value == s2.value) {
-				return s1.playedOn - s2.playedOn;
-			}
-			return s2.value - s1.value;
-		});
-	}
+	const difficultyStats = getTopDifficultyStats(replaysDescending, players, boss, statFunction, descending);
 
 	let html = "";
 	html += `<table class="tableTopStat">`;
@@ -83,14 +25,16 @@ function generateHtmlBossTopStat(replaysDescending, players, boss, statFunction)
 				continue;
 			}
 			const s = difficultyStats[d][i];
-			const iconPath = classToIconPath(s.class, ".");
-			const valueString = numberSeparateThousands(Math.round(s.value), " ");
+			const valueString = formatValueFunction(s.value);
 			html += `<td>`;
-			html += `<div class="topPlayer">`;
-			html += `<div class="topPlayerName"><a href="player?name=${encodeURIComponent(s.player)}">${s.player}</a></div>`;
-			html += `<div class="topPlayerImage"><img src="${iconPath}"/></div>`;
-			html += `<div class="topPlayerValue"><a href="game?id=${s.replayId}">${valueString}</a></div>`;
-			html += `</div>`; // topPlayer
+			html += `<div class="topEntry">`;
+			if ("player" in s && "class" in s) {
+				const iconPath = classToIconPath(s.class, ".");
+				html += `<div class="topEntryPlayerName"><a href="player?name=${encodeURIComponent(s.player)}">${s.player}</a></div>`;
+				html += `<div class="topEntryPlayerImage"><img src="${iconPath}"/></div>`;
+			}
+			html += `<div class="topEntryValue"><a href="game?id=${s.replayId}">${valueString}</a></div>`;
+			html += `</div>`; // topEntry
 			html += `</td>`;
 		}
 		html += `</tr>`;
@@ -103,81 +47,18 @@ function generateHtmlBossTopStat(replaysDescending, players, boss, statFunction)
 
 function generateHtmlBoss(replaysDescending, players, boss)
 {
-	let difficultyReplays = {};
-	for (const d in DIFFICULTY) {
-		difficultyReplays[DIFFICULTY[d]] = [];
-	}
-	for (let i = 0; i < replaysDescending.length; i++) {
-		const replay = replaysDescending[i];
-		if (replay.bossKills == null) {
-			continue;
-		}
-		if (!isBossInDifficulty(boss, replay.difficulty)) {
-			continue;
-		}
-		difficultyReplays[replay.difficulty].push(replay);
-	}
-
-	for (const d in DIFFICULTY) {
-		difficultyReplays[DIFFICULTY[d]].sort(function(r1, r2) {
-			const t1 = replayGetBossKillTime(r1, boss);
-			const t2 = replayGetBossKillTime(r2, boss);
-			if (t1 == null && t2 == null) {
-				return 0;
-			}
-			else if (t1 == null) {
-				return 1;
-			}
-			else if (t2 == null) {
-				return -1;
-			}
-			if (t1 == t2) {
-				return r1.playedOn - r2.playedOn;
-			}
-			return t1 - t2;
-		});
-	}
-
 	let html = "";
 
 	html += `<h3>Fastest Kills</h3>`;
-	html += `<table class="tableTopStat tableFastestKills">`;
-	html += `<thead><tr><th class="columnRank"></th>`;
-	for (let i = 0; i < DIFFICULTIES_SORTED.length; i++) {
-		html += `<th>${DIFFICULTIES_SORTED[i]}</th>`;
-	}
-	html += `</tr></thead>`;
-	html += `<tbody>`;
-	for (let i = 0; i < TOP_N; i++) {
-		html += `<tr class="${i % 2 == 1 ? "rowLighter" : ""}">`;
-		html += `<td class="columnRank">#${i + 1}</td>`;
-		for (let j = 0; j < DIFFICULTIES_SORTED.length; j++) {
-			const d = DIFFICULTIES_SORTED[j];
-			if (i >= difficultyReplays[d].length) {
-				html += `<td>-</td>`;
-				continue;
-			}
-			const replay = difficultyReplays[d][i];
-			const time = replayGetBossKillTime(replay, boss);
-			if (time == null) {
-				html += `<td>-</td>`;
-			}
-			else {
-				html += `<td><a href="game?id=${replay.id}">${secondsToTimestamp(time)}</a></td>`;
-			}
-		}
-		html += `</tr>`;
-	}
-	html += `</tbody>`;
-	html += `</table>`;
-	html += `<p class="temp">TODO: button to expand list, maybe to 10 rows...</p>`;
-
+	html += generateHtmlBossTopStat(replaysDescending, null, boss, statFunctionKillTime, secondsToTimestamp, false);
 	html += `<h3>Top DPS</h3>`;
-	html += generateHtmlBossTopStat(replaysDescending, players, boss, statFunctionDps);
+	html += generateHtmlBossTopStat(replaysDescending, players, boss, statFunctionDps, floatToStringMaybeNull);
 	html += `<h3>Top HPS</h3>`;
-	html += generateHtmlBossTopStat(replaysDescending, players, boss, statFunctionHps);
+	html += generateHtmlBossTopStat(replaysDescending, players, boss, statFunctionHps, floatToStringMaybeNull);
 	html += `<h3>Top Degen</h3>`;
-	html += generateHtmlBossTopStat(replaysDescending, players, boss, statFunctionDegen);
+	html += generateHtmlBossTopStat(replaysDescending, players, boss, statFunctionDegen, floatToStringMaybeNull);
+	html += `<h3>Top Deaths</h3>`;
+	html += generateHtmlBossTopStat(replaysDescending, players, boss, statFunctionDeaths, intToStringMaybeNull);
 
 	return html;
 }
@@ -225,19 +106,11 @@ function generateHtml(replays, players)
 	html += `<hr class="big">`;
 
 	html += `<p class="temp">Welcome! This is a work in progress - some things still look janky, and many things are bound to change. If you see anything you don't like, or want to see more of something, or have any other suggestions, just post on Discord or PM Patio. Also, don't try looking at this site on a phone yet, it will be bad :)</p>`;
-	html += `<p class="temp"><b>NOTE:</b> New replays should be reflected on this site within 5 minutes of uploading to wc3stats. The games list is scanned every 5 minutes for new replays and updated accordingly. If you uploaded a game and it's not listed after 5 minutes, just post on Discord or PM Patio.</p>`;
+	html += `<p class="temp"><b>NOTE:</b> New replays should be reflected on this site within 5-10 minutes of uploading to wc3stats. The games list is scanned every 5 minutes for new replays and updated accordingly. If you uploaded a game and it's not listed after ~10 minutes, just post on Discord or PM Patio.</p>`;
 	html += `</div>`; // thinWrapper
 
 	const playerGamesMap = getPlayerGamesMap(replays, players);
-	let replaysDescending = [];
-	for (const id in replays) {
-		if (replays[id] != null) {
-			replaysDescending.push(replays[id]);
-		}
-	}
-	replaysDescending.sort(function(r1, r2) {
-		return r2.playedOn - r1.playedOn;
-	});
+	const replaysDescending = toReplayListDescending(replays);
 
 	// Leaderboards section
 	html += `<div class="tabContent tc0 active">`;

@@ -1,5 +1,6 @@
-let replay_ = null;
+let replays_ = null;
 let players_ = null;
+let replayId_ = null;
 
 function generateHtmlTitle(replay)
 {
@@ -35,10 +36,63 @@ function generateHtmlPlayer(players, playerData)
 	return html;
 }
 
-// Use boss=null for overall stats
-function generateHtmlStatsTable(replay, players, boss)
+function generateHtmlRankedStat(replaysDescending, players, replay, playerIndex, boss, value, statFunction, descending, formatValueFunction, statName, statClass)
 {
+	const topDifficultyStat = getTopDifficultyStats(replaysDescending, players, boss, statFunction, descending);
+	console.log(boss);
+	console.log(statName);
+	console.log(value);
+	console.log(topDifficultyStat);
+	const total = topDifficultyStat[replay.difficulty].length;
+	let player = null;
+	if (players != null) {
+		player = getPlayerFromAlias(players, replay.players[playerIndex].name);
+	}
+	let rank = null;
+	for (let i = 0; i < total; i++) {
+		const s = topDifficultyStat[replay.difficulty][i];
+		if (replay.id == s.replayId && player == s.player) {
+			rank = i;
+			break;
+		}
+	}
+
+	let html = "";
+	html += `<div class="${statClass}">`;
+	if (rank != null) {
+		// html += `<a href="..#">`; // TODO link directly to boss leaderboard
+	}
+	html += `${formatValueFunction(value)}`
+	if (rank != null) {
+		if (rank < 3) {
+			html += `***`;
+		}
+		else if (rank < 5) {
+			html += `**`;
+		}
+		else if (rank < 10) {
+			html += `*`;
+		}
+		// html += `</a>`; // TODO link direct...
+	}
+	html += `<div class="tooltip">`;
+	if (rank != null) {
+		html += `Rank ${rank + 1} out of ${total} total ${statName} rankings for all classes on ${replay.difficulty} difficulty`;
+	}
+	else {
+		html += `Error, ranking unavailable. Plz tell Patio that something went wrong :(`;
+	}
+	html += `</div>`; // tooltip
+	html += `</div>`; // rankDps
+	return html;
+}
+
+// Use boss=null for overall stats
+function generateHtmlStatsTable(replays, replay, players, boss)
+{
+	const replaysDescending = toReplayListDescending(replays);
 	const killTime = replayGetBossKillTime(replay, boss);
+
 	let html = "";
 	html += `<table class="tableStats">`;
 	html += `<tr><th></th><th>Deaths</th><th>Damage</th>${boss != null ? "<th>DPS</th>" : ""}<th>Healing</th>${boss != null ? "<th>HPS</th>" : ""}<th>Healing Received</th><th>Degen</th></tr>`;
@@ -57,32 +111,54 @@ function generateHtmlStatsTable(replay, players, boss)
 		}
 		html += `<tr class="playerRow${rowLighterOrNot}">`;
 		html += generateHtmlPlayer(players, p);
-		html += `<td>${intToStringMaybeNull(pb.deaths)}</td>`;
+		if (boss != null && pb.deaths != null) {
+			html += `<td>`;
+			html += generateHtmlRankedStat(replaysDescending, players, replay, i, boss, pb.deaths, statFunctionDeaths, true, intToStringMaybeNull, "death", "rankStatInTable");
+			html += `</td>`;
+		}
+		else {
+			html += `<td>${intToStringMaybeNull(pb.deaths)}</td>`;
+		}
 		html += `<td>${floatToStringMaybeNull(pb.dmg)}</td>`;
 		if (boss != null) {
-			let dps = null;
+			html += `<td>`;
 			if (killTime != null && pb.dmg != null) {
-				dps = pb.dmg / killTime;
+				const dps = pb.dmg / killTime;
+				html += generateHtmlRankedStat(replaysDescending, players, replay, i, boss, dps, statFunctionDps, true, floatToStringMaybeNull, "DPS", "rankStatInTable");
 			}
-			html += `<td>${floatToStringMaybeNull(dps)}</td>`;
+			else {
+				html += `n/a`;
+			}
+			html += `</td>`;
 		}
 		html += `<td>${floatToStringMaybeNull(pb.hl)}</td>`;
 		if (boss != null) {
-			let hps = null;
-			if (killTime != null && pb.hl != null) {
-				hps = pb.hl / killTime;
+			html += `<td>`;
+			if (killTime != null && pb.dmg != null) {
+				const hps = pb.hl / killTime;
+				html += generateHtmlRankedStat(replaysDescending, players, replay, i, boss, hps, statFunctionHps, true, floatToStringMaybeNull, "HPS", "rankStatInTable");
 			}
-			html += `<td>${floatToStringMaybeNull(hps)}</td>`;
+			else {
+				html += `n/a`;
+			}
+			html += `</td>`;
 		}
 		html += `<td>${floatToStringMaybeNull(pb.hlr)}</td>`;
-		html += `<td>${floatToStringMaybeNull(pb.degen)}</td>`;
+		if (boss != null && pb.degen != null) {
+			html += `<td>`;
+			html += generateHtmlRankedStat(replaysDescending, players, replay, i, boss, pb.degen, statFunctionDegen, true, floatToStringMaybeNull, "degen", "rankStatInTable");
+			html += `</td>`;
+		}
+		else {
+			html += `<td>${floatToStringMaybeNull(pb.degen)}</td>`;
+		}
 		html += `</tr>`;
 	}
 	html += `</table>`;
 	return html;
 }
 
-function generateHtmlOverallStats(replay, players)
+function generateHtmlOverallStats(replays, replay, players)
 {
 	let html = "";
 
@@ -113,12 +189,12 @@ function generateHtmlOverallStats(replay, players)
 	html += `</table>`;
 
 	html += `<h2>Overall Stats</h2>`;
-	html += generateHtmlStatsTable(replay, players, null);
+	html += generateHtmlStatsTable(replays, replay, players, null);
 	html += `</div>`;
 	return html;
 }
 
-function generateHtmlBoss(replay, players, boss, left)
+function generateHtmlBoss(replays, replay, players, boss, left)
 {
 	const bossData = replay.bosses[boss];
 	const numWipes = bossData.wipeTimes.length;
@@ -129,17 +205,20 @@ function generateHtmlBoss(replay, players, boss, left)
 	else if (numWipes > 1) {
 		continuesStr = `${numWipes} wipes | `;
 	}
-	const bossTime = secondsToTimestamp(bossData.killTime - bossData.startTimes[bossData.startTimes.length - 1]);
+	const killTime = bossData.killTime - bossData.startTimes[bossData.startTimes.length - 1];
 
-	let html = "";
-	let titleRight = `${continuesStr}${bossTime}`;
-	let innerHtml = generateHtmlStatsTable(replay, players, boss);
-	html += generateHtmlBossFrame(boss, left, titleRight, innerHtml, "..");
-	return html;
+	const replaysDescending = toReplayListDescending(replays);
+	const titleRight = continuesStr + generateHtmlRankedStat(replaysDescending, null, replay, null, boss, killTime, statFunctionKillTime, false, secondsToTimestamp, "kill time", "rankKillTime");
+
+	const innerHtml = generateHtmlStatsTable(replays, replay, players, boss);
+
+	return generateHtmlBossFrame(boss, left, titleRight, innerHtml, "..");
 }
 
-function generateHtml(replay, players)
+function generateHtml(replays, players, replayId)
 {
+	const replay = replays[replayId];
+
 	let html = "";
 	html += `<p class="backButton"><a href="..">&lt; BACK</a></p>`;
 	html += `<div class="downloadButton">`;
@@ -169,7 +248,7 @@ function generateHtml(replay, players)
 	}
 	html += `<h4>Continues ${contString} (${replay.totalWipes} Used)</h4>`;
 	html += `<br><br><br>`;
-	html += generateHtmlOverallStats(replay, players);
+	html += generateHtmlOverallStats(replays, replay, players);
 	html += `<br><br>`;
 
 	html += `<div class="thinWrapper">`;
@@ -184,7 +263,7 @@ function generateHtml(replay, players)
 		const boss = BOSSES_SORTED[i];
 		const bossData = replay.bosses[boss];
 		if (bossData.killTime != null) {
-			html += generateHtmlBoss(replay, players, boss, left);
+			html += generateHtmlBoss(replays, replay, players, boss, left);
 		}
 		left = !left;
 	}
@@ -196,7 +275,7 @@ function generateHtml(replay, players)
 
 function generateHtmlFromGlobals()
 {
-	let html = generateHtml(replay_, players_);
+	let html = generateHtml(replays_, players_, replayId_);
 	document.getElementById("everything").innerHTML = html;
 	registerCollapsibles();
 }
@@ -210,10 +289,11 @@ $(document).ready(function() {
 
 	const replayIdString = urlParams.get("id");
 	const replayId = parseInt(replayIdString);
+	replayId_ = replayId;
 
 	$.get("../data/replays.json", function(data) {
-		if (replayId in data) {
-			replay_ = data[replayId];
+		replays_ = data;
+		if (replayId in replays_) {
 			if (players_ != null) {
 				generateHtmlFromGlobals();
 			}
@@ -223,9 +303,9 @@ $(document).ready(function() {
 			const wc3statsReplayUrl = "https://api.wc3stats.com/replays/" + replayId.toString();
 			$.get(wc3statsReplayUrl, function(data) {
 				console.log(data);
-				let replay = parseWc3StatsReplayData(data);
+				const replay = parseWc3StatsReplayData(data);
 				console.log(replay);
-				replay_ = replay;
+				replays_[replayId] = replay;
 				if (players_ != null) {
 					generateHtmlFromGlobals();
 				}
@@ -235,7 +315,7 @@ $(document).ready(function() {
 
 	$.get("../data/players.json", function(data) {
 		players_ = data;
-		if (replay_ != null) {
+		if (replays_ != null) {
 			generateHtmlFromGlobals();
 		}
 	});
