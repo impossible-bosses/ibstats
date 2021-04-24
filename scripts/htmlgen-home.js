@@ -9,11 +9,6 @@ function generateHtmlBossTopStat(replaysDescending, players, boss, statFunction,
 
 	let html = "";
 	html += `<table class="tableTopStat">`;
-	html += `<thead><tr><th class="columnRank"></th>`;
-	for (let i = 0; i < DIFFICULTIES_SORTED.length; i++) {
-		html += `<th>${DIFFICULTIES_SORTED[i]}</th>`;
-	}
-	html += `</tr></thead>`;
 	html += `<tbody>`;
 	for (let i = 0; i < TOP_N; i++) {
 		html += `<tr class="${i % 2 == 1 ? "rowLighter" : ""}">`;
@@ -46,18 +41,59 @@ function generateHtmlBossTopStat(replaysDescending, players, boss, statFunction,
 
 function generateHtmlBoss(replaysDescending, players, boss)
 {
+	const stats = [
+		{
+			label: "Fastest Kills",
+			statFunction: statFunctionKillTime,
+			formatValueFunction: secondsToTimestamp,
+			descending: false,
+			playerStat: false
+		},
+		{
+			label: "Top DPS",
+			statFunction: statFunctionDps,
+			formatValueFunction: floatToStringMaybeNull,
+			descending: true,
+			playerStat: true
+		},
+		{
+			label: "Top HPS",
+			statFunction: statFunctionHps,
+			formatValueFunction: floatToStringMaybeNull,
+			descending: true,
+			playerStat: true
+		},
+		{
+			label: "Top Degen",
+			statFunction: statFunctionDegen,
+			formatValueFunction: floatToStringMaybeNull,
+			descending: true,
+			playerStat: true
+		},
+		{
+			label: "Most Deaths",
+			statFunction: statFunctionDeaths,
+			formatValueFunction: intToStringMaybeNull,
+			descending: true,
+			playerStat: true
+		},
+	];
+
 	let html = "";
 
-	html += `<h3>Fastest Kills</h3>`;
-	html += generateHtmlBossTopStat(replaysDescending, null, boss, statFunctionKillTime, secondsToTimestamp, false);
-	html += `<h3>Top DPS</h3>`;
-	html += generateHtmlBossTopStat(replaysDescending, players, boss, statFunctionDps, floatToStringMaybeNull);
-	html += `<h3>Top HPS</h3>`;
-	html += generateHtmlBossTopStat(replaysDescending, players, boss, statFunctionHps, floatToStringMaybeNull);
-	html += `<h3>Top Degen</h3>`;
-	html += generateHtmlBossTopStat(replaysDescending, players, boss, statFunctionDegen, floatToStringMaybeNull);
-	html += `<h3>Top Deaths</h3>`;
-	html += generateHtmlBossTopStat(replaysDescending, players, boss, statFunctionDeaths, intToStringMaybeNull);
+	html += `<table class="tableTopStat">`;
+	html += `<thead><tr><th class="columnRank"></th>`;
+	for (let i = 0; i < DIFFICULTIES_SORTED.length; i++) {
+		html += `<th>${DIFFICULTIES_SORTED[i]}</th>`;
+	}
+	html += `</tr></thead>`;
+	html += `</table>`;
+
+	for (let i = 0; i < stats.length; i++) {
+		const s = stats[i];
+		html += `<div><h3>${s.label}</h3><!--<hr class="small">--></div>`;
+		html += generateHtmlBossTopStat(replaysDescending, s.playerStat ? players : null, boss, s.statFunction, s.formatValueFunction, s.descending);
+	}
 
 	return html;
 }

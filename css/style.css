@@ -32,6 +32,8 @@ h3
 	font-size: 18pt;
 	font-weight: normal;
 	font-style: normal;
+	margin-top: 16pt;
+	margin-bottom: 4pt;
 }
 h4
 {
@@ -86,6 +88,12 @@ hr.big
 {
 	margin-top: 24pt;
 	margin-bottom: 48pt;
+}
+hr.small
+{
+	border-top: 1px dotted #ffffff;
+	height: 0;
+	width: 50%;
 }
 
 table
