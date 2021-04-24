@@ -149,6 +149,50 @@ th.alignCenter, td.alignCenter
 	display: inherit;
 }
 
+.search
+{
+	/*position: relative; /* for anchoring #searchResults */
+	float: right;
+}
+.search > input
+{
+	width: 200pt;
+	height: 18pt;
+	margin: 0;
+	border: 0;
+	padding: 4pt;
+	border-radius: 4pt;
+	background-color: #ffffff30;
+	text-align: right;
+	font-size: inherit;
+	color: inherit;
+}
+.search > input:focus
+{
+	outline: none;
+}
+
+#searchResults
+{
+	visibility: hidden;
+	position: absolute;
+	right: 25%; /* match .thinWrapper */
+	z-index: 1;
+
+	width: auto;
+	white-space: nowrap;
+
+	background-color: #ffffff30;
+	border-radius: 4pt;
+	padding: 4pt 2pt;
+	margin-top: 4pt;
+}
+#searchResults > .searchResult
+{
+	text-align: right;
+	padding: 2pt 4pt;
+}
+
 /* COLLAPSIBLES ------------------------------------------------------------ */
 .collapsible
 {

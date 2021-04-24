@@ -1,3 +1,56 @@
+function getPlayerAliasMap(players)
+{
+	let playerAliasMap = {};
+	for (let i = 0; i < players.length; i++) {
+		const playerName = players[i].name;
+		for (let j = 0; j < players[i].aliases.length; j++) {
+			const alias = players[i].aliases[j];
+			if (alias in playerAliasMap) {
+				throw `Duplicate player alias ${alias} for in player ${playerName}`;
+			}
+			playerAliasMap[alias] = playerName
+		}
+	}
+
+	return playerAliasMap;
+}
+
+function getFullPlayerAliasList(replays, players)
+{
+	const playerAliasMap = getPlayerAliasMap(players);
+	let fullPlayerAliasMap = {};
+
+	for (const id in replays) {
+		const replay = replays[id];
+		if (replay == null) {
+			continue;
+		}
+
+		for (let i = 0; i < replay.players.length; i++) {
+			const playerAlias = replay.players[i].name;
+			let playerName = playerAlias;
+			if (playerAlias in playerAliasMap) {
+				playerName = playerAliasMap[playerAlias];
+			}
+			if (!(playerAlias in fullPlayerAliasMap)) {
+				fullPlayerAliasMap[playerAlias] = playerName;
+			}
+			else if (fullPlayerAliasMap[playerAlias] != playerName) {
+				console.error(`Player alias "${playerAlias}" associated with 2 different players: ${playerName} and ${fullPlayerAliasMap[playerAlias]}`);
+			}
+		}
+	}
+
+	let fullPlayerAliasList = [];
+	for (const alias in fullPlayerAliasMap) {
+		fullPlayerAliasList.push({
+			alias: alias,
+			player: fullPlayerAliasMap[alias]
+		});
+	}
+	return fullPlayerAliasList;
+}
+
 function getPlayerAliases(players, player)
 {
 	for (let i = 0; i < players.length; i++) {
@@ -39,18 +92,7 @@ function getPlayerFromAlias(players, alias)
 
 function getPlayerGamesMap(replays, players)
 {
-	// Players section
-	let playerAliasMap = {};
-	for (let i = 0; i < players.length; i++) {
-		const playerName = players[i].name;
-		for (let j = 0; j < players[i].aliases.length; j++) {
-			const alias = players[i].aliases[j];
-			if (alias in playerAliasMap) {
-				throw `Duplicate player alias ${alias} for in player ${playerName}`;
-			}
-			playerAliasMap[alias] = playerName
-		}
-	}
+	const playerAliasMap = getPlayerAliasMap(players);
 
 	let playerGamesMap = {};
 	for (const id in replays) {

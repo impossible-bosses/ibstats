@@ -100,6 +100,10 @@ function generateHtml(replays, players, activeTab)
 	html += `<a href="#leaderboards"><div class="tabSelector ts0 ${activeTab == 0 ? "active" : ""}">Leaderboards</div></a>`;
 	html += `<a href="#players"><div class="tabSelector ts1 ${activeTab == 1 ? "active" : ""}">Players</div></a>`;
 	html += `<a href="#games"><div class="tabSelector ts2 ${activeTab == 2 ? "active" : ""}">Uploaded Games</div></a>`;
+	html += `<div class="search">`;
+	html += `<input type="text" id="search" name="search" placeholder="player search">`;
+	html += `<div id="searchResults"><div class="searchResult"><a href="">Patio</a></div><div class="searchResult"><a href="">typical_methods</a></div><div class="searchResult"><a href="">Kiiski</a></div></div>`;
+	html += `</div>`; // search
 	html += `</div>`; // tabSection
 
 	html += `<hr class="big">`;
@@ -251,6 +255,48 @@ function generateHtmlFromGlobals()
 	registerTabs();
 	registerCollapsibles();
 	scrollToBossFromHash();
+
+	const playerAliasList = getFullPlayerAliasList(replays_, players_);
+	for (let i = 0; i < playerAliasList.length; i++) {
+		playerAliasList[i].alias = playerAliasList[i].alias.toLowerCase();
+	}
+
+	const search = document.getElementById("search");
+	search.addEventListener("input", function(e) {
+		const searchText = e.target.value.toLowerCase();
+		const searchResults = document.getElementById("searchResults");
+
+		if (searchText.length == 0) {
+			searchResults.style.visibility = "hidden";
+			return;
+		}
+
+		const playerSet = {};
+		let numPlayers = 0;
+		for (let i = 0; i < playerAliasList.length; i++) {
+			const alias = playerAliasList[i].alias;
+			if (alias.indexOf(searchText) !== -1) {
+				const player = playerAliasList[i].player;
+				if (!(player in playerSet)) {
+					playerSet[player] = null;
+					numPlayers++;
+				}
+			}
+		}
+
+		console.log(playerSet);
+		if (numPlayers == 0) {
+			searchResults.innerHTML = `<div class="searchResult">No matching players</div>`;
+		}
+		else {
+			let resultHtml = "";
+			for (const player in playerSet) {
+				resultHtml += `<div class="searchResult"><a href="player?name=${encodeURIComponent(player)}">${player}</a></div>`;
+			}
+			searchResults.innerHTML = resultHtml;
+		}
+		searchResults.style.visibility = "visible";
+	});
 }
 
 $(document).ready(function() {

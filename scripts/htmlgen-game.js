@@ -226,7 +226,7 @@ function generateHtml(replays, players, replayId)
 	html += `<p class="backButton"><a href="..">&lt; BACK</a></p>`;
 	html += `<div class="downloadButton">`;
 	html += `<a href="https://api.wc3stats.com/replays/${replay.id}/download">`;
-	html += `<img src="../images/download.svg"/>`;
+	html += `<img src="../images/symbol-download.svg"/>`;
 	html += `</a>`;
 	html += `</div>`; // downloadButton
 	html += generateHtmlTitle(replay);
