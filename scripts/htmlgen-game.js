@@ -127,7 +127,7 @@ function generateHtmlStatsTable(replays, replay, players, boss)
 			html += `<td>`;
 			if (killTime != null && pb.dmg != null) {
 				const dps = pb.dmg / killTime;
-				html += generateHtmlRankedStat(replaysDescending, players, replay, i, boss, dps, statFunctionDps, true, floatToStringMaybeNull, "DPS", "rankStatInTable");
+				html += generateHtmlRankedStat(replaysDescending, players, replay, i, boss, dps, statFunctionDps, true, function(f) { return floatToStringMaybeNull(f, 1); }, "DPS", "rankStatInTable");
 			}
 			else {
 				html += `n/a`;

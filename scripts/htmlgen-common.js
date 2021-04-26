@@ -83,13 +83,13 @@ function intToStringMaybeNull(i)
 	}
 }
 
-function floatToStringMaybeNull(f)
+function floatToStringMaybeNull(f, decimals=0)
 {
 	if (f == null) {
 		return "n/a";
 	}
 	else {
-		return numberSeparateThousands(Math.round(f), " ");
+		return numberSeparateThousands(f.toFixed(decimals), " ");
 	}
 }
 

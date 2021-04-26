@@ -52,7 +52,9 @@ function generateHtmlBoss(replaysDescending, players, boss)
 		{
 			label: "Top DPS",
 			statFunction: statFunctionDps,
-			formatValueFunction: floatToStringMaybeNull,
+			formatValueFunction: function(f) {
+				return floatToStringMaybeNull(f, 1);
+			},
 			descending: true,
 			playerStat: true
 		},
