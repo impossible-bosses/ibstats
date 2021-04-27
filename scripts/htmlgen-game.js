@@ -1,6 +1,7 @@
 let replays_ = null;
 let players_ = null;
 let replayId_ = null;
+let inCache_ = true;
 
 function generateHtmlTitle(replay)
 {
@@ -39,10 +40,6 @@ function generateHtmlPlayer(players, playerData)
 function generateHtmlRankedStat(replaysDescending, players, replay, playerIndex, boss, value, statFunction, descending, formatValueFunction, statName, statClass)
 {
 	const topDifficultyStat = getTopDifficultyStats(replaysDescending, players, boss, statFunction, descending);
-	console.log(boss);
-	console.log(statName);
-	console.log(value);
-	console.log(topDifficultyStat);
 	const total = topDifficultyStat[replay.difficulty].length;
 	let player = null;
 	if (players != null) {
@@ -218,7 +215,7 @@ function generateHtmlBoss(replays, replay, players, boss, left)
 	return generateHtmlBossFrame(boss, left, titleRight, innerHtml, "..");
 }
 
-function generateHtml(replays, players, replayId)
+function generateHtml(replays, players, replayId, inCache)
 {
 	const replay = replays[replayId];
 
@@ -233,11 +230,18 @@ function generateHtml(replays, players, replayId)
 
 	html += `<div class="thinWrapper">`;
 	html += `<hr class="big">`;
+	if (!inCache) {
+		html += `<div class="temp">`;
+		html += `<h2>Game not yet processed</h2>`;
+		html += `<p>This game was uploaded to wc3stats but hasn't been processed by this site yet. New rankings, achievements, etc will show correctly here but won't be updated in the home or player pages yet. This should happen automatically in the next 5-ish minutes.</p>`;
+		html += `</div>`; // temp
+		html += `<br><br>`;
+	}
 	if (replay.remakeData) {
 		html += `<div class="temp">`;
 		html += `<h2>Warning: In-game Remake</h2>`;
 		html += `<p>An in-game remake was used in this game. This invalidates data for all bosses that were re-played in the remake. Overall progress and boss kills are still properly recorded, though.</p>`;
-		html += `</div>`;
+		html += `</div>`; // temp
 		html += `<br><br>`;
 	}
 	html += `</div>`; // thinWrapper
@@ -277,7 +281,7 @@ function generateHtml(replays, players, replayId)
 
 function generateHtmlFromGlobals()
 {
-	let html = generateHtml(replays_, players_, replayId_);
+	let html = generateHtml(replays_, players_, replayId_, inCache_);
 	document.getElementById("everything").innerHTML = html;
 	scrollToBossFromHash();
 }
@@ -308,6 +312,7 @@ $(document).ready(function() {
 				const replay = parseWc3StatsReplayData(data);
 				console.log(replay);
 				replays_[replayId] = replay;
+				inCache_ = false;
 				if (players_ != null) {
 					generateHtmlFromGlobals();
 				}
