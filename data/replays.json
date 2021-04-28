@@ -83103,5 +83103,930 @@
         "remakeData": false,
         "incomplete": false
     },
-    "110991": null
+    "110991": {
+        "id": 110991,
+        "name": "ho_rdor82",
+        "wc3Version": 130,
+        "mapVersion": 6,
+        "host": "ent.europe3",
+        "length": 2562,
+        "playedOn": 1619650412,
+        "win": false,
+        "difficulty": "Normal",
+        "continues": true,
+        "players": [
+            {
+                "name": "Ho_rdor",
+                "isHost": true,
+                "slot": 0,
+                "color": 0,
+                "apm": 153,
+                "class": "Rogue",
+                "health": 1,
+                "mana": 0,
+                "ability": 6,
+                "ms": 0,
+                "coins": null,
+                "bossKills": 9,
+                "statsOverall": {
+                    "deaths": 7,
+                    "dmg": 63985.828,
+                    "hl": 0,
+                    "hlr": 34353.871,
+                    "hlrSw": null,
+                    "degen": 2936
+                },
+                "statsBoss": {
+                    "fire": {
+                        "deaths": 1,
+                        "dmg": 4975.599,
+                        "hl": 0,
+                        "hlr": 1504.969,
+                        "hlrSw": null,
+                        "degen": 360
+                    },
+                    "water": {
+                        "deaths": 0,
+                        "dmg": 6300.476,
+                        "hl": 0,
+                        "hlr": 324.519,
+                        "hlrSw": null,
+                        "degen": 404
+                    },
+                    "brute": {
+                        "deaths": 0,
+                        "dmg": 1465.025,
+                        "hl": 0,
+                        "hlr": 300,
+                        "hlrSw": null,
+                        "degen": 180
+                    },
+                    "thunder": {
+                        "deaths": 0,
+                        "dmg": 10093.399,
+                        "hl": 0,
+                        "hlr": 4223.194,
+                        "hlrSw": null,
+                        "degen": 150
+                    },
+                    "druid": {
+                        "deaths": 2,
+                        "dmg": 7592.75,
+                        "hl": 0,
+                        "hlr": 3634.878,
+                        "hlrSw": null,
+                        "degen": 150
+                    },
+                    "shadow": {
+                        "deaths": 0,
+                        "dmg": 7323.946,
+                        "hl": 0,
+                        "hlr": 8543.656,
+                        "hlrSw": null,
+                        "degen": 506
+                    },
+                    "ice": {
+                        "deaths": 2,
+                        "dmg": 9417.921,
+                        "hl": 0,
+                        "hlr": 2635.8,
+                        "hlrSw": null,
+                        "degen": 456
+                    },
+                    "light": {
+                        "deaths": 0,
+                        "dmg": 8691.738,
+                        "hl": 0,
+                        "hlr": 7486.855,
+                        "hlrSw": null,
+                        "degen": 420
+                    },
+                    "ancient": {
+                        "deaths": 2,
+                        "dmg": 8124.974,
+                        "hl": 0,
+                        "hlr": 5700,
+                        "hlrSw": null,
+                        "degen": 310
+                    },
+                    "demonic": {
+                        "deaths": null,
+                        "dmg": null,
+                        "hl": null,
+                        "hlr": null,
+                        "hlrSw": null,
+                        "degen": null
+                    }
+                }
+            },
+            {
+                "name": "Mr.DronT",
+                "isHost": false,
+                "slot": 1,
+                "color": 1,
+                "apm": 102,
+                "class": "Warlock",
+                "health": 0,
+                "mana": 1,
+                "ability": 9,
+                "ms": 0,
+                "coins": null,
+                "bossKills": 9,
+                "statsOverall": {
+                    "deaths": 4,
+                    "dmg": 39137.883,
+                    "hl": 0,
+                    "hlr": 36329.08,
+                    "hlrSw": null,
+                    "degen": 7497
+                },
+                "statsBoss": {
+                    "fire": {
+                        "deaths": 0,
+                        "dmg": 2378.854,
+                        "hl": 0,
+                        "hlr": 4888.032,
+                        "hlrSw": null,
+                        "degen": 565
+                    },
+                    "water": {
+                        "deaths": 0,
+                        "dmg": 2417.415,
+                        "hl": 0,
+                        "hlr": 1730,
+                        "hlrSw": null,
+                        "degen": 622
+                    },
+                    "brute": {
+                        "deaths": 0,
+                        "dmg": 5949.419,
+                        "hl": 0,
+                        "hlr": 0,
+                        "hlrSw": null,
+                        "degen": 814
+                    },
+                    "thunder": {
+                        "deaths": 0,
+                        "dmg": 1981.832,
+                        "hl": 0,
+                        "hlr": 1450,
+                        "hlrSw": null,
+                        "degen": 682
+                    },
+                    "druid": {
+                        "deaths": 0,
+                        "dmg": 1776.1,
+                        "hl": 0,
+                        "hlr": 8334.998,
+                        "hlrSw": null,
+                        "degen": 465
+                    },
+                    "shadow": {
+                        "deaths": 0,
+                        "dmg": 2201.556,
+                        "hl": 0,
+                        "hlr": 2075,
+                        "hlrSw": null,
+                        "degen": 1335
+                    },
+                    "ice": {
+                        "deaths": 3,
+                        "dmg": 8282.94,
+                        "hl": 0,
+                        "hlr": 3762.025,
+                        "hlrSw": null,
+                        "degen": 1080
+                    },
+                    "light": {
+                        "deaths": 0,
+                        "dmg": 8405.972,
+                        "hl": 0,
+                        "hlr": 3850,
+                        "hlrSw": null,
+                        "degen": 1039
+                    },
+                    "ancient": {
+                        "deaths": 1,
+                        "dmg": 5743.795,
+                        "hl": 0,
+                        "hlr": 10239.025,
+                        "hlrSw": null,
+                        "degen": 895
+                    },
+                    "demonic": {
+                        "deaths": null,
+                        "dmg": null,
+                        "hl": null,
+                        "hlr": null,
+                        "hlrSw": null,
+                        "degen": null
+                    }
+                }
+            },
+            {
+                "name": "Kiiskifish",
+                "isHost": false,
+                "slot": 2,
+                "color": 2,
+                "apm": 156,
+                "class": "Paladin",
+                "health": 2,
+                "mana": 2,
+                "ability": 0,
+                "ms": 2,
+                "coins": null,
+                "bossKills": 9,
+                "statsOverall": {
+                    "deaths": 3,
+                    "dmg": 17590.548000000003,
+                    "hl": 142530.773,
+                    "hlr": 27628.274999999998,
+                    "hlrSw": null,
+                    "degen": 4920.782
+                },
+                "statsBoss": {
+                    "fire": {
+                        "deaths": 0,
+                        "dmg": 1461.8,
+                        "hl": 11683.621,
+                        "hlr": 600,
+                        "hlrSw": null,
+                        "degen": 220
+                    },
+                    "water": {
+                        "deaths": 0,
+                        "dmg": 1567.6,
+                        "hl": 8542.551,
+                        "hlr": 0,
+                        "hlrSw": null,
+                        "degen": 279
+                    },
+                    "brute": {
+                        "deaths": 0,
+                        "dmg": 1754.962,
+                        "hl": 11963.92,
+                        "hlr": 5738.922,
+                        "hlrSw": null,
+                        "degen": 220
+                    },
+                    "thunder": {
+                        "deaths": 1,
+                        "dmg": 2973.6,
+                        "hl": 11746.864,
+                        "hlr": 1901,
+                        "hlrSw": null,
+                        "degen": 919
+                    },
+                    "druid": {
+                        "deaths": 0,
+                        "dmg": 2631,
+                        "hl": 18581.061,
+                        "hlr": 2750,
+                        "hlrSw": null,
+                        "degen": 262
+                    },
+                    "shadow": {
+                        "deaths": 0,
+                        "dmg": 2687.4,
+                        "hl": 18813.959,
+                        "hlr": 1675,
+                        "hlrSw": null,
+                        "degen": 1234
+                    },
+                    "ice": {
+                        "deaths": 2,
+                        "dmg": 2019.6,
+                        "hl": 17268.617,
+                        "hlr": 4425,
+                        "hlrSw": null,
+                        "degen": 349
+                    },
+                    "light": {
+                        "deaths": 0,
+                        "dmg": 1443.186,
+                        "hl": 19552.201,
+                        "hlr": 3980,
+                        "hlrSw": null,
+                        "degen": 446
+                    },
+                    "ancient": {
+                        "deaths": 0,
+                        "dmg": 1051.4,
+                        "hl": 24377.979,
+                        "hlr": 6558.353,
+                        "hlrSw": null,
+                        "degen": 991.782
+                    },
+                    "demonic": {
+                        "deaths": null,
+                        "dmg": null,
+                        "hl": null,
+                        "hlr": null,
+                        "hlrSw": null,
+                        "degen": null
+                    }
+                }
+            },
+            {
+                "name": "Slickyism",
+                "isHost": false,
+                "slot": 3,
+                "color": 3,
+                "apm": 120,
+                "class": "Ice Mage",
+                "health": 0,
+                "mana": 2,
+                "ability": 4,
+                "ms": 2,
+                "coins": null,
+                "bossKills": 9,
+                "statsOverall": {
+                    "deaths": 7,
+                    "dmg": 22072.54,
+                    "hl": 32024.184999999998,
+                    "hlr": 65315.787,
+                    "hlrSw": null,
+                    "degen": 484
+                },
+                "statsBoss": {
+                    "fire": {
+                        "deaths": 0,
+                        "dmg": 3478.178,
+                        "hl": 0,
+                        "hlr": 1675,
+                        "hlrSw": null,
+                        "degen": 55
+                    },
+                    "water": {
+                        "deaths": 0,
+                        "dmg": 813.075,
+                        "hl": 3435.82,
+                        "hlr": 6923.404,
+                        "hlrSw": null,
+                        "degen": 35
+                    },
+                    "brute": {
+                        "deaths": 1,
+                        "dmg": 3958.715,
+                        "hl": 2985.125,
+                        "hlr": 3760.125,
+                        "hlrSw": null,
+                        "degen": 40
+                    },
+                    "thunder": {
+                        "deaths": 0,
+                        "dmg": 1369.068,
+                        "hl": 2850,
+                        "hlr": 4700,
+                        "hlrSw": null,
+                        "degen": 15
+                    },
+                    "druid": {
+                        "deaths": 0,
+                        "dmg": 3091.15,
+                        "hl": 165.362,
+                        "hlr": 5170.553,
+                        "hlrSw": null,
+                        "degen": 49
+                    },
+                    "shadow": {
+                        "deaths": 0,
+                        "dmg": 1931.825,
+                        "hl": 656.035,
+                        "hlr": 3806.035,
+                        "hlrSw": null,
+                        "degen": 105
+                    },
+                    "ice": {
+                        "deaths": 3,
+                        "dmg": 799.591,
+                        "hl": 2337.942,
+                        "hlr": 6607.141,
+                        "hlrSw": null,
+                        "degen": 25
+                    },
+                    "light": {
+                        "deaths": 1,
+                        "dmg": 3888.344,
+                        "hl": 10182.119,
+                        "hlr": 12607.119,
+                        "hlrSw": null,
+                        "degen": 75
+                    },
+                    "ancient": {
+                        "deaths": 2,
+                        "dmg": 2742.594,
+                        "hl": 9411.782,
+                        "hlr": 20066.41,
+                        "hlrSw": null,
+                        "degen": 85
+                    },
+                    "demonic": {
+                        "deaths": null,
+                        "dmg": null,
+                        "hl": null,
+                        "hlr": null,
+                        "hlrSw": null,
+                        "degen": null
+                    }
+                }
+            },
+            {
+                "name": "Vainstream",
+                "isHost": false,
+                "slot": 4,
+                "color": 4,
+                "apm": 136,
+                "class": "Ranger",
+                "health": 0,
+                "mana": 1,
+                "ability": 12,
+                "ms": 0,
+                "coins": null,
+                "bossKills": 9,
+                "statsOverall": {
+                    "deaths": 3,
+                    "dmg": 49980.458,
+                    "hl": 0,
+                    "hlr": 24685.055000000004,
+                    "hlrSw": null,
+                    "degen": 0
+                },
+                "statsBoss": {
+                    "fire": {
+                        "deaths": 0,
+                        "dmg": 2492.099,
+                        "hl": 0,
+                        "hlr": 1000,
+                        "hlrSw": null,
+                        "degen": 0
+                    },
+                    "water": {
+                        "deaths": 0,
+                        "dmg": 2093.999,
+                        "hl": 0,
+                        "hlr": 2075,
+                        "hlrSw": null,
+                        "degen": 0
+                    },
+                    "brute": {
+                        "deaths": 0,
+                        "dmg": 5605.833,
+                        "hl": 0,
+                        "hlr": 2730,
+                        "hlrSw": null,
+                        "degen": 0
+                    },
+                    "thunder": {
+                        "deaths": 0,
+                        "dmg": 4665,
+                        "hl": 0,
+                        "hlr": 5557.664,
+                        "hlrSw": null,
+                        "degen": 0
+                    },
+                    "druid": {
+                        "deaths": 0,
+                        "dmg": 5761.84,
+                        "hl": 0,
+                        "hlr": 2525,
+                        "hlrSw": null,
+                        "degen": 0
+                    },
+                    "shadow": {
+                        "deaths": 0,
+                        "dmg": 5715.096,
+                        "hl": 0,
+                        "hlr": 858.511,
+                        "hlrSw": null,
+                        "degen": 0
+                    },
+                    "ice": {
+                        "deaths": 3,
+                        "dmg": 9835.53,
+                        "hl": 0,
+                        "hlr": 2805,
+                        "hlrSw": null,
+                        "degen": 0
+                    },
+                    "light": {
+                        "deaths": 0,
+                        "dmg": 6932.918,
+                        "hl": 0,
+                        "hlr": 5083.88,
+                        "hlrSw": null,
+                        "degen": 0
+                    },
+                    "ancient": {
+                        "deaths": 0,
+                        "dmg": 6878.143,
+                        "hl": 0,
+                        "hlr": 2050,
+                        "hlrSw": null,
+                        "degen": 0
+                    },
+                    "demonic": {
+                        "deaths": null,
+                        "dmg": null,
+                        "hl": null,
+                        "hlr": null,
+                        "hlrSw": null,
+                        "degen": null
+                    }
+                }
+            },
+            {
+                "name": "seeth3rr",
+                "isHost": false,
+                "slot": 5,
+                "color": 5,
+                "apm": 169,
+                "class": "Priest",
+                "health": 0,
+                "mana": 1,
+                "ability": 0,
+                "ms": 5,
+                "coins": null,
+                "bossKills": 9,
+                "statsOverall": {
+                    "deaths": 6,
+                    "dmg": 7145.796999999999,
+                    "hl": 232070.85500000004,
+                    "hlr": 46150.06599999999,
+                    "hlrSw": null,
+                    "degen": 902
+                },
+                "statsBoss": {
+                    "fire": {
+                        "deaths": 0,
+                        "dmg": 602.96,
+                        "hl": 11785.63,
+                        "hlr": 8029.943,
+                        "hlrSw": null,
+                        "degen": 48
+                    },
+                    "water": {
+                        "deaths": 0,
+                        "dmg": 1275.98,
+                        "hl": 9902.436,
+                        "hlr": 2585.333,
+                        "hlrSw": null,
+                        "degen": 144
+                    },
+                    "brute": {
+                        "deaths": 1,
+                        "dmg": 1734.962,
+                        "hl": 18955.92,
+                        "hlr": 5685,
+                        "hlrSw": null,
+                        "degen": 144
+                    },
+                    "thunder": {
+                        "deaths": 0,
+                        "dmg": 212.48,
+                        "hl": 25093.023,
+                        "hlr": 475,
+                        "hlrSw": null,
+                        "degen": 48
+                    },
+                    "druid": {
+                        "deaths": 1,
+                        "dmg": 1512.5,
+                        "hl": 29472.328,
+                        "hlr": 2450,
+                        "hlrSw": null,
+                        "degen": 96
+                    },
+                    "shadow": {
+                        "deaths": 0,
+                        "dmg": 553.905,
+                        "hl": 27312.646,
+                        "hlr": 3849.729,
+                        "hlrSw": null,
+                        "degen": 240
+                    },
+                    "ice": {
+                        "deaths": 3,
+                        "dmg": 392.86,
+                        "hl": 31815.102,
+                        "hlr": 8410.062,
+                        "hlrSw": null,
+                        "degen": 38
+                    },
+                    "light": {
+                        "deaths": 0,
+                        "dmg": 194.025,
+                        "hl": 26205.758,
+                        "hlr": 6955,
+                        "hlrSw": null,
+                        "degen": 48
+                    },
+                    "ancient": {
+                        "deaths": 1,
+                        "dmg": 666.125,
+                        "hl": 51528.012,
+                        "hlr": 7709.999,
+                        "hlrSw": null,
+                        "degen": 96
+                    },
+                    "demonic": {
+                        "deaths": null,
+                        "dmg": null,
+                        "hl": null,
+                        "hlr": null,
+                        "hlrSw": null,
+                        "degen": null
+                    }
+                }
+            },
+            {
+                "name": "Dem0n_Hunter",
+                "isHost": false,
+                "slot": 6,
+                "color": 6,
+                "apm": 174,
+                "class": "Warrior",
+                "health": 0,
+                "mana": 2,
+                "ability": 3,
+                "ms": null,
+                "coins": null,
+                "bossKills": 9,
+                "statsOverall": {
+                    "deaths": 5,
+                    "dmg": 18554.515,
+                    "hl": 0,
+                    "hlr": 148842.211,
+                    "hlrSw": null,
+                    "degen": 2434
+                },
+                "statsBoss": {
+                    "fire": {
+                        "deaths": 0,
+                        "dmg": 2020,
+                        "hl": 0,
+                        "hlr": 4696.311,
+                        "hlrSw": null,
+                        "degen": 300
+                    },
+                    "water": {
+                        "deaths": 0,
+                        "dmg": 985.6,
+                        "hl": 0,
+                        "hlr": 6271.383,
+                        "hlrSw": null,
+                        "degen": 200
+                    },
+                    "brute": {
+                        "deaths": 0,
+                        "dmg": 627.375,
+                        "hl": 0,
+                        "hlr": 12890.921,
+                        "hlrSw": null,
+                        "degen": 220
+                    },
+                    "thunder": {
+                        "deaths": 1,
+                        "dmg": 978,
+                        "hl": 0,
+                        "hlr": 19308.031,
+                        "hlrSw": null,
+                        "degen": 135
+                    },
+                    "druid": {
+                        "deaths": 1,
+                        "dmg": 1984.5,
+                        "hl": 0,
+                        "hlr": 19473.328,
+                        "hlrSw": null,
+                        "degen": 188
+                    },
+                    "shadow": {
+                        "deaths": 0,
+                        "dmg": 2346.999,
+                        "hl": 0,
+                        "hlr": 21154.711,
+                        "hlrSw": null,
+                        "degen": 343
+                    },
+                    "ice": {
+                        "deaths": 2,
+                        "dmg": 3872.408,
+                        "hl": 0,
+                        "hlr": 20906.301,
+                        "hlrSw": null,
+                        "degen": 242
+                    },
+                    "light": {
+                        "deaths": 0,
+                        "dmg": 2937.498,
+                        "hl": 0,
+                        "hlr": 15977.229,
+                        "hlrSw": null,
+                        "degen": 372
+                    },
+                    "ancient": {
+                        "deaths": 1,
+                        "dmg": 2802.135,
+                        "hl": 0,
+                        "hlr": 28163.996,
+                        "hlrSw": null,
+                        "degen": 434
+                    },
+                    "demonic": {
+                        "deaths": null,
+                        "dmg": null,
+                        "hl": null,
+                        "hlr": null,
+                        "hlrSw": null,
+                        "degen": null
+                    }
+                }
+            },
+            {
+                "name": "wirmyom",
+                "isHost": false,
+                "slot": 7,
+                "color": 7,
+                "apm": 105,
+                "class": "Fire Mage",
+                "health": null,
+                "mana": null,
+                "ability": null,
+                "ms": null,
+                "coins": null,
+                "bossKills": 9,
+                "statsOverall": {
+                    "deaths": 4,
+                    "dmg": 36971.723999999995,
+                    "hl": 0,
+                    "hlr": 23321.500999999997,
+                    "hlrSw": null,
+                    "degen": 465
+                },
+                "statsBoss": {
+                    "fire": {
+                        "deaths": 0,
+                        "dmg": 1648.679,
+                        "hl": 0,
+                        "hlr": 1075,
+                        "hlrSw": null,
+                        "degen": 90
+                    },
+                    "water": {
+                        "deaths": 0,
+                        "dmg": 5611.997,
+                        "hl": 0,
+                        "hlr": 1971.168,
+                        "hlrSw": null,
+                        "degen": 120
+                    },
+                    "brute": {
+                        "deaths": 0,
+                        "dmg": 7008.146,
+                        "hl": 0,
+                        "hlr": 2800,
+                        "hlrSw": null,
+                        "degen": 40
+                    },
+                    "thunder": {
+                        "deaths": 0,
+                        "dmg": 2807.62,
+                        "hl": 0,
+                        "hlr": 2075,
+                        "hlrSw": null,
+                        "degen": 65
+                    },
+                    "druid": {
+                        "deaths": 1,
+                        "dmg": 2973.05,
+                        "hl": 0,
+                        "hlr": 3880,
+                        "hlrSw": null,
+                        "degen": 40
+                    },
+                    "shadow": {
+                        "deaths": 1,
+                        "dmg": 2649.066,
+                        "hl": 0,
+                        "hlr": 4820,
+                        "hlrSw": null,
+                        "degen": 40
+                    },
+                    "ice": {
+                        "deaths": 1,
+                        "dmg": 5293.403,
+                        "hl": 0,
+                        "hlr": 1870.333,
+                        "hlrSw": null,
+                        "degen": 30
+                    },
+                    "light": {
+                        "deaths": 0,
+                        "dmg": 6625.875,
+                        "hl": 0,
+                        "hlr": 0,
+                        "hlrSw": null,
+                        "degen": 0
+                    },
+                    "ancient": {
+                        "deaths": 1,
+                        "dmg": 2353.888,
+                        "hl": 0,
+                        "hlr": 4830,
+                        "hlrSw": null,
+                        "degen": 40
+                    },
+                    "demonic": {
+                        "deaths": null,
+                        "dmg": null,
+                        "hl": null,
+                        "hlr": null,
+                        "hlrSw": null,
+                        "degen": null
+                    }
+                }
+            }
+        ],
+        "bosses": {
+            "fire": {
+                "startTimes": [
+                    89
+                ],
+                "wipeTimes": [],
+                "killTime": 183
+            },
+            "water": {
+                "startTimes": [
+                    247
+                ],
+                "wipeTimes": [],
+                "killTime": 335
+            },
+            "brute": {
+                "startTimes": [
+                    399
+                ],
+                "wipeTimes": [],
+                "killTime": 510
+            },
+            "thunder": {
+                "startTimes": [
+                    573
+                ],
+                "wipeTimes": [],
+                "killTime": 723
+            },
+            "druid": {
+                "startTimes": [
+                    786
+                ],
+                "wipeTimes": [],
+                "killTime": 946
+            },
+            "shadow": {
+                "startTimes": [
+                    1227
+                ],
+                "wipeTimes": [],
+                "killTime": 1366
+            },
+            "ice": {
+                "startTimes": [
+                    1429
+                ],
+                "wipeTimes": [],
+                "killTime": 1621
+            },
+            "light": {
+                "startTimes": [
+                    1010
+                ],
+                "wipeTimes": [],
+                "killTime": 1164
+            },
+            "ancient": {
+                "startTimes": [
+                    1687
+                ],
+                "wipeTimes": [],
+                "killTime": 1903
+            },
+            "demonic": {
+                "startTimes": [
+                    1966,
+                    2300
+                ],
+                "wipeTimes": [
+                    2234,
+                    2570
+                ],
+                "killTime": null
+            }
+        },
+        "bossKills": 9,
+        "totalWipes": 2,
+        "remakeData": false,
+        "incomplete": false
+    }
 }
