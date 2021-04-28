@@ -93,6 +93,19 @@ function floatToStringMaybeNull(f, decimals=0)
 	}
 }
 
+function floatTo3DigitStringMaybeNull(f)
+{
+	let decimals = 0;
+	const absF = Math.abs(f);
+	if (absF < 10) {
+		decimals = 2;
+	}
+	else if (absF < 100) {
+		decimals = 1;
+	}
+	return floatToStringMaybeNull(f, decimals);
+}
+
 function secondsToTimestamp(seconds)
 {
 	const m = Math.floor(seconds / 60);

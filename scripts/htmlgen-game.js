@@ -65,13 +65,13 @@ function generateHtmlRankedStat(replaysDescending, players, replay, playerIndex,
 			html += ` &#9733;`;
 		}
 		else if (rank < 3) {
-			html += `***`;
+			html += ` ***`;
 		}
 		else if (rank < 5) {
-			html += `**`;
+			html += ` **`;
 		}
 		else if (rank < 10) {
-			html += `*`;
+			html += ` *`;
 		}
 		html += `</a>`;
 	}
@@ -95,7 +95,7 @@ function generateHtmlStatsTable(replays, replay, players, boss)
 
 	let html = "";
 	html += `<table class="tableStats">`;
-	html += `<tr><th></th><th>Deaths</th><th>Damage</th>${boss != null ? "<th>DPS</th>" : ""}<th>Healing</th>${boss != null ? "<th>HPS</th>" : ""}<th>Healing Received</th><th>Degen</th></tr>`;
+	html += `<tr><th></th><th>Deaths</th><th>Damage</th>${boss != null ? "<th>DPS</th>" : ""}<th>Healing</th>${boss != null ? "<th>HPS</th>" : ""}<th>Healing Received</th><th>Degen</th>${boss != null ? "<th>Degen/s</th>" : ""}</tr>`;
 	for (let i = 0; i < replay.players.length; i++) {
 		const p = replay.players[i];
 		let rowLighterOrNot = "";
@@ -124,7 +124,7 @@ function generateHtmlStatsTable(replays, replay, players, boss)
 			html += `<td>`;
 			if (killTime != null && pb.dmg != null) {
 				const dps = pb.dmg / killTime;
-				html += generateHtmlRankedStat(replaysDescending, players, replay, i, boss, dps, statFunctionDps, true, function(f) { return floatToStringMaybeNull(f, 1); }, "DPS", "rankStatInTable");
+				html += generateHtmlRankedStat(replaysDescending, players, replay, i, boss, dps, statFunctionDps, true, floatTo3DigitStringMaybeNull, "DPS", "rankStatInTable");
 			}
 			else {
 				html += `n/a`;
@@ -134,9 +134,9 @@ function generateHtmlStatsTable(replays, replay, players, boss)
 		html += `<td>${floatToStringMaybeNull(pb.hl)}</td>`;
 		if (boss != null) {
 			html += `<td>`;
-			if (killTime != null && pb.dmg != null) {
+			if (killTime != null && pb.hl != null) {
 				const hps = pb.hl / killTime;
-				html += generateHtmlRankedStat(replaysDescending, players, replay, i, boss, hps, statFunctionHps, true, floatToStringMaybeNull, "HPS", "rankStatInTable");
+				html += generateHtmlRankedStat(replaysDescending, players, replay, i, boss, hps, statFunctionHps, true, floatTo3DigitStringMaybeNull, "HPS", "rankStatInTable");
 			}
 			else {
 				html += `n/a`;
@@ -144,13 +144,17 @@ function generateHtmlStatsTable(replays, replay, players, boss)
 			html += `</td>`;
 		}
 		html += `<td>${floatToStringMaybeNull(pb.hlr)}</td>`;
-		if (boss != null && pb.degen != null) {
+		html += `<td>${floatToStringMaybeNull(pb.degen)}</td>`;
+		if (boss != null) {
 			html += `<td>`;
-			html += generateHtmlRankedStat(replaysDescending, players, replay, i, boss, pb.degen, statFunctionDegen, true, floatToStringMaybeNull, "degen", "rankStatInTable");
+			if (killTime != null && pb.degen != null) {
+				const degenps = pb.degen / killTime;
+				html += generateHtmlRankedStat(replaysDescending, players, replay, i, boss, degenps, statFunctionDegenPerSec, true, floatTo3DigitStringMaybeNull, "degenps", "rankStatInTable");
+			}
+			else {
+				html += `n/a`;
+			}
 			html += `</td>`;
-		}
-		else {
-			html += `<td>${floatToStringMaybeNull(pb.degen)}</td>`;
 		}
 		html += `</tr>`;
 	}

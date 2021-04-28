@@ -52,23 +52,21 @@ function generateHtmlBoss(replaysDescending, players, boss)
 		{
 			label: "Top DPS",
 			statFunction: statFunctionDps,
-			formatValueFunction: function(f) {
-				return floatToStringMaybeNull(f, 1);
-			},
+			formatValueFunction: floatTo3DigitStringMaybeNull,
 			descending: true,
 			playerStat: true
 		},
 		{
 			label: "Top HPS",
 			statFunction: statFunctionHps,
-			formatValueFunction: floatToStringMaybeNull,
+			formatValueFunction: floatTo3DigitStringMaybeNull,
 			descending: true,
 			playerStat: true
 		},
 		{
-			label: "Top Degen",
-			statFunction: statFunctionDegen,
-			formatValueFunction: floatToStringMaybeNull,
+			label: "Top Degen/sec",
+			statFunction: statFunctionDegenPerSec,
+			formatValueFunction: floatTo3DigitStringMaybeNull,
 			descending: true,
 			playerStat: true
 		},
@@ -93,7 +91,7 @@ function generateHtmlBoss(replaysDescending, players, boss)
 
 	for (let i = 0; i < stats.length; i++) {
 		const s = stats[i];
-		html += `<div><h3>${s.label}</h3><!--<hr class="small">--></div>`;
+		html += `<div><h3>${s.label}</h3></div>`;
 		html += generateHtmlBossTopStat(replaysDescending, s.playerStat ? players : null, boss, s.statFunction, s.formatValueFunction, s.descending);
 	}
 

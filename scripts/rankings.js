@@ -26,6 +26,15 @@ function statFunctionDegen(replay, playerIndex, boss)
 	return replay.players[playerIndex].statsBoss[boss].degen;
 }
 
+function statFunctionDegenPerSec(replay, playerIndex, boss)
+{
+	const killTime = replayGetBossKillTime(replay, boss);
+	if (killTime == null) {
+		return null;
+	}
+	return replay.players[playerIndex].statsBoss[boss].degen / killTime;
+}
+
 function statFunctionDeaths(replay, playerIndex, boss)
 {
 	return replay.players[playerIndex].statsBoss[boss].deaths;
