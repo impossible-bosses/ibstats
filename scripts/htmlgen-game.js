@@ -234,6 +234,15 @@ function generateHtml(replays, players, replayId, inCache)
 {
 	const replay = replays[replayId];
 
+	if (replay == null) {
+		let html = "";
+		html += `<div class="thinWrapper">`;
+		html += `<h2>Something went wrong</h2>`;
+		html += `<p>This replay couldn't be parsed by the site. Please let Patio know.`;
+		html += `</div>`; // thinWrapper
+		return html;
+	}
+
 	let html = "";
 	html += `<p class="backButton"><a href="..">&lt; BACK</a></p>`;
 	html += `<div class="downloadButton">`;
