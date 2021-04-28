@@ -565,6 +565,10 @@ function parseWc3StatsReplayData(data)
 			replayData.bosses[boss].killTime = e.time;
 		}
 		else if (eName == "bossWipe") {
+			if (replayData.id == 110991 && boss == BOSS.ANCIENT && replayData.bosses[boss].startTimes.length == 0) {
+				// Bugged game, boss kill & wipe caused a fake Ancient wipe event
+				continue;
+			}
 			if (replayData.bosses[boss].wipeTimes.indexOf(e.time) != -1) {
 				throw `Duplicate boss wipe event for ${boss}, time ${e.time}`;
 			}
