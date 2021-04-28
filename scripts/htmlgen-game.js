@@ -15,11 +15,22 @@ function generateHtmlTitle(replay)
 	}
 
 	const date = new Date(replay.playedOn * 1000);
-	const dateString = date.toLocaleDateString();
+	let hour12 = date.getHours();
+	let ampm = "AM";
+	if (hour12 == 0) {
+		hour12 = 12;
+	}
+	else if (hour12 >= 12) {
+		ampm = "PM";
+		if (hour12 != 12) {
+			hour12 -= 12;
+		}
+	}
+	const timeString = `~${hour12} ${ampm} on ${date.toLocaleDateString()}`;
 
 	let html = `<h1>${replay.players.length} ${diffString} &mdash; ${victoryDefeatString}</h1>`;
 	html += `<h4>${replay.name}</h4>`;
-	html += `<h4>${dateString} &mdash; v${mapVersionToString(replay.mapVersion)}</h4>`;
+	html += `<h4>${timeString} &mdash; v${mapVersionToString(replay.mapVersion)}</h4>`;
 	html += `<h4><a href="https://wc3stats.com/games/${replay.id}">View in wc3stats</a></h4>`;
 	return html;
 }
