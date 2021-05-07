@@ -592,7 +592,12 @@ function parseWc3StatsReplayData(data)
 			expectedWipeTimes -= 1;
 		}
 		if (bossData.wipeTimes.length != expectedWipeTimes) {
-			if (!(replayData.incomplete && bossData.wipeTimes.length == expectedWipeTimes - 1)) {
+			if (BOSS[b] == BOSS.DEMONIC && replayData.win && bossData.wipeTimes.length == expectedWipeTimes + 1) {
+				// All good, it's possible to wipe before killing Demonic. Still counts as a win
+				// Remove the last wipe so the site doens't display it.
+				bossData.wipeTimes.pop();
+			}
+			else if (!(replayData.incomplete && bossData.wipeTimes.length == expectedWipeTimes - 1)) {
 				throw `Unexpected # of wipe times for boss ${BOSS[b]}: ${bossData.wipeTimes.length}, expected ${expectedWipeTimes}`;
 			}
 		}
