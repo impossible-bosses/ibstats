@@ -524,6 +524,10 @@ function parseWc3StatsReplayData(data)
 		}
 		const boss = stringToEnum(e.args[0].toLowerCase(), BOSS);
 		if (boss == null) {
+			if (replayData.id == 118371) {
+				// Bugged game, late enough wipe that I think the game thought it was boss#11
+				continue;
+			}
 			throw `Unrecognized boss in event: ${e.args[0]}`;
 		}
 
