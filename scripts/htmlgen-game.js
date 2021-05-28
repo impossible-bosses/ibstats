@@ -264,7 +264,7 @@ function generateHtml(replays, players, replayId, inCache)
 	if (replay.remakeData) {
 		html += `<div class="temp">`;
 		html += `<h2>Warning: In-game Remake</h2>`;
-		html += `<p>An in-game remake was used in this game. This invalidates data for all bosses that were re-played in the remake. Overall progress and boss kills are still properly recorded, though.</p>`;
+		html += `<p>An in-game remake was used in this game. This invalidates data for all bosses that were played in the remake. Overall progress and boss kills are still properly recorded, though.</p>`;
 		html += `</div>`; // temp
 		html += `<br><br>`;
 	}
