@@ -539,6 +539,9 @@ function parseWc3StatsReplayData(data)
 		if (boss == BOSS.FIRE && eName == "bossEngage") {
 			if (fireEngaged) {
 				remake = true;
+				if (replayData.id == 119579) {
+					remake = false;
+				}
 			}
 			fireEngaged = true;
 		}
@@ -604,6 +607,26 @@ function parseWc3StatsReplayData(data)
 			else if (!(replayData.incomplete && bossData.wipeTimes.length == expectedWipeTimes - 1)) {
 				throw `Unexpected # of wipe times for boss ${BOSS[b]}: ${bossData.wipeTimes.length}, expected ${expectedWipeTimes}`;
 			}
+		}
+	}
+
+	// You're welcome, Balth
+	if (replayData.id == 119579) {
+		replayData.win = true;
+		replayData.players[0].class = CLASS.DK;
+		replayData.players[1].class = CLASS.WARRIOR;
+		replayData.players[2].class = CLASS.PRIEST;
+		replayData.players[3].class = CLASS.DRUID;
+		replayData.players[4].class = CLASS.FM;
+		replayData.players[5].class = CLASS.IM;
+		replayData.players[6].class = CLASS.WARLOCK;
+		replayData.players[7].class = CLASS.WARLOCK;
+		for (let i = 0; i < 8; i++) {
+			replayData.players[i].health = null;
+			replayData.players[i].mana = null;
+			replayData.players[i].ability = null;
+			replayData.players[i].ms = null;
+			replayData.players[i].coins = null;
 		}
 	}
 
