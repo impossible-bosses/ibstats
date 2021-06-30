@@ -522,24 +522,26 @@ function parseWc3StatsReplayData(data)
 		if (e.args.length != 1) {
 			throw `Event with more than 1 arg: ${e}`;
 		}
-		const boss = stringToEnum(e.args[0].toLowerCase(), BOSS);
+		const eName = e.event.eventName;
+		const bossString = e.args[0].toLowerCase();
+		const boss = stringToEnum(bossString, BOSS);
 		if (boss == null) {
-			if (replayData.id == 118371) {
-				// Bugged game, late enough wipe that I think the game thought it was boss#11
+			if (bossString === "unknown" && eName === "bossWipe" && i === game.events.length - 1) {
+				// Late enough wipe that the game thinks it's boss#11
 				continue;
 			}
-			throw `Unrecognized boss in event: ${e.args[0]}`;
+			throw `Unrecognized boss in event: ${bossString}`;
 		}
 
 		if (replayData.difficulty == DIFFICULTY.VE && boss == BOSS.ANCIENT) {
 			// Sneak peek Ancient intro, ignore
 			continue;
 		}
-		const eName = e.event.eventName;
 		if (boss == BOSS.FIRE && eName == "bossEngage") {
 			if (fireEngaged) {
 				remake = true;
 				if (replayData.id == 119579) {
+					// rewriting history. fire boss never happened...
 					remake = false;
 				}
 			}
