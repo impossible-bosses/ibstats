@@ -123,7 +123,7 @@ function achievementWinAllClasses(playerSortedReplays, players, player)
 			winReplays.sort(function(r1, r2) {
 				return r1.playedOn - r2.playedOn;
 			});
-			hits[diff].push(winReplays[0]);
+			hits[diff].push(winReplays[winReplays.length - 1]);
 			return hits;
 		}
 	}
