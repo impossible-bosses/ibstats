@@ -188,11 +188,16 @@
         ]
     },
     {
-        "name": "svkereman",
+        "name": "sverkerman",
         "discord": "Papanosta#7443",
         "aliases": [
                 "Sverkermanwtff",
                 "WtfSverkerman"
         ]
+    },
+    {
+        "name": "Setaria",
+        "discord": "Alkaid#7057",
+        "aliases": []
     }
 ]
