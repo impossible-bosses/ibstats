@@ -75,6 +75,25 @@ function achievementWinNoDeaths(playerSortedReplays, players, player)
 	return hits;
 }
 
+function achievementWinNoPriest(playerSortedReplays, players, player)
+{
+	const winHits = achievementWin(playerSortedReplays, players, player);
+
+	let hits = {};
+	for (const d in DIFFICULTY) {
+		const diff = DIFFICULTY[d];
+		hits[diff] = winHits[diff].filter(function(replay) {
+			for (let i = 0; i < replay.players.length; i++) {
+				if (replay.players[i].class === CLASS.PRIEST) {
+					return false;
+				}
+			}
+			return true;
+		});
+	}
+	return hits;
+}
+
 function achievementWinAllClasses(playerSortedReplays, players, player)
 {
 	const winHits = achievementWin(playerSortedReplays, players, player);
@@ -180,6 +199,12 @@ const ACHIEVEMENTS = {
 		description: "Win the game without dying.",
 		condition: function(playerSortedReplays, players, player) {
 			return achievementWinNoDeaths(playerSortedReplays, players, player);
+		}
+	},
+	"Sacrilege!": {
+		description: "Win the game without a priest.",
+		condition: function(playerSortedReplays, players, player) {
+			return achievementWinNoPriest(playerSortedReplays, players, player);
 		}
 	},
 	"Classy": {
