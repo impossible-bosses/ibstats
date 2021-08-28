@@ -75,7 +75,7 @@ function achievementWinNoDeaths(playerSortedReplays, players, player)
 	return hits;
 }
 
-function achievementWinNoPriest(playerSortedReplays, players, player)
+function achievementWinNoClasses(playerSortedReplays, players, player, whichClasses)
 {
 	const winHits = achievementWin(playerSortedReplays, players, player);
 
@@ -84,7 +84,7 @@ function achievementWinNoPriest(playerSortedReplays, players, player)
 		const diff = DIFFICULTY[d];
 		hits[diff] = winHits[diff].filter(function(replay) {
 			for (let i = 0; i < replay.players.length; i++) {
-				if (replay.players[i].class === CLASS.PRIEST) {
+				if (whichClasses.includes(replay.players[i].class)) {
 					return false;
 				}
 			}
@@ -202,9 +202,33 @@ const ACHIEVEMENTS = {
 		}
 	},
 	"Sacrilege!": {
-		description: "Win the game without a priest.",
+		description: "Win the game without a Priest.",
 		condition: function(playerSortedReplays, players, player) {
-			return achievementWinNoPriest(playerSortedReplays, players, player);
+			return achievementWinNoClasses(playerSortedReplays, players, player, [CLASS.PRIEST]);
+		}
+	},
+	"Depraved": {
+		description: "Win the game without a Priest or Paladin.",
+		condition: function(playerSortedReplays, players, player) {
+			return achievementWinNoClasses(playerSortedReplays, players, player, [CLASS.PALADIN, CLASS.PRIEST]);
+		}
+	},
+	"Defenseless": {
+		description: "Win the game without a Warrior.",
+		condition: function(playerSortedReplays, players, player) {
+			return achievementWinNoClasses(playerSortedReplays, players, player, [CLASS.WARRIOR]);
+		}
+	},
+	"Brawl": {
+		description: "Win the game with only melee classes.",
+		condition: function(playerSortedReplays, players, player) {
+			return achievementWinNoClasses(playerSortedReplays, players, player, [CLASS.DRUID, CLASS.FM, CLASS.IM, CLASS.PRIEST, CLASS.RANGER, CLASS.WARLOCK]);
+		}
+	},
+	"Kite": {
+		description: "Win the game with only ranged classes.",
+		condition: function(playerSortedReplays, players, player) {
+			return achievementWinNoClasses(playerSortedReplays, players, player, [CLASS.DK, CLASS.DRUID, CLASS.PALADIN, CLASS.ROGUE, CLASS.WARRIOR]);
 		}
 	},
 	"Classy": {
