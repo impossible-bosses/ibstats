@@ -603,6 +603,8 @@ function parseWc3StatsReplayData(data)
 		if (bossData.wipeTimes.length != expectedWipeTimes) {
 			if (BOSS[b] == BOSS.ANCIENT && replayData.id === 205839) {
 				// whatever
+			} else if (BOSS[b] == BOSS.DRUID && replayData.id === 225459) {
+				bossData.killTime = 1119 - 60; // light engage minus 1min, just a guess
 			} else if (BOSS[b] == BOSS.DEMONIC && replayData.win && bossData.wipeTimes.length == expectedWipeTimes + 1) {
 				// All good, it's possible to wipe before killing Demonic. Still counts as a win
 				// Remove the last wipe so the site doens't display it.
