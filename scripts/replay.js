@@ -309,6 +309,15 @@ function mapVersionToString(v)
 	else if (v == MAP_VERSION.V1_11_6) {
 		return "1.11.6";
 	}
+	else if (v == MAP_VERSION.V1_11_7) {
+		return "1.11.7";
+	}
+	else if (v == MAP_VERSION.V1_11_8) {
+		return "1.11.8";
+	}
+	else if (v == MAP_VERSION.V1_11_9) {
+		return "1.11.9";
+	}
 	throw `Unknown map version ${v}`;
 }
 
