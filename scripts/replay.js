@@ -89,7 +89,10 @@ const MAP_VERSION = {
 const WC3_VERSION = {
 	V1_28: 128,
 	V1_30: 130,
-	V1_32: 132
+	V1_32: 132,
+	V1_33: 133,
+	V1_34: 134,
+	V1_35: 135,
 };
 
 function stringToEnum(str, enumObject)
