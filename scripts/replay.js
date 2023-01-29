@@ -320,7 +320,7 @@ function wc3VersionToHostingServer(v)
 	else if (v == WC3_VERSION.V1_30) {
 		return "ENT";
 	}
-	else if (v == WC3_VERSION.V1_32) {
+	else if (v == WC3_VERSION.V1_32 || v == WC3_VERSION.V1_33 || v == WC3_VERSION.V1_34 || v == WC3_VERSION.V1_35) {
 		return "Battle.net";
 	}
 	throw `Unknown WC3 version ${v}`;
