@@ -158,6 +158,15 @@ function majorVersionToWc3Version(v)
 	else if (v == 10032) {
 		return WC3_VERSION.V1_32;
 	}
+	else if (v == 10033) {
+		return WC3_VERSION.V1_33;
+	}
+	else if (v == 10034) {
+		return WC3_VERSION.V1_34;
+	}
+	else if (v == 10035) {
+		return WC3_VERSION.V1_35;
+	}
 	return null;
 }
 
