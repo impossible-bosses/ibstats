@@ -623,7 +623,7 @@ function parseWc3StatsReplayData(data)
 	}
 	for (b in BOSS) {
 		const bossData = replayData.bosses[BOSS[b]];
-		if (replayData.mapVersion == MAP_VERSION.V1_11_6 && replayData.difficulty == DIFFICULTY.E
+		if (replayData.mapVersion >= MAP_VERSION.V1_11_6 && replayData.difficulty == DIFFICULTY.E
 			&& BOSS[b] == BOSS.ANCIENT && replayData.win && bossData.killTime == null) {
 			// TODO known issue, no Ancient boss data after win on Easy
 			continue;
@@ -638,6 +638,8 @@ function parseWc3StatsReplayData(data)
 				// whatever
 			} else if (BOSS[b] == BOSS.DRUID && replayData.id === 225459) {
 				bossData.killTime = 1119 - 60; // light engage minus 1min, just a guess
+			} else if (BOSS[b] == BOSS.SHADOW && replayData.id === 342611) {
+				// idk
 			} else if (BOSS[b] == BOSS.DEMONIC && replayData.win && bossData.wipeTimes.length == expectedWipeTimes + 1) {
 				// All good, it's possible to wipe before killing Demonic. Still counts as a win
 				// Remove the last wipe so the site doens't display it.
