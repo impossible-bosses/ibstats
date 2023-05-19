@@ -84,15 +84,13 @@ const MAP_VERSION = {
 	V1_11_7: 7,
 	V1_11_8: 8,
 	V1_11_9: 9,
+	V1_11_20: 20,
 };
 
 const WC3_VERSION = {
 	V1_28: 128,
 	V1_30: 130,
-	V1_32: 132,
-	V1_33: 133,
-	V1_34: 134,
-	V1_35: 135,
+	V1_3x: 30,
 };
 
 function stringToEnum(str, enumObject)
@@ -147,6 +145,9 @@ function mapFileToVersion(file)
 	else if (file == "Impossible.Bosses.v1.11.9.w3x" || file == "Impossible.Bosses.v1.11.9-no-bnet.w3x") {
 		return MAP_VERSION.V1_11_9;
 	}
+	else if (file == "Impossible.Bosses.v1.11.20.w3x" || file == "Impossible.Bosses.v1.11.20-no-bnet.w3x") {
+		return MAP_VERSION.V1_11_20;
+	}
 	return null;
 }
 
@@ -154,21 +155,10 @@ function majorVersionToWc3Version(v)
 {
 	if (v == 28) {
 		return WC3_VERSION.V1_28;
-	}
-	else if (v == 30) {
+	} else if (v == 30) {
 		return WC3_VERSION.V1_30;
-	}
-	else if (v == 10032) {
-		return WC3_VERSION.V1_32;
-	}
-	else if (v == 10033) {
-		return WC3_VERSION.V1_33;
-	}
-	else if (v == 10034) {
-		return WC3_VERSION.V1_34;
-	}
-	else if (v == 10035) {
-		return WC3_VERSION.V1_35;
+	} else if (v >= 10030 && v < 10040) {
+		return WC3_VERSION.V1_3x;
 	}
 	return null;
 }
@@ -318,6 +308,9 @@ function mapVersionToString(v)
 	else if (v == MAP_VERSION.V1_11_9) {
 		return "1.11.9";
 	}
+	else if (v == MAP_VERSION.V1_11_20) {
+		return "1.11.20";
+	}
 	throw `Unknown map version ${v}`;
 }
 
@@ -329,7 +322,7 @@ function wc3VersionToHostingServer(v)
 	else if (v == WC3_VERSION.V1_30) {
 		return "ENT";
 	}
-	else if (v == WC3_VERSION.V1_32 || v == WC3_VERSION.V1_33 || v == WC3_VERSION.V1_34 || v == WC3_VERSION.V1_35) {
+	else if (v == WC3_VERSION.V1_3x) {
 		return "Battle.net";
 	}
 	throw `Unknown WC3 version ${v}`;
