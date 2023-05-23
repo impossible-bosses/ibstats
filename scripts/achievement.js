@@ -184,7 +184,7 @@ const ACHIEVEMENTS = {
 		hideUnachieved: true,
 		description: "Win the game on Battle.net.",
 		condition: function(playerSortedReplays, players, player) {
-			return achievementWin(playerSortedReplays, players, player, WC3_VERSION.V1_32);
+			return achievementWin(playerSortedReplays, players, player, WC3_VERSION.V1_3x);
 		}
 	},
 	"No Second Chances": {
