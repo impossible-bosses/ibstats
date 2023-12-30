@@ -25,7 +25,7 @@ async function getRequest(url)
 
 async function getAllIbReplays()
 {
-    const URL = URL_WC3STATS_API + "/replays?search=Impossible.Bosses&limit=0";
+    const URL = URL_WC3STATS_API + "/replays?search=Impossible.Bosses.v&sort=playedOn&order=desc&limit=100";
     const allReplaysRaw = await getRequest(URL);
     const allReplays = JSON.parse(allReplaysRaw).body;
 

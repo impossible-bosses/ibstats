@@ -616,8 +616,7 @@ function parseWc3StatsReplayData(data)
 	}
 	for (b in BOSS) {
 		const bossData = replayData.bosses[BOSS[b]];
-		if (replayData.mapVersion >= MAP_VERSION.V1_11_6 && replayData.difficulty == DIFFICULTY.E
-			&& BOSS[b] == BOSS.ANCIENT && replayData.win && bossData.killTime == null) {
+		if (replayData.mapVersion >= MAP_VERSION.V1_11_6 && replayData.difficulty == DIFFICULTY.E && BOSS[b] == BOSS.ANCIENT && replayData.win && bossData.killTime == null) {
 			// TODO known issue, no Ancient boss data after win on Easy
 			continue;
 		}
@@ -627,8 +626,8 @@ function parseWc3StatsReplayData(data)
 			expectedWipeTimes -= 1;
 		}
 		if (bossData.wipeTimes.length != expectedWipeTimes) {
-			if (BOSS[b] == BOSS.ANCIENT && replayData.id === 205839) {
-				// whatever
+			if (replayData.difficulty == DIFFICULTY.M && BOSS[b] == BOSS.ANCIENT) {
+				// Known issue, no Ancient boss data after win on Moderate.
 			} else if (BOSS[b] == BOSS.DRUID && replayData.id === 225459) {
 				bossData.killTime = 1119 - 60; // light engage minus 1min, just a guess
 			} else if (BOSS[b] == BOSS.SHADOW && replayData.id === 342611) {

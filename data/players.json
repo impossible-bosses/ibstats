@@ -66,7 +66,8 @@
         "discord": "Archimonde666#2726",
         "aliases": [
             "Archi#2763",
-            "Archimonde666"
+            "Archimonde666",
+            "archimonde666",
         ]
     },
     {
@@ -192,13 +193,28 @@
         "name": "sverkerman",
         "discord": "Papanosta#7443",
         "aliases": [
-                "Sverkermanwtff",
-                "WtfSverkerman"
+            "Sverkermanwtff",
+            "WtfSverkerman"
         ]
     },
     {
         "name": "Setaria",
         "discord": "Alkaid#7057",
         "aliases": []
+    },
+    {
+        "name": "The_Last_Ranger",
+        "discord": "",
+        "aliases": [
+            "the_last_ranger",
+            "RaNgeR#2873"
+        ]
+    },
+    {
+        "name": "neverunlucky",
+        "discord": "",
+        "aliases": [
+            "Neverunlucky",
+        ]
     }
 ]
