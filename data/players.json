@@ -186,7 +186,8 @@
         "discord": "The weedmuffin#6710",
         "aliases": [
             "weedmuffin56",
-            "weedmuffin#1631"
+            "weedmuffin#1631",
+            "weedmuffins"
         ]
     },
     {
@@ -215,6 +216,13 @@
         "discord": "",
         "aliases": [
             "Neverunlucky"
+        ]
+    },
+    {
+        "name": "wirmyom",
+        "discord": "",
+        "aliases": [
+            "wirmyom#1605"
         ]
     }
 ]
