@@ -1,7 +1,6 @@
 [
     {
         "name": "Patio",
-        "discord": "patio111#9416",
         "aliases": [
             "patio_111",
             "Patio#1980"
@@ -9,7 +8,6 @@
     },
     {
         "name": "BlackBluster",
-        "discord": "sebasestrelopez#2878",
         "aliases": [
             "chibakutensei",
             "BlackBluster#1799"
@@ -17,14 +15,12 @@
     },
     {
         "name": "typical_methods",
-        "discord": "Typical_methods#7470",
         "aliases": [
             "Balthazar#1541"
         ]
     },
     {
         "name": "Quistis",
-        "discord": "Quistis#7007",
         "aliases": [
             "Quistisx",
             "NijiNoUma#2286"
@@ -32,7 +28,6 @@
     },
     {
         "name": "Dov",
-        "discord": "Dov/Warlock/Mebo#8292",
         "aliases": [
             "Warlock",
             "Mebo#31353"
@@ -40,7 +35,6 @@
     },
     {
         "name": "Zaisev",
-        "discord": "Zaisev#2251",
         "aliases": [
             "DeathKnight",
             "Psychedelic#31736"
@@ -48,7 +42,6 @@
     },
     {
         "name": "ice-follower",
-        "discord": "ice-follower#2718",
         "aliases": [
             "IceIceFollower",
             "ssb817#31439"
@@ -56,14 +49,12 @@
     },
     {
         "name": "Noway",
-        "discord": "Noway#8523",
         "aliases": [
             "Nowayouthere"
         ]
     },
     {
         "name": "Archi",
-        "discord": "Archimonde666#2726",
         "aliases": [
             "Archi#2763",
             "Archimonde666",
@@ -72,59 +63,50 @@
     },
     {
         "name": "Kiiskifish",
-        "discord": "Kiiski#2410",
         "aliases": [
             "Kiiskifish#2890"
         ]
     },
     {
         "name": "Sartaglo",
-        "discord": "Sartaglo#7486",
         "aliases": [
             "Sartaglo#11296"
         ]
     },
     {
         "name": "CaptainPanic",
-        "discord": null,
         "aliases": [
             "CaptainPanic#1602"
         ]
     },
     {
         "name": "Shanderne",
-        "discord": "Shanderne#1809",
         "aliases": [
             "Shanderne#1323"
         ]
     },
     {
         "name": "DN_Ryu",
-        "discord": "chocobear#8276",
         "aliases": [
             "chocobear#21639"
         ]
     },
     {
         "name": "bbakbbak2",
-        "discord": "zinger#3893",
         "aliases": [
             "zinger#31708"
         ]
     },
     {
         "name": "Setaria",
-        "discord": "Alkaid#7057",
         "aliases": []
     },
     {
         "name": "IMBO",
-        "discord": "KM#6232",
         "aliases": []
     },
     {
         "name": "finicky",
-        "discord": "finicky#6894",
         "aliases": [
             "finicky#11808",
             "finicky#11552"
@@ -132,21 +114,18 @@
     },
     {
         "name": "Slickyism",
-        "discord": "Slickyism#3725",
         "aliases": [
             "SlickyismTV#1233"
         ]
     },
     {
         "name": "Vunjo",
-        "discord": "Vunjo#6315",
         "aliases": [
             "Vunjo#2946"
         ]
     },
     {
         "name": "degaf",
-        "discord": "Heart of Brightness#7185",
         "aliases": [
             "degaf#11957",
             "degaf"
@@ -154,21 +133,18 @@
     },
     {
         "name": "Sproket",
-        "discord": "Vibin#5003",
         "aliases": [
             "Sproket#1680"
         ]
     },
     {
         "name": "Photon_man24",
-        "discord": "Photon_man24#1324",
         "aliases": [
             "Photonman24#1125"
         ]
     },
     {
         "name": "seeth3r",
-        "discord": "seeth3r#9395",
         "aliases": [
             "seeth3rr",
             "seeth3R#21336"
@@ -176,14 +152,12 @@
     },
     {
         "name": "Passolargo",
-        "discord": "Passolargo#7528",
         "aliases": [
             "Passolargo#1301"
         ]
     },
     {
         "name": "weedmuffin",
-        "discord": "The weedmuffin#6710",
         "aliases": [
             "weedmuffin56",
             "weedmuffin#1631",
@@ -192,7 +166,6 @@
     },
     {
         "name": "sverkerman",
-        "discord": "Papanosta#7443",
         "aliases": [
             "Sverkermanwtff",
             "WtfSverkerman"
@@ -200,12 +173,10 @@
     },
     {
         "name": "Setaria",
-        "discord": "Alkaid#7057",
         "aliases": []
     },
     {
         "name": "The_Last_Ranger",
-        "discord": "",
         "aliases": [
             "the_last_ranger",
             "RaNgeR#2873"
@@ -213,16 +184,21 @@
     },
     {
         "name": "neverunlucky",
-        "discord": "",
         "aliases": [
             "Neverunlucky"
         ]
     },
     {
         "name": "wirmyom",
-        "discord": "",
         "aliases": [
             "wirmyom#1605"
+        ]
+    },
+    {
+        "name": "Ho_rdor",
+        "aliases": [
+            "ho_rdor",
+            "Hord#2761"
         ]
     }
 ]
