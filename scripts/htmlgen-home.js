@@ -71,6 +71,13 @@ function generateHtmlBoss(replaysDescending, players, boss)
 			playerStat: true
 		},
 		{
+			label: "Top Add Kills",
+			statFunction: statFunctionAddKills,
+			formatValueFunction: intToStringMaybeNull,
+			descending: true,
+			playerStat: true
+		},
+		{
 			label: "Most Deaths",
 			statFunction: statFunctionDeaths,
 			formatValueFunction: intToStringMaybeNull,

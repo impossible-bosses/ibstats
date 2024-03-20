@@ -76,7 +76,7 @@ function numberSeparateThousands(x, sep)
 function intToStringMaybeNull(i)
 {
 	if (i == null) {
-		return "n/a";
+		return "-";
 	}
 	else {
 		return i.toString();
@@ -86,7 +86,7 @@ function intToStringMaybeNull(i)
 function floatToStringMaybeNull(f, decimals=0)
 {
 	if (f == null) {
-		return "n/a";
+		return "-";
 	}
 	else {
 		return numberSeparateThousands(f.toFixed(decimals), " ");

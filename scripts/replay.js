@@ -350,12 +350,24 @@ function parseWc3StatsPlayerStats(data)
 		hl: data.healing,
 		hlr: data.healingReceived,
 		hlrSw: null,
-		degen: data.degen
+		degen: data.degen,
+		addKills: null,
+		counterCast: null,
+		counterHit: null,
 	};
 
 	if (data.hasOwnProperty("sWHealingReceived")) {
 		// buggy, don't load
 		// playerStats.hlrSw = data.sWHealingReceived;
+	}
+	if (data.hasOwnProperty("addkills")) {
+		playerStats.addKills = data.addkills;
+	}
+	if (data.hasOwnProperty("countercast")) {
+		playerStats.counterCast = data.countercast;
+	}
+	if (data.hasOwnProperty("counterhit")) {
+		playerStats.counterHit = data.counterhit;
 	}
 
 	let allZero = true;
@@ -397,7 +409,10 @@ function parseWc3StatsPlayerData(data)
 			hl: 0,
 			hlr: 0,
 			hlrSw: null,
-			degen: 0
+			degen: 0,
+			addKills: null,
+			counterCast: null,
+			counterHit: null,
 		},
 		statsBoss: {}
 	};

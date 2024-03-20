@@ -106,7 +106,7 @@ function generateHtmlStatsTable(replays, replay, players, boss)
 
 	let html = "";
 	html += `<table class="tableStats">`;
-	html += `<tr><th></th><th>Deaths</th><th>Damage</th>${boss != null ? "<th>DPS</th>" : ""}<th>Healing</th>${boss != null ? "<th>HPS</th>" : ""}<th>Healing Received</th><th>Degen</th>${boss != null ? "<th>Degen/s</th>" : ""}</tr>`;
+	html += `<tr><th></th><th>Deaths</th><th>Damage</th>${boss != null ? "<th>DPS</th>" : ""}<th>Healing</th>${boss != null ? "<th>HPS</th>" : ""}<th>Healing Received</th><th>Degen</th>${boss != null ? "<th>Degen/s</th>" : ""}<th>Add Kills</th><th>CS</th></tr>`;
 	for (let i = 0; i < replay.players.length; i++) {
 		const p = replay.players[i];
 		let rowLighterOrNot = "";
@@ -167,6 +167,15 @@ function generateHtmlStatsTable(replays, replay, players, boss)
 			}
 			html += `</td>`;
 		}
+		if (boss != null && pb.addKills != null) {
+			html += `<td>`;
+			html += generateHtmlRankedStat(replaysDescending, players, replay, i, boss, pb.addKills, statFunctionAddKills, true, intToStringMaybeNull, "addkill", "rankStatInTable");
+			html += `</td>`;
+		}
+		else {
+			html += `<td>${intToStringMaybeNull(pb.addKills)}</td>`;
+		}
+		html += `<td>${intToStringMaybeNull(pb.counterHit)} (${intToStringMaybeNull(pb.counterCast)})</td>`;
 		html += `</tr>`;
 	}
 	html += `</table>`;

@@ -40,6 +40,11 @@ function statFunctionDeaths(replay, playerIndex, boss)
 	return replay.players[playerIndex].statsBoss[boss].deaths;
 }
 
+function statFunctionAddKills(replay, playerIndex, boss)
+{
+	return replay.players[playerIndex].statsBoss[boss].addKills;
+}
+
 function getTopDifficultyStats(replaysDescending, players, boss, statFunction, descending)
 {
 	let difficultyStats = {};
