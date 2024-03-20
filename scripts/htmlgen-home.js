@@ -151,7 +151,7 @@ function generateHtml(replays, players, activeTab)
 
 	html += `<hr class="big">`;
 
-	html += `<p class="temp">Welcome! This is a work in progress - some things still look janky, and many things are bound to change. If you see anything you don't like, or want to see more of something, or have any other suggestions, just post on Discord or PM Patio. Also, don't try looking at this site on a phone yet, it will be bad :)</p>`;
+	html += `<p class="temp">Welcome to the Impossible Bosses stats page! Please don't try looking at this site on a phone, it will be bad :)</p>`;
 	html += `<p class="temp"><b>NOTE:</b> New replays should be reflected on this site within 5-10 minutes of uploading to wc3stats. The games list is scanned every 5 minutes for new replays and updated accordingly. If you uploaded a game and it's not listed after ~10 minutes, just post on Discord or PM Patio.</p>`;
 	html += `</div>`; // thinWrapper
 
@@ -288,8 +288,7 @@ function generateHtmlFromGlobals()
 	let activeTab = 0;
 	if (hash == "#players") {
 		activeTab = 1;
-	}
-	else if (hash == "#games") {
+	} else if (hash == "#games") {
 		activeTab = 2;
 	}
 

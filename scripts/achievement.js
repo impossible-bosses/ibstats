@@ -149,6 +149,28 @@ function achievementWinAllClasses(playerSortedReplays, players, player)
 	return hits;
 }
 
+function achievementAK47(playerSortedReplays, players, player)
+{
+	let hits = {};
+	for (const d in DIFFICULTY) {
+		const diff = DIFFICULTY[d];
+		hits[diff] = [];
+		for (let i = playerSortedReplays.length - 1; i >= 0; i--) {
+			const replay = playerSortedReplays[i];
+			if (replay.difficulty !== diff) continue;
+
+			const ind = getPlayerIndexInReplay(replay, player, players);
+			for (const stats of Object.values(replay.players[ind].statsBoss)) {
+				if (stats.addKills == 47) {
+					hits[diff].push(replay);
+					break;
+				}
+			}
+		}
+	}
+	return hits;
+}
+
 function getPlayerAchievementHits(playerSortedReplays, players, player)
 {
 	let achievementHits = {};
@@ -200,6 +222,11 @@ const ACHIEVEMENTS = {
 		condition: function(playerSortedReplays, players, player) {
 			return achievementWinNoDeaths(playerSortedReplays, players, player);
 		}
+	},
+	"AK-47": {
+		hideTemp: true,
+		description: "Get 47 add kills in a boss fight.",
+		condition: achievementAK47,
 	},
 	"Sacrilege!": {
 		description: "Win the game without a Priest.",
