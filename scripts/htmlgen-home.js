@@ -64,16 +64,16 @@ function generateHtmlBoss(replaysDescending, players, boss)
 			playerStat: true
 		},
 		{
-			label: "Top Degen/sec",
+			label: "Top Degen / sec",
 			statFunction: statFunctionDegenPerSec,
 			formatValueFunction: floatTo3DigitStringMaybeNull,
 			descending: true,
 			playerStat: true
 		},
 		{
-			label: "Top Add Kills",
-			statFunction: statFunctionAddKills,
-			formatValueFunction: intToStringMaybeNull,
+			label: "Top Add Kills / min",
+			statFunction: statFunctionAddKillsPerMin,
+			formatValueFunction: floatTo3DigitStringMaybeNull,
 			descending: true,
 			playerStat: true
 		},

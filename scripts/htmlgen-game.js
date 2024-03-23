@@ -116,7 +116,7 @@ function generateHtmlStatsTable(replays, replay, players, boss)
 
 	let html = "";
 	html += `<table class="tableStats">`;
-	html += `<tr><th></th><th>Deaths</th><th>Damage</th>${boss != null ? "<th>DPS</th>" : ""}<th>Healing</th>${boss != null ? "<th>HPS</th>" : ""}<th>Healing Received</th><th>Degen</th>${boss != null ? "<th>Degen/s</th>" : ""}<th>Add Kills</th><th>CS</th></tr>`;
+	html += `<tr><th></th><th>Deaths</th><th>Damage</th>${boss != null ? "<th>DPS</th>" : ""}<th>Healing</th>${boss != null ? "<th>HPS</th>" : ""}<th>Healing Received</th><th>Degen</th>${boss != null ? "<th>Degen/s</th>" : ""}<th>AK</th><th>AKPM</th><th>CS</th></tr>`;
 	for (let i = 0; i < replay.players.length; i++) {
 		const p = replay.players[i];
 		let rowLighterOrNot = "";
@@ -146,9 +146,8 @@ function generateHtmlStatsTable(replays, replay, players, boss)
 			if (killTime != null && pb.dmg != null) {
 				const dps = pb.dmg / killTime;
 				html += generateHtmlRankedStat(replaysDescending, players, replay, i, boss, p.class, dps, statFunctionDps, true, floatTo3DigitStringMaybeNull, "DPS", "rankStatInTable");
-			}
-			else {
-				html += `n/a`;
+			} else {
+				html += `-`;
 			}
 			html += `</td>`;
 		}
@@ -158,9 +157,8 @@ function generateHtmlStatsTable(replays, replay, players, boss)
 			if (killTime != null && pb.hl != null) {
 				const hps = pb.hl / killTime;
 				html += generateHtmlRankedStat(replaysDescending, players, replay, i, boss, p.class, hps, statFunctionHps, true, floatTo3DigitStringMaybeNull, "HPS", "rankStatInTable");
-			}
-			else {
-				html += `n/a`;
+			} else {
+				html += `-`;
 			}
 			html += `</td>`;
 		}
@@ -171,18 +169,22 @@ function generateHtmlStatsTable(replays, replay, players, boss)
 			if (killTime != null && pb.degen != null) {
 				const degenps = pb.degen / killTime;
 				html += generateHtmlRankedStat(replaysDescending, players, replay, i, boss, p.class, degenps, statFunctionDegenPerSec, true, floatTo3DigitStringMaybeNull, "degenps", "rankStatInTable");
-			}
-			else {
-				html += `n/a`;
+			} else {
+				html += `-`;
 			}
 			html += `</td>`;
 		}
 		if (boss != null && pb.addKills != null) {
+			html += `<td>${intToStringMaybeNull(pb.addKills)}</td>`;
 			html += `<td>`;
-			html += generateHtmlRankedStat(replaysDescending, players, replay, i, boss, p.class, pb.addKills, statFunctionAddKills, true, intToStringMaybeNull, "addkill", "rankStatInTable");
-			html += `</td>`;
-		}
-		else {
+			if (killTime != null) {
+				const akpm = pb.addKills / killTime * 60;
+				html += generateHtmlRankedStat(replaysDescending, players, replay, i, boss, p.class, akpm, statFunctionAddKillsPerMin, true, floatTo3DigitStringMaybeNull, "AKPM", "rankStatInTable");
+			} else {
+				html += `n/a`;
+			}
+			html += `</td>`
+		} else {
 			html += `<td>${intToStringMaybeNull(pb.addKills)}</td>`;
 		}
 		html += `<td>${intToStringMaybeNull(pb.counterHit)} (${intToStringMaybeNull(pb.counterCast)})</td>`;
@@ -333,7 +335,7 @@ $(document).ready(function() {
 	const urlParams = new URLSearchParams(window.location.search);
 	if (!urlParams.has("id")) {
 		console.error("Expected replay ID in URL, redirecting to home");
-		window.location.href = '../';
+		window.location.href = "../";
 	}
 
 	const replayIdString = urlParams.get("id");
