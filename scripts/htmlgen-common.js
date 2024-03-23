@@ -122,7 +122,7 @@ function generateHtmlBossFrame(boss, left, titleRight, innerHtml, pathToRoot)
 {
 	let html = "";
 	html += `<div id="${boss}" class="bossBackground" style="background-color: ${BOSS_COLORS[boss]}60;">`;
-	html += `<img class="${left ? "left" : "right"}" src="${imagePath}/images/etch-${boss}.png"/>`;
+	html += `<img class="${left ? "left" : "right"}" src="${pathToRoot}/images/etch-${boss}.png"/>`;
 	html += `<div class="thinWrapper">`;
 	html += `<div class="bossTitle">`;
 	html += `<h2 class="bossTitleLeft"><a href="${pathToRoot}/boss/?b=${boss}&d=Normal">${getBossLongName(boss)}</a></h2>`;
