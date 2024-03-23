@@ -32,7 +32,7 @@ function statFunctionDegenPerSec(replay, playerIndex, boss)
 	if (killTime == null) {
 		return null;
 	}
-	return replay.players[playerIndex].statsBoss[boss].degen / killTime;
+	return statFunctionDegen(replay, playerIndex, boss) / killTime;
 }
 
 function statFunctionDeaths(replay, playerIndex, boss)
@@ -43,6 +43,19 @@ function statFunctionDeaths(replay, playerIndex, boss)
 function statFunctionAddKills(replay, playerIndex, boss)
 {
 	return replay.players[playerIndex].statsBoss[boss].addKills;
+}
+
+function statFunctionAddKillsPerMin(replay, playerIndex, boss)
+{
+	const killTime = replayGetBossKillTime(replay, boss);
+	if (killTime == null) {
+		return null;
+	}
+	const ak = statFunctionAddKills(replay, playerIndex, boss);
+	if (ak == null) {
+		return null;
+	}
+	return ak / killTime * 60;
 }
 
 function getTopDifficultyStats(replaysDescending, players, boss, c, statFunction, descending)
