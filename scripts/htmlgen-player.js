@@ -150,22 +150,22 @@ function generateHtmlPlayerLeaderboard(replays, players, player)
 	let rows = [];
 	for (let bInd = 0; bInd < BOSSES_SORTED.length; bInd++) {
 		const boss = BOSSES_SORTED[bInd];
-		const topDifficultyKillTimes = getTopDifficultyStats(replaysDescending, null, boss, statFunctionKillTime, false);
+		const topDifficultyKillTimes = getTopDifficultyStats(replaysDescending, null, boss, null, statFunctionKillTime, false);
 		const topStatsData = [
 			{
-				data: getTopDifficultyStats(replaysDescending, players, boss, statFunctionDps, true),
+				data: getTopDifficultyStats(replaysDescending, players, boss, null, statFunctionDps, true),
 				name: "DPS"
 			},
 			{
-				data: getTopDifficultyStats(replaysDescending, players, boss, statFunctionHps, true),
+				data: getTopDifficultyStats(replaysDescending, players, boss, null, statFunctionHps, true),
 				name: "HPS"
 			},
 			{
-				data: getTopDifficultyStats(replaysDescending, players, boss, statFunctionDegen, true),
+				data: getTopDifficultyStats(replaysDescending, players, boss, null, statFunctionDegen, true),
 				name: "degen"
 			},
 			{
-				data: getTopDifficultyStats(replaysDescending, players, boss, statFunctionDeaths, true),
+				data: getTopDifficultyStats(replaysDescending, players, boss, null, statFunctionDeaths, true),
 				name: "deaths"
 			},
 		];

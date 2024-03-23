@@ -45,7 +45,7 @@ function statFunctionAddKills(replay, playerIndex, boss)
 	return replay.players[playerIndex].statsBoss[boss].addKills;
 }
 
-function getTopDifficultyStats(replaysDescending, players, boss, statFunction, descending)
+function getTopDifficultyStats(replaysDescending, players, boss, c, statFunction, descending)
 {
 	let difficultyStats = {};
 	for (const d in DIFFICULTY) {
@@ -69,10 +69,12 @@ function getTopDifficultyStats(replaysDescending, players, boss, statFunction, d
 					value: value
 				});
 			}
-		}
-		else {
+		} else {
 			for (let j = 0; j < replay.players.length; j++) {
 				const playerData = replay.players[j];
+				if (c !== null && playerData.class !== c) {
+					continue;
+				}
 				const value = statFunction(replay, j, boss);
 				if (value != null) {
 					difficultyStats[replay.difficulty].push({

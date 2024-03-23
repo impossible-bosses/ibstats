@@ -48,10 +48,12 @@ function generateHtmlPlayer(players, playerData)
 	return html;
 }
 
-function generateHtmlRankedStat(replaysDescending, players, replay, playerIndex, boss, value, statFunction, descending, formatValueFunction, statName, statClass)
+function generateHtmlRankedStat(replaysDescending, players, replay, playerIndex, boss, c, value, statFunction, descending, formatValueFunction, statName, statClass)
 {
-	const topDifficultyStat = getTopDifficultyStats(replaysDescending, players, boss, statFunction, descending);
+	const topDifficultyStat = getTopDifficultyStats(replaysDescending, players, boss, null, statFunction, descending);
+	const topDifficultyStatClass = getTopDifficultyStats(replaysDescending, players, boss, c, statFunction, descending);
 	const total = topDifficultyStat[replay.difficulty].length;
+	const totalClass = topDifficultyStatClass[replay.difficulty].length;
 	let player = null;
 	if (players != null) {
 		player = getPlayerFromAlias(players, replay.players[playerIndex].name);
@@ -61,6 +63,14 @@ function generateHtmlRankedStat(replaysDescending, players, replay, playerIndex,
 		const s = topDifficultyStat[replay.difficulty][i];
 		if (replay.id == s.replayId && player == s.player) {
 			rank = i;
+			break;
+		}
+	}
+	let rankClass = null;
+	for (let i = 0; i < totalClass; i++) {
+		const s = topDifficultyStatClass[replay.difficulty][i];
+		if (replay.id == s.replayId && player == s.player) {
+			rankClass = i;
 			break;
 		}
 	}
@@ -88,9 +98,9 @@ function generateHtmlRankedStat(replaysDescending, players, replay, playerIndex,
 	}
 	html += `<div class="tooltip">`;
 	if (rank != null) {
-		html += `<b>Rank ${rank + 1}</b> out of ${total} ${statName} rankings on ${replay.difficulty} difficulty`;
-	}
-	else {
+		html += `<b>Rank ${rank + 1}</b> out of ${total} rankings on ${replay.difficulty} difficulty`;
+		html += `<br><b>Rank ${rankClass + 1}</b> out of ${totalClass} rankings for ${c}`
+	} else {
 		html += `Error, ranking unavailable. Plz tell Patio that something went wrong :(`;
 	}
 	html += `</div>`; // tooltip
@@ -124,7 +134,7 @@ function generateHtmlStatsTable(replays, replay, players, boss)
 		html += generateHtmlPlayer(players, p);
 		if (boss != null && pb.deaths != null) {
 			html += `<td>`;
-			html += generateHtmlRankedStat(replaysDescending, players, replay, i, boss, pb.deaths, statFunctionDeaths, true, intToStringMaybeNull, "death", "rankStatInTable");
+			html += generateHtmlRankedStat(replaysDescending, players, replay, i, boss, p.class, pb.deaths, statFunctionDeaths, true, intToStringMaybeNull, "death", "rankStatInTable");
 			html += `</td>`;
 		}
 		else {
@@ -135,7 +145,7 @@ function generateHtmlStatsTable(replays, replay, players, boss)
 			html += `<td>`;
 			if (killTime != null && pb.dmg != null) {
 				const dps = pb.dmg / killTime;
-				html += generateHtmlRankedStat(replaysDescending, players, replay, i, boss, dps, statFunctionDps, true, floatTo3DigitStringMaybeNull, "DPS", "rankStatInTable");
+				html += generateHtmlRankedStat(replaysDescending, players, replay, i, boss, p.class, dps, statFunctionDps, true, floatTo3DigitStringMaybeNull, "DPS", "rankStatInTable");
 			}
 			else {
 				html += `n/a`;
@@ -147,7 +157,7 @@ function generateHtmlStatsTable(replays, replay, players, boss)
 			html += `<td>`;
 			if (killTime != null && pb.hl != null) {
 				const hps = pb.hl / killTime;
-				html += generateHtmlRankedStat(replaysDescending, players, replay, i, boss, hps, statFunctionHps, true, floatTo3DigitStringMaybeNull, "HPS", "rankStatInTable");
+				html += generateHtmlRankedStat(replaysDescending, players, replay, i, boss, p.class, hps, statFunctionHps, true, floatTo3DigitStringMaybeNull, "HPS", "rankStatInTable");
 			}
 			else {
 				html += `n/a`;
@@ -160,7 +170,7 @@ function generateHtmlStatsTable(replays, replay, players, boss)
 			html += `<td>`;
 			if (killTime != null && pb.degen != null) {
 				const degenps = pb.degen / killTime;
-				html += generateHtmlRankedStat(replaysDescending, players, replay, i, boss, degenps, statFunctionDegenPerSec, true, floatTo3DigitStringMaybeNull, "degenps", "rankStatInTable");
+				html += generateHtmlRankedStat(replaysDescending, players, replay, i, boss, p.class, degenps, statFunctionDegenPerSec, true, floatTo3DigitStringMaybeNull, "degenps", "rankStatInTable");
 			}
 			else {
 				html += `n/a`;
@@ -169,7 +179,7 @@ function generateHtmlStatsTable(replays, replay, players, boss)
 		}
 		if (boss != null && pb.addKills != null) {
 			html += `<td>`;
-			html += generateHtmlRankedStat(replaysDescending, players, replay, i, boss, pb.addKills, statFunctionAddKills, true, intToStringMaybeNull, "addkill", "rankStatInTable");
+			html += generateHtmlRankedStat(replaysDescending, players, replay, i, boss, p.class, pb.addKills, statFunctionAddKills, true, intToStringMaybeNull, "addkill", "rankStatInTable");
 			html += `</td>`;
 		}
 		else {
@@ -232,7 +242,7 @@ function generateHtmlBoss(replays, replay, players, boss, left)
 	const killTime = bossData.killTime - bossData.startTimes[bossData.startTimes.length - 1];
 
 	const replaysDescending = toReplayListDescending(replays);
-	const titleRight = continuesStr + generateHtmlRankedStat(replaysDescending, null, replay, null, boss, killTime, statFunctionKillTime, false, secondsToTimestamp, "kill time", "rankKillTime");
+	const titleRight = continuesStr + generateHtmlRankedStat(replaysDescending, null, replay, null, boss, null, killTime, statFunctionKillTime, false, secondsToTimestamp, "kill time", "rankKillTime");
 
 	const innerHtml = generateHtmlStatsTable(replays, replay, players, boss);
 

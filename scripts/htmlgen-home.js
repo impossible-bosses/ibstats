@@ -5,7 +5,7 @@ const TOP_N = 3;
 
 function generateHtmlBossTopStat(replaysDescending, players, boss, statFunction, formatValueFunction, descending=true)
 {
-	const difficultyStats = getTopDifficultyStats(replaysDescending, players, boss, statFunction, descending);
+	const difficultyStats = getTopDifficultyStats(replaysDescending, players, boss, null, statFunction, descending);
 
 	let html = "";
 	html += `<table class="tableTopStat">`;

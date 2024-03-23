@@ -8,43 +8,90 @@ function generateHtmlTitle(boss)
     return html;
 }
 
-function generateHtml(replays, players, boss)
+function generateHtmlAndCharts(replays, players, boss)
 {
+    const diff = DIFFICULTY.N;
+    const replayList = [];
+    for (const id in replays) {
+        const replay = replays[id];
+        if (replay === null) {
+            continue;
+        }
+        if (replay.bossKills === null) {
+            continue;
+        }
+        if (replay.difficulty !== diff) {
+            continue;
+        }
+        if (!isBossInDifficulty(boss, replay.difficulty)) {
+            continue;
+        }
+        replayList.push(replay);
+    }
+
     let html = "";
+    let charts = [];
     html += `<p class="backButton"><a href="..">&lt; BACK</a></p>`;
     html += `<br><br><br><br>`;
     html += generateHtmlTitle(boss);
 
-    const chartDiv = document.createElement("div");
-    const chartCanvas = document.createElement("canvas");
-    chartDiv.appendChild(chartCanvas);
-    document.body.appendChild(chartDiv);
-    new Chart(chartCanvas, {
-        type: 'bar',
-        data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-            datasets: [{
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
+    html += `<div style="width: 70%; margin: auto;"><canvas id="scatterDmg"></canvas></div>`;
+    charts.push({
+        canvasId: "scatterDmg",
+        config: {
+            type: "scatter",
+            data: {
+                datasets: [{
+                    label: "Fire Mage",
+                    data: [{
+                        x: 10,
+                        y: 10
+                    }, {
+                        x: 10,
+                        y: 10
+                    }, {
+                        x: 10,
+                        y: 10
+                    }, {
+                        x: 10,
+                        y: 10
+                    }, {
+                        x: 15,
+                        y: 10
+                    }],
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        display: false,
+                        // type: "category",
+                        // labels: ["Fire Mage", "Ice Mage"]
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                    }
                 }
             }
         }
-    });
+    })
 
-    return html;
+    return {
+        html: html,
+        charts: charts,
+    };
 }
 
 function generateHtmlFromGlobals()
 {
-    let html = generateHtml(replays_, players_, boss_);
-    document.getElementById("everything").innerHTML = html;
+    let htmlAndCharts = generateHtmlAndCharts(replays_, players_, boss_);
+    everything.innerHTML = htmlAndCharts.html;
+
+    for (const chart of htmlAndCharts.charts) {
+        const canvas = document.getElementById(chart.canvasId);
+        new Chart(canvas, chart.config);
+    }
 }
 
 $(document).ready(function() {
