@@ -187,7 +187,7 @@ function generateHtmlStatsTable(replays, replay, players, boss)
 			}
 			html += `</td>`
 		} else {
-			html += `<td>${intToStringMaybeNull(pb.addKills)}</td>`;
+			html += `<td>-</td><td>-</td>`;
 		}
 		html += `<td>${intToStringMaybeNull(pb.counterHit)} (${intToStringMaybeNull(pb.counterCast)})</td>`;
 		html += `</tr>`;
