@@ -131,7 +131,7 @@ function generateHtmlAndCharts(replays, players, boss, diff)
     let charts = [];
     html += `<div style="background-color: ${BOSS_COLORS[boss]}20">`;
     html += `<p class="backButton"><a href="..">&lt; BACK</a></p>`;
-    html += `<img src="../images/etch-${boss}.png" style="position: absolute; top: 0; right: 0; width: 25%;"/>`;
+    html += `<img src="../images/etch-${boss}.png" style="position: absolute; top: 0; left: 0; width: 20%;"/>`;
     html += `<div style="height: 80pt;"></div>`;
     // html += `<br><br><br><br><br><br><br>`;
 
