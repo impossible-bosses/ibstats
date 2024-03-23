@@ -125,8 +125,7 @@ function generateHtmlBossFrame(boss, left, titleRight, innerHtml, imagePath)
 	html += `<img class="${left ? "left" : "right"}" src="${imagePath}/images/etch-${boss}.png"/>`;
 	html += `<div class="thinWrapper">`;
 	html += `<div class="bossTitle">`;
-	html += `<h2 class="bossTitleLeft">${getBossLongName(boss)}</h2>`;
-	// html += `<h2 class="bossTitleLeft"><a href="/boss/?b=${boss}&d=Normal">${getBossLongName(boss)}</a></h2>`;
+	html += `<h2 class="bossTitleLeft"><a href="/boss/?b=${boss}&d=Normal">${getBossLongName(boss)}</a></h2>`;
 	html += `<h2 class="bossTitleRight">${titleRight}</h2>`;
 	html += `</div>`;
 	html += `<hr class="rowLighter" style="height: 4px;">`;
