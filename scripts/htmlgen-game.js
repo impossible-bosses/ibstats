@@ -97,9 +97,11 @@ function generateHtmlRankedStat(replaysDescending, players, replay, playerIndex,
 		html += `</a>`;
 	}
 	html += `<div class="tooltip">`;
-	if (rank != null) {
+	if (rank !== null) {
 		html += `<b>Rank ${rank + 1}</b> out of ${total} rankings on ${replay.difficulty} difficulty`;
-		html += `<br><b>Rank ${rankClass + 1}</b> out of ${totalClass} rankings for ${c}`
+		if (c !== null) {
+			html += `<br><b>Rank ${rankClass + 1}</b> out of ${totalClass} rankings for ${c}`;
+		}
 	} else {
 		html += `Error, ranking unavailable. Plz tell Patio that something went wrong :(`;
 	}
