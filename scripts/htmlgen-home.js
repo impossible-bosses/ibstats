@@ -143,6 +143,7 @@ function generateHtml(replays, players, activeTab)
 	html += `<a href="#leaderboards"><div class="tabSelector ts0 ${activeTab == 0 ? "active" : ""}">Leaderboards</div></a>`;
 	html += `<a href="#players"><div class="tabSelector ts1 ${activeTab == 1 ? "active" : ""}">Players</div></a>`;
 	html += `<a href="#games"><div class="tabSelector ts2 ${activeTab == 2 ? "active" : ""}">Uploaded Games</div></a>`;
+	html += `<a href="./boss/?b=fire&d=Normal"><div class="tabSelector">Boss Stats</div></a>`;
 	html += `<div class="search">`;
 	html += `<input type="text" id="search" name="search" placeholder="player search">`;
 	html += `<div id="searchResults"><div class="searchResult"><a href="">Patio</a></div><div class="searchResult"><a href="">typical_methods</a></div><div class="searchResult"><a href="">Kiiski</a></div></div>`;
