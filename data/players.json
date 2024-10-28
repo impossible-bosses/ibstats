@@ -211,6 +211,12 @@
         ]
     },
     {
+        "name": "Vainstream",
+        "aliases": [
+            "Frankdrebin#2854"
+        ]
+    },
+    {
         "name": "utopus",
         "aliases": [
             "utopus1",
@@ -227,6 +233,34 @@
         "name": "Daumen",
         "aliases": [
             "Daumen#2283"
+        ]
+    },
+    {
+        "name": "dnask",
+        "aliases": [
+            "Dnask#1104",
+            "dnask11"
+        ]
+    },
+    {
+        "name": "Baether",
+        "aliases": [
+            "Baether#1318",
+            "baether"
+        ]
+    },
+    {
+        "name": "deesanz",
+        "aliases": [
+            "deesanz#1468",
+            "dees"
+        ]
+    },
+    {
+        "name": "Foxy",
+        "aliases": [
+            "FHL#11387",
+            "foxyyyyy"
         ]
     }
 ]
