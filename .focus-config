@@ -1,0 +1,13 @@
+[6]  # Version number. Do not delete.
+
+[[workspace]]
+# These directories and files will be scanned when a workspace is opened so that search etc. works.
+C:\Users\jmric\dev\ibstats
+
+[[build commands]]
+open_panel_on_build: true
+close_panel_on_success: false
+clear_build_output_before_running: true
+auto_jump_to_error: true
+build_working_dir: C:\Users\jmric\dev\ibstats
+error_regex: ^(?P<file>.+):(?P<line>\d+):(?P<col>\d+): (?P<type>[^:]+): (?P<msg>.*)$

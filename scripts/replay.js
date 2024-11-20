@@ -104,6 +104,7 @@ const WC3_VERSION = {
 	V1_28: 128,
 	V1_30: 130,
 	V1_3x: 30,
+	V2_x: 2,
 };
 
 function stringToEnum(str, enumObject)
@@ -178,6 +179,8 @@ function majorVersionToWc3Version(v)
 		return WC3_VERSION.V1_30;
 	} else if (v >= 10030 && v < 10040) {
 		return WC3_VERSION.V1_3x;
+	} else if (v >= 10100) {
+	   return WC3_VERSION.V2_x;
 	}
 	return null;
 }
