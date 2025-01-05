@@ -98,6 +98,8 @@ const MAP_VERSION = {
 	V1_11_20: 20,
 	V1_11_21: 21,
 	V1_11_22: 22,
+	V1_12_0: 1120,
+	v1_12_1: 1121,
 };
 
 const WC3_VERSION = {
@@ -167,6 +169,12 @@ function mapFileToVersion(file)
 	}
 	else if (file == "Impossible.Bosses.v1.11.22.w3x" || file == "Impossible.Bosses.v1.11.22-no-bnet.w3x") {
 		return MAP_VERSION.V1_11_22;
+	}
+	else if (file == "Impossible.Bosses.v1.12.0.w3x" || file == "Impossible.Bosses.v1.12.0-no-bnet.w3x") {
+		return MAP_VERSION.V1_12_0;
+	}
+	else if (file == "Impossible.Bosses.v1.12.1.w3x" || file == "Impossible.Bosses.v1.12.1-no-bnet.w3x") {
+		return MAP_VERSION.V1_12_1;
 	}
 	return null;
 }
@@ -338,6 +346,12 @@ function mapVersionToString(v)
 	}
 	else if (v == MAP_VERSION.V1_11_22) {
 		return "1.11.22";
+	}
+	else if (v == MAP_VERSION.V1_12_0) {
+		return "1.12.0";
+	}
+	else if (v == MAP_VERSION.V1_12_1) {
+		return "1.12.1";
 	}
 	throw `Unknown map version ${v}`;
 }
