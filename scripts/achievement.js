@@ -23,24 +23,24 @@ v2
 }
 */
 
-function achievementWinDifficulty(playerSortedReplays, players, player, wc3Version, difficulty)
+function achievementWinDifficulty(playerSortedReplays, players, player, wc3Versions, difficulty)
 {
 	let replays = [];
 	for (let i = playerSortedReplays.length - 1; i >= 0; i--) {
 		const replay = playerSortedReplays[i];
-		if (replay.win && replay.difficulty == difficulty && (wc3Version == null || replay.wc3Version == wc3Version)) {
+		if (replay.win && replay.difficulty == difficulty && (wc3Versions == null || wc3Versions.includes(replay.wc3Version))) {
 			replays.push(replay);
 		}
 	}
 	return replays;
 }
 
-function achievementWin(playerSortedReplays, players, player, wc3Version=null)
+function achievementWin(playerSortedReplays, players, player, wc3Versions=null)
 {
 	let hits = {};
 	for (const d in DIFFICULTY) {
 		const diff = DIFFICULTY[d];
-		hits[diff] = achievementWinDifficulty(playerSortedReplays, players, player, wc3Version, diff);
+		hits[diff] = achievementWinDifficulty(playerSortedReplays, players, player, wc3Versions, diff);
 	}
 	return hits;
 }
@@ -192,21 +192,21 @@ const ACHIEVEMENTS = {
 		hideUnachieved: true,
 		description: "Win the game on M16 servers.",
 		condition: function(playerSortedReplays, players, player) {
-			return achievementWin(playerSortedReplays, players, player, WC3_VERSION.V1_28);
+			return achievementWin(playerSortedReplays, players, player, [WC3_VERSION.V1_28]);
 		}
 	},
 	"Win (ENT)": {
 		hideUnachieved: true,
 		description: "Win the game on ENT servers.",
 		condition: function(playerSortedReplays, players, player) {
-			return achievementWin(playerSortedReplays, players, player, WC3_VERSION.V1_30);
+			return achievementWin(playerSortedReplays, players, player, [WC3_VERSION.V1_30]);
 		}
 	},
 	"Win (Battle.net)": {
 		hideUnachieved: true,
 		description: "Win the game on Battle.net.",
 		condition: function(playerSortedReplays, players, player) {
-			return achievementWin(playerSortedReplays, players, player, WC3_VERSION.V1_3x);
+			return achievementWin(playerSortedReplays, players, player, [WC3_VERSION.V1_3x, WC3_VERSION.V2_x]);
 		}
 	},
 	"No Second Chances": {
