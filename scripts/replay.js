@@ -181,7 +181,7 @@ function mapFileToVersion(file)
 	else if (file == "Impossible.Bosses.v1.12.2.w3x" || file == "Impossible.Bosses.v1.12.2-no-bnet.w3x") {
 		return MAP_VERSION.V1_12_2;
 	}
-	else if (file == "Impossible.Bosses.v1.12.3.w3x" || file == "Impossible.Bosses.v1.12.3-no-bnet.w3x") {
+	else if (file == "Impossible.Bosses.v1.12.3.w3x" || file == "Impossible.Bosses.v1.12.3-no-bnet.w3x" || file == "Impossible.Bosses.v1.12.3~1.w3x") {
 		return MAP_VERSION.V1_12_3;
 	}
 	return null;
