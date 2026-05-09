@@ -692,6 +692,11 @@ function parseWc3StatsReplayData(data)
 			continue;
 		}
 
+		if (replayData.id == 786663 && BOSS[b] == BOSS.DEMONIC) {
+			// Bugged game, Ancient kill was double-counted and triggered endgame.
+			bossData.killTime = null;
+		}
+
 		let expectedWipeTimes = bossData.startTimes.length;
 		if (bossData.killTime != null) {
 			expectedWipeTimes -= 1;
