@@ -272,5 +272,11 @@
         "aliases": [
             "Red#3134"
         ]
+    },
+    {
+        "name": "hdd",
+        "aliases": [
+            "hdd#1624"
+        ]
     }
 ]
