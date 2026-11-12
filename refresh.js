@@ -7,7 +7,7 @@ const crypto = require('crypto');
 const replay = require('./scripts/replay');
 const API = 'https://api.wc3stats.com';
 
-function requestOnce(url, timeout = 60000) {
+function requestOnce(url, timeout = 180000) {
     return new Promise((resolve, reject) => {
         const req = https.get(url, {headers: {'User-Agent': 'IBStat-refresh/2.0'}}, res => {
             let body = ''; let size = 0;
@@ -51,20 +51,20 @@ function idKey(value) {
     if (!Number.isSafeInteger(n) || n <= 0) throw new Error('Invalid replay ID');
     return String(n);
 }
-async function collect(fetchJson, maxPages = 30, progress = () => {}) {
+async function collect(fetchJson, maxPages = 100, progress = () => {}) {
     let page = 1;
     const seenPages = new Set(), rows = new Map();
     for (;;) {
         if (seenPages.has(page) || seenPages.size >= maxPages) throw new Error('Replay pagination incomplete/looping; no data will be saved');
         seenPages.add(page);
-        progress({phase: 'listing', page});
-        const url = API + '/replays?search=Impossible.Bosses.v&sort=playedOn&order=desc&limit=200&page=' + page;
+        progress({phase: 'listing', page, limit: 50});
+        const url = API + '/replays?search=Impossible.Bosses.v&sort=playedOn&order=desc&limit=50&page=' + page;
         const data = await fetchJson(url);
         if (!Array.isArray(data.body)) throw new Error('Replay listing body is not an array');
         for (const row of data.body) rows.set(idKey(row.id), row);
         const paging = data.pagination;
         if (!paging) {
-            if (data.body.length >= 200) throw new Error('Full page without pagination; refusing a silently incomplete scan');
+            if (data.body.length >= 50) throw new Error('Full page without pagination; refusing a silently incomplete scan');
             break;
         }
         if (paging.current != null && Number(paging.current) !== page) throw new Error('Unexpected pagination current page');
@@ -81,7 +81,7 @@ async function recover(stored, options = {}) {
     const fetchJson = options.fetchJson || getJson;
     const next = {...stored};
     const progress = options.progress || (() => {});
-    const listing = await collect(fetchJson, options.maxPages || 30, progress);
+    const listing = await collect(fetchJson, options.maxPages || 100, progress);
     const report = {at: new Date().toISOString(), pages: listing.pages, listed: listing.rows.length,
         preserved: 0, added: [], recoveredNull: [], filtered: [], pending: [], unconfirmedResult: [], failed: [], remainingNull: []};
     let attempts = 0;
@@ -121,7 +121,7 @@ function atomicJson(file, value) {
     finally {if (fs.existsSync(temp)) fs.unlinkSync(temp);}
 }
 async function main(args) {
-    let input = 'data/replays.json', output = null, pages = 30;
+    let input = 'data/replays.json', output = null, pages = 100;
     for (let i = 0; i < args.length; i++) {
         if (args[i] === '--input' && args[i+1]) input = args[++i];
         else if (args[i] === '--output' && args[i+1]) output = args[++i];

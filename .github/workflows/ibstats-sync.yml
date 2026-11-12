@@ -41,6 +41,7 @@ jobs:
           node tests/staged-data.test.js
           node tests/unconfirmed.test.js
           node tests/staged-files.test.js
+          node tests/listing-size.test.js
       - name: Collect into staging
         run: node refresh.js --input data/replays.json --output staging/replays.json
       - name: Verify without changing repository files
