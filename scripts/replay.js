@@ -59,7 +59,8 @@ const CLASS = {
 	RANGER: "Ranger",
 	ROGUE: "Rogue",
 	WARLOCK: "Warlock",
-	WARRIOR: "Warrior"
+	WARRIOR: "Warrior",
+	SHAMAN: "Shaman"
 };
 const CLASSES_SORTED = [
 	CLASS.DK,
@@ -71,7 +72,8 @@ const CLASSES_SORTED = [
 	CLASS.RANGER,
 	CLASS.ROGUE,
 	CLASS.WARLOCK,
-	CLASS.WARRIOR
+	CLASS.WARRIOR,
+	CLASS.SHAMAN
 ];
 let CLASS_COLORS = {};
 CLASS_COLORS[CLASS.DK] = "#4f5ca1";
@@ -84,6 +86,7 @@ CLASS_COLORS[CLASS.RANGER] = "#6e945d";
 CLASS_COLORS[CLASS.ROGUE] = "#a1745a";
 CLASS_COLORS[CLASS.WARLOCK] = "#C981CF";
 CLASS_COLORS[CLASS.WARRIOR] = "#5e5e5e";
+CLASS_COLORS[CLASS.SHAMAN] = "#4db8ee";
 
 const MAP_VERSION = {
 	V1_10_5: 0,
@@ -102,6 +105,8 @@ const MAP_VERSION = {
 	V1_12_1: 1121,
 	V1_12_2: 1122,
 	V1_12_3: 1123,
+	V1_13_0: 1130,
+	V1_13_1: 1131,
 };
 
 const WC3_VERSION = {
@@ -136,6 +141,8 @@ function compareDifficulties(d1, d2)
 
 function mapFileToVersion(file)
 {
+	if (file === "Impossible.Bosses.v1.13.0.w3x") return MAP_VERSION.V1_13_0;
+	if (file === "Impossible.Bosses.v1.13.1.w3x") return MAP_VERSION.V1_13_1;
 	if (file == "Impossible.Bosses.v1.10.5.w3x" || file == "Impossible.Bosses.v1.10.5 (1).w3x" || file == "Impossible.Bosses.v1.10.5-ent.w3x" || file == "Impossible.Bosses.v1.10.5_1.28Fix.w3x") {
 		return MAP_VERSION.V1_10_5;
 	}
@@ -283,6 +290,7 @@ function getBossLongName(b)
 
 function classToIconPath(c, imagesPath)
 {
+	if (c === CLASS.SHAMAN) return imagesPath + "/images/icon-shaman.svg";
 	let path = imagesPath + "/images/";
 	if (c == CLASS.DK) {
 		path += "icon-dk.png";
@@ -319,6 +327,8 @@ function classToIconPath(c, imagesPath)
 
 function mapVersionToString(v)
 {
+	if (v === MAP_VERSION.V1_13_0) return "1.13.0";
+	if (v === MAP_VERSION.V1_13_1) return "1.13.1";
 	if (v == MAP_VERSION.V1_10_5) {
 		return "1.10.5";
 	}
