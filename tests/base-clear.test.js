@@ -1,0 +1,16 @@
+const assert=require('assert/strict'),fs=require('fs'),path=require('path');
+const parser=require('../scripts/replay');
+const sample=JSON.parse(fs.readFileSync(path.join(__dirname,'fixtures/salgeras1.json')));
+const clone=()=>structuredClone(sample);
+let checks=0;
+const a=parser.parseWc3StatsReplayData(clone());assert.equal(a.win,true);assert.equal(a.incomplete,false);assert.equal(a.baseClear.time,3622);assert.equal(a.terminalOutcome,null);assert.equal(a.extensionData.bosses.sylvanas.recorded,false);checks+=5;
+const loss=clone();for(const p of loss.body.data.game.players)p.flags=['loser'];const b=parser.parseWc3StatsReplayData(loss);assert.equal(b.win,true);assert.equal(b.terminalOutcome,'loser');checks+=2;
+const noKill=clone();noKill.body.data.game.events=noKill.body.data.game.events.filter(e=>!(e.args[0]==='Demonic'&&e.event.eventName==='bossKill'));const c=parser.parseWc3StatsReplayData(noKill);assert.equal(c.win,false);assert.equal(c.incomplete,true);assert(!c.baseClear);checks+=3;
+const invalid=clone();invalid.body.data.game.events.find(e=>e.args[0]==='Demonic'&&e.event.eventName==='bossKill').time=1;assert.throws(()=>parser.parseWc3StatsReplayData(invalid),/Invalid Demonic/);checks++;
+const extra=clone(),g=extra.body.data.game;
+g.events.push({time:3700,args:['Sylvanas'],event:{eventName:'bossEngage'}},{time:3800,args:['Sylvanas'],event:{eventName:'bossWipe'}},{time:3900,args:['Wind'],event:{eventName:'bossEngage'}},{time:4000,args:['Wind'],event:{eventName:'bossKill'}},{time:4100,args:['Unmapped new boss'],event:{eventName:'bossWipe'}});
+g.players[0].variables.sylvanasDamage=123;g.players[0].variables.sylvanasDeaths=0;
+const d=parser.parseWc3StatsReplayData(extra);assert.equal(d.win,true);assert.equal(d.bossKills,a.bossKills);assert.deepEqual(d.bosses,a.bosses);assert.deepEqual(d.players,a.players);assert.equal(d.extensionData.bosses.sylvanas.wipeTimes.length,1);assert.equal(d.extensionData.bosses.wind.killTime,4000);assert.equal(d.extensionData.bosses.sylvanas.players[0].stats.dmg,123);assert.equal(d.extensionData.bosses.sylvanas.players[0].stats.deaths,0);assert.equal(d.extensionData.unmappedEvents.length,1);checks+=9;
+const {records}=require('../scripts/htmlgen-extra-bosses');const rows=records({[d.id]:d},d.players[0].name,x=>x);assert.equal(rows.length,2);assert.equal(rows.find(r=>r.boss==='wind').duration,100);assert.equal(rows.find(r=>r.boss==='sylvanas').status,'Wipe recorded');assert.equal(records({1:a},'no player',x=>x).length,0);checks+=4;
+const legacy=JSON.parse(fs.readFileSync(path.join(__dirname,'fixtures/836531.json')));assert.deepEqual(parser.parseWc3StatsReplayData(legacy),require('./fixtures/baseline-replay').parseWc3StatsReplayData(legacy));checks++;
+console.log('PASS: actual Demonic clear, loss-after-clear, no-kill, invalid-time, synthetic extension telemetry, unchanged base stats, legacy compatibility ('+checks+' checks)');

@@ -1,0 +1,718 @@
+{
+  "body": {
+    "id": 854522,
+    "length": 2970,
+    "playedOn": 1794239118,
+    "processed": true,
+    "data": {
+      "header": {
+        "majorVersion": 10200
+      },
+      "game": {
+        "name": "impossible bosses3",
+        "map": "Impossible.Bosses.v1.13.0.w3x",
+        "host": "crazyworld#3393",
+        "players": [
+          {
+            "name": "crazyworld#3393",
+            "isHost": true,
+            "slot": 0,
+            "colour": 0,
+            "apm": 181,
+            "flags": [
+              "winner"
+            ],
+            "variables": {
+              "difficulty": "Easy",
+              "continues": "yes",
+              "class": "Druid",
+              "health": 1,
+              "mana": 2,
+              "ability": 2,
+              "movementSpeed": 0,
+              "damage": 97265.078,
+              "healing": 97236.531,
+              "healingReceived": 107252.148,
+              "sWHealingReceived": 0,
+              "degen": 2786,
+              "coins": 17,
+              "deaths": 2,
+              "countercast": 0,
+              "counterhit": 0,
+              "addkills": 6,
+              "sWUptime": 0,
+              "sWUptimeTotal": 1738.5,
+              "resurrections": 0,
+              "fireBosstime": 87,
+              "fireDamage": 6270,
+              "fireHealing": 5173.227,
+              "fireHealingReceived": 4449.227,
+              "fireSWHealingReceived": 0,
+              "fireDegen": 205,
+              "fireCoins": 0,
+              "fireDeaths": 0,
+              "fireCountercast": 1,
+              "fireCounterhit": 0,
+              "fireAddkills": 0,
+              "fireSWUptime": 0,
+              "fireSWUptimeTotal": 87.5,
+              "fireResurrections": 0,
+              "waterBosstime": 208,
+              "waterDamage": 9095,
+              "waterHealing": 10930.499,
+              "waterHealingReceived": 9396.549,
+              "waterSWHealingReceived": 0,
+              "waterDegen": 435,
+              "waterCoins": 3,
+              "waterDeaths": 0,
+              "waterCountercast": 1,
+              "waterCounterhit": 1,
+              "waterAddkills": 6,
+              "waterSWUptime": 0,
+              "waterSWUptimeTotal": 209,
+              "waterResurrections": 0,
+              "bruteBosstime": 207,
+              "bruteDamage": 6200.5,
+              "bruteHealing": 16271.425,
+              "bruteHealingReceived": 14937.343,
+              "bruteSWHealingReceived": 0,
+              "bruteDegen": 80,
+              "bruteCoins": 2,
+              "bruteDeaths": 0,
+              "bruteCountercast": 0,
+              "bruteCounterhit": 0,
+              "bruteAddkills": 4,
+              "bruteSWUptime": 0,
+              "bruteSWUptimeTotal": 208,
+              "bruteResurrections": 0,
+              "thunderBosstime": 220,
+              "thunderDamage": 8655,
+              "thunderHealing": 13952.597,
+              "thunderHealingReceived": 16932.594,
+              "thunderSWHealingReceived": 0,
+              "thunderDegen": 170,
+              "thunderCoins": 2,
+              "thunderDeaths": 0,
+              "thunderCountercast": 2,
+              "thunderCounterhit": 2,
+              "thunderAddkills": 3,
+              "thunderSWUptime": 0,
+              "thunderSWUptimeTotal": 221,
+              "thunderResurrections": 0,
+              "druidBosstime": 193,
+              "druidDamage": 12911.356,
+              "druidHealing": 9522.006,
+              "druidHealingReceived": 12206.698,
+              "druidSWHealingReceived": 0,
+              "druidDegen": 180,
+              "druidCoins": 1,
+              "druidDeaths": 1,
+              "druidCountercast": 2,
+              "druidCounterhit": 2,
+              "druidAddkills": 1,
+              "druidSWUptime": 0,
+              "druidSWUptimeTotal": 193.5,
+              "druidResurrections": 0,
+              "shadowBosstime": 190,
+              "shadowDamage": 9304.889,
+              "shadowHealing": 13940,
+              "shadowHealingReceived": 15282.196,
+              "shadowSWHealingReceived": 0,
+              "shadowDegen": 264,
+              "shadowCoins": 2,
+              "shadowDeaths": 0,
+              "shadowCountercast": 0,
+              "shadowCounterhit": 0,
+              "shadowAddkills": 7,
+              "shadowSWUptime": 0,
+              "shadowSWUptimeTotal": 191,
+              "shadowResurrections": 0,
+              "iceBosstime": 266,
+              "iceDamage": 18556.99,
+              "iceHealing": 12746.788,
+              "iceHealingReceived": 10058.76,
+              "iceSWHealingReceived": 0,
+              "iceDegen": 539,
+              "iceCoins": 3,
+              "iceDeaths": 0,
+              "iceCountercast": 2,
+              "iceCounterhit": 2,
+              "iceAddkills": 13,
+              "iceSWUptime": 0,
+              "iceSWUptimeTotal": 266.5,
+              "iceResurrections": 0,
+              "lightBosstime": 229,
+              "lightDamage": 15458,
+              "lightHealing": 6100,
+              "lightHealingReceived": 13071.999,
+              "lightSWHealingReceived": 0,
+              "lightDegen": 368,
+              "lightCoins": 1,
+              "lightDeaths": 0,
+              "lightCountercast": 2,
+              "lightCounterhit": 1,
+              "lightAddkills": 0,
+              "lightSWUptime": 0,
+              "lightSWUptimeTotal": 229.5,
+              "lightResurrections": 0,
+              "ancientBosstime": 132,
+              "ancientDamage": 10813.357,
+              "ancientHealing": 8600,
+              "ancientHealingReceived": 10916.801,
+              "ancientSWHealingReceived": 0,
+              "ancientDegen": 545,
+              "ancientCoins": 3,
+              "ancientDeaths": 1,
+              "ancientCountercast": 0,
+              "ancientCounterhit": 0,
+              "ancientAddkills": 6,
+              "ancientSWUptime": 0,
+              "ancientSWUptimeTotal": 132.5,
+              "ancientResurrections": 0,
+              "demonicBosstime": null,
+              "demonicDamage": null,
+              "demonicHealing": null,
+              "demonicHealingReceived": null,
+              "demonicSWHealingReceived": null,
+              "demonicDegen": null,
+              "demonicCoins": null,
+              "demonicDeaths": null,
+              "demonicCountercast": null,
+              "demonicCounterhit": null,
+              "demonicAddkills": null,
+              "demonicSWUptime": null,
+              "demonicSWUptimeTotal": null,
+              "demonicResurrections": null
+            }
+          },
+          {
+            "name": "ssb817#31439",
+            "isHost": false,
+            "slot": 1,
+            "colour": 1,
+            "apm": 159,
+            "flags": [
+              "winner"
+            ],
+            "variables": {
+              "difficulty": "Easy",
+              "continues": "yes",
+              "class": "Shaman",
+              "health": 0,
+              "mana": 1,
+              "ability": 7,
+              "movementSpeed": 0,
+              "damage": 86837.211,
+              "healing": 169764.578,
+              "healingReceived": 90860.781,
+              "sWHealingReceived": 0,
+              "degen": 2533,
+              "coins": 14,
+              "deaths": 12,
+              "countercast": 1,
+              "counterhit": 1,
+              "addkills": 8,
+              "sWUptime": 0,
+              "sWUptimeTotal": 1738.5,
+              "resurrections": 0,
+              "fireBosstime": 87,
+              "fireDamage": 5705,
+              "fireHealing": 7384,
+              "fireHealingReceived": 2704,
+              "fireSWHealingReceived": 0,
+              "fireDegen": 214,
+              "fireCoins": 4,
+              "fireDeaths": 0,
+              "fireCountercast": 1,
+              "fireCounterhit": 1,
+              "fireAddkills": 0,
+              "fireSWUptime": 0,
+              "fireSWUptimeTotal": 87.5,
+              "fireResurrections": 0,
+              "waterBosstime": 208,
+              "waterDamage": 11585,
+              "waterHealing": 15855.098,
+              "waterHealingReceived": 12457.861,
+              "waterSWHealingReceived": 0,
+              "waterDegen": 396,
+              "waterCoins": 1,
+              "waterDeaths": 1,
+              "waterCountercast": 2,
+              "waterCounterhit": 2,
+              "waterAddkills": 8,
+              "waterSWUptime": 0,
+              "waterSWUptimeTotal": 209,
+              "waterResurrections": 0,
+              "bruteBosstime": 207,
+              "bruteDamage": 11230,
+              "bruteHealing": 15119.933,
+              "bruteHealingReceived": 7880.014,
+              "bruteSWHealingReceived": 0,
+              "bruteDegen": 350,
+              "bruteCoins": 3,
+              "bruteDeaths": 1,
+              "bruteCountercast": 2,
+              "bruteCounterhit": 2,
+              "bruteAddkills": 10,
+              "bruteSWUptime": 0,
+              "bruteSWUptimeTotal": 208,
+              "bruteResurrections": 0,
+              "thunderBosstime": 220,
+              "thunderDamage": 6526.5,
+              "thunderHealing": 17762.221,
+              "thunderHealingReceived": 10088.222,
+              "thunderSWHealingReceived": 0,
+              "thunderDegen": 180,
+              "thunderCoins": 0,
+              "thunderDeaths": 3,
+              "thunderCountercast": 2,
+              "thunderCounterhit": 2,
+              "thunderAddkills": 1,
+              "thunderSWUptime": 0,
+              "thunderSWUptimeTotal": 221,
+              "thunderResurrections": 0,
+              "druidBosstime": 193,
+              "druidDamage": 11780.25,
+              "druidHealing": 23815.139,
+              "druidHealingReceived": 9560.446,
+              "druidSWHealingReceived": 0,
+              "druidDegen": 290,
+              "druidCoins": 2,
+              "druidDeaths": 1,
+              "druidCountercast": 2,
+              "druidCounterhit": 1,
+              "druidAddkills": 11,
+              "druidSWUptime": 0,
+              "druidSWUptimeTotal": 193.5,
+              "druidResurrections": 0,
+              "shadowBosstime": 190,
+              "shadowDamage": 5283.7,
+              "shadowHealing": 25421.639,
+              "shadowHealingReceived": 14113.361,
+              "shadowSWHealingReceived": 0,
+              "shadowDegen": 218,
+              "shadowCoins": 2,
+              "shadowDeaths": 0,
+              "shadowCountercast": 3,
+              "shadowCounterhit": 3,
+              "shadowAddkills": 23,
+              "shadowSWUptime": 0,
+              "shadowSWUptimeTotal": 191,
+              "shadowResurrections": 0,
+              "iceBosstime": 266,
+              "iceDamage": 18253.279,
+              "iceHealing": 24851.729,
+              "iceHealingReceived": 15113.383,
+              "iceSWHealingReceived": 0,
+              "iceDegen": 449,
+              "iceCoins": 1,
+              "iceDeaths": 2,
+              "iceCountercast": 4,
+              "iceCounterhit": 3,
+              "iceAddkills": 18,
+              "iceSWUptime": 0,
+              "iceSWUptimeTotal": 266.5,
+              "iceResurrections": 0,
+              "lightBosstime": 229,
+              "lightDamage": 11991,
+              "lightHealing": 27234.543,
+              "lightHealingReceived": 11200,
+              "lightSWHealingReceived": 0,
+              "lightDegen": 312,
+              "lightCoins": 1,
+              "lightDeaths": 1,
+              "lightCountercast": 0,
+              "lightCounterhit": 0,
+              "lightAddkills": 0,
+              "lightSWUptime": 0,
+              "lightSWUptimeTotal": 229.5,
+              "lightResurrections": 0,
+              "ancientBosstime": 132,
+              "ancientDamage": 4482.5,
+              "ancientHealing": 12320.313,
+              "ancientHealingReceived": 7743.5,
+              "ancientSWHealingReceived": 0,
+              "ancientDegen": 124,
+              "ancientCoins": 0,
+              "ancientDeaths": 3,
+              "ancientCountercast": 1,
+              "ancientCounterhit": 1,
+              "ancientAddkills": 8,
+              "ancientSWUptime": 0,
+              "ancientSWUptimeTotal": 132.5,
+              "ancientResurrections": 0,
+              "demonicBosstime": null,
+              "demonicDamage": null,
+              "demonicHealing": null,
+              "demonicHealingReceived": null,
+              "demonicSWHealingReceived": null,
+              "demonicDegen": null,
+              "demonicCoins": null,
+              "demonicDeaths": null,
+              "demonicCountercast": null,
+              "demonicCounterhit": null,
+              "demonicAddkills": null,
+              "demonicSWUptime": null,
+              "demonicSWUptimeTotal": null,
+              "demonicResurrections": null
+            }
+          },
+          {
+            "name": "Reserved#11570",
+            "isHost": false,
+            "slot": 7,
+            "colour": 7,
+            "apm": 219,
+            "flags": [
+              "winner"
+            ],
+            "variables": {
+              "difficulty": "Easy",
+              "continues": "yes",
+              "class": "Ice Mage",
+              "health": 0,
+              "mana": 1,
+              "ability": 4,
+              "movementSpeed": 3,
+              "damage": 56284.289,
+              "healing": 27475.801,
+              "healingReceived": 96364,
+              "sWHealingReceived": 0,
+              "degen": 640,
+              "coins": null,
+              "deaths": null,
+              "countercast": null,
+              "counterhit": null,
+              "addkills": null,
+              "sWUptime": null,
+              "sWUptimeTotal": null,
+              "resurrections": null,
+              "fireBosstime": 87,
+              "fireDamage": 7180,
+              "fireHealing": 0,
+              "fireHealingReceived": 5404,
+              "fireSWHealingReceived": 0,
+              "fireDegen": 70,
+              "fireCoins": 0,
+              "fireDeaths": 0,
+              "fireCountercast": 0,
+              "fireCounterhit": 0,
+              "fireAddkills": 0,
+              "fireSWUptime": 0,
+              "fireSWUptimeTotal": 87.5,
+              "fireResurrections": 0,
+              "waterBosstime": 208,
+              "waterDamage": 495,
+              "waterHealing": 5228.912,
+              "waterHealingReceived": 10160.099,
+              "waterSWHealingReceived": 0,
+              "waterDegen": 35,
+              "waterCoins": 1,
+              "waterDeaths": 0,
+              "waterCountercast": 0,
+              "waterCounterhit": 0,
+              "waterAddkills": 42,
+              "waterSWUptime": 0,
+              "waterSWUptimeTotal": 209,
+              "waterResurrections": 0,
+              "bruteBosstime": 207,
+              "bruteDamage": 10652.598,
+              "bruteHealing": 1950,
+              "bruteHealingReceived": 10524,
+              "bruteSWHealingReceived": 0,
+              "bruteDegen": 115,
+              "bruteCoins": 0,
+              "bruteDeaths": 1,
+              "bruteCountercast": 0,
+              "bruteCounterhit": 0,
+              "bruteAddkills": 13,
+              "bruteSWUptime": 0,
+              "bruteSWUptimeTotal": 208,
+              "bruteResurrections": 0,
+              "thunderBosstime": 220,
+              "thunderDamage": 9838.148,
+              "thunderHealing": 164,
+              "thunderHealingReceived": 4858,
+              "thunderSWHealingReceived": 0,
+              "thunderDegen": 85,
+              "thunderCoins": 3,
+              "thunderDeaths": 2,
+              "thunderCountercast": 0,
+              "thunderCounterhit": 0,
+              "thunderAddkills": 4,
+              "thunderSWUptime": 0,
+              "thunderSWUptimeTotal": 221,
+              "thunderResurrections": 0,
+              "druidBosstime": 193,
+              "druidDamage": 7127.749,
+              "druidHealing": 8720.597,
+              "druidHealingReceived": 20290.596,
+              "druidSWHealingReceived": 0,
+              "druidDegen": 105,
+              "druidCoins": 1,
+              "druidDeaths": 0,
+              "druidCountercast": 0,
+              "druidCounterhit": 0,
+              "druidAddkills": 21,
+              "druidSWUptime": 0,
+              "druidSWUptimeTotal": 193.5,
+              "druidResurrections": 0,
+              "shadowBosstime": 190,
+              "shadowDamage": 4316.5,
+              "shadowHealing": 4315.055,
+              "shadowHealingReceived": 14281.136,
+              "shadowSWHealingReceived": 0,
+              "shadowDegen": 55,
+              "shadowCoins": 0,
+              "shadowDeaths": 2,
+              "shadowCountercast": 0,
+              "shadowCounterhit": 0,
+              "shadowAddkills": 61,
+              "shadowSWUptime": 0,
+              "shadowSWUptimeTotal": 191,
+              "shadowResurrections": 0,
+              "iceBosstime": 266,
+              "iceDamage": 3352,
+              "iceHealing": 4139.252,
+              "iceHealingReceived": 16565.633,
+              "iceSWHealingReceived": 0,
+              "iceDegen": 25,
+              "iceCoins": 1,
+              "iceDeaths": 0,
+              "iceCountercast": 0,
+              "iceCounterhit": 0,
+              "iceAddkills": 95,
+              "iceSWUptime": 0,
+              "iceSWUptimeTotal": 266.5,
+              "iceResurrections": 0,
+              "lightBosstime": 229,
+              "lightDamage": 12510.559,
+              "lightHealing": 0,
+              "lightHealingReceived": 9062.545,
+              "lightSWHealingReceived": 0,
+              "lightDegen": 125,
+              "lightCoins": 3,
+              "lightDeaths": 0,
+              "lightCountercast": 0,
+              "lightCounterhit": 0,
+              "lightAddkills": 0,
+              "lightSWUptime": 0,
+              "lightSWUptimeTotal": 229.5,
+              "lightResurrections": 0,
+              "ancientBosstime": 132,
+              "ancientDamage": 811.75,
+              "ancientHealing": 2957.988,
+              "ancientHealingReceived": 5218,
+              "ancientSWHealingReceived": 0,
+              "ancientDegen": 25,
+              "ancientCoins": 2,
+              "ancientDeaths": 0,
+              "ancientCountercast": 0,
+              "ancientCounterhit": 0,
+              "ancientAddkills": 34,
+              "ancientSWUptime": 0,
+              "ancientSWUptimeTotal": 132.5,
+              "ancientResurrections": 0,
+              "demonicBosstime": null,
+              "demonicDamage": null,
+              "demonicHealing": null,
+              "demonicHealingReceived": null,
+              "demonicSWHealingReceived": null,
+              "demonicDegen": null,
+              "demonicCoins": null,
+              "demonicDeaths": null,
+              "demonicCountercast": null,
+              "demonicCounterhit": null,
+              "demonicAddkills": null,
+              "demonicSWUptime": null,
+              "demonicSWUptimeTotal": null,
+              "demonicResurrections": null
+            }
+          }
+        ],
+        "events": [
+          {
+            "time": 92,
+            "args": [
+              "Fire"
+            ],
+            "event": {
+              "eventName": "bossEngage"
+            }
+          },
+          {
+            "time": 179,
+            "args": [
+              "Fire"
+            ],
+            "event": {
+              "eventName": "bossKill"
+            }
+          },
+          {
+            "time": 242,
+            "args": [
+              "Water"
+            ],
+            "event": {
+              "eventName": "bossEngage"
+            }
+          },
+          {
+            "time": 453,
+            "args": [
+              "Water"
+            ],
+            "event": {
+              "eventName": "bossKill"
+            }
+          },
+          {
+            "time": 516,
+            "args": [
+              "Brute"
+            ],
+            "event": {
+              "eventName": "bossEngage"
+            }
+          },
+          {
+            "time": 726,
+            "args": [
+              "Brute"
+            ],
+            "event": {
+              "eventName": "bossKill"
+            }
+          },
+          {
+            "time": 1001,
+            "args": [
+              "Thunder"
+            ],
+            "event": {
+              "eventName": "bossEngage"
+            }
+          },
+          {
+            "time": 1228,
+            "args": [
+              "Thunder"
+            ],
+            "event": {
+              "eventName": "bossKill"
+            }
+          },
+          {
+            "time": 1293,
+            "args": [
+              "Druid"
+            ],
+            "event": {
+              "eventName": "bossEngage"
+            }
+          },
+          {
+            "time": 1491,
+            "args": [
+              "Druid"
+            ],
+            "event": {
+              "eventName": "bossKill"
+            }
+          },
+          {
+            "time": 1555,
+            "args": [
+              "Light"
+            ],
+            "event": {
+              "eventName": "bossEngage"
+            }
+          },
+          {
+            "time": 1790,
+            "args": [
+              "Light"
+            ],
+            "event": {
+              "eventName": "bossKill"
+            }
+          },
+          {
+            "time": 1854,
+            "args": [
+              "Ice"
+            ],
+            "event": {
+              "eventName": "bossEngage"
+            }
+          },
+          {
+            "time": 2121,
+            "args": [
+              "Ice"
+            ],
+            "event": {
+              "eventName": "bossKill"
+            }
+          },
+          {
+            "time": 2184,
+            "args": [
+              "Shadow"
+            ],
+            "event": {
+              "eventName": "bossEngage"
+            }
+          },
+          {
+            "time": 2532,
+            "args": [
+              "Shadow"
+            ],
+            "event": {
+              "eventName": "bossWipe"
+            }
+          },
+          {
+            "time": 2572,
+            "args": [
+              "Shadow"
+            ],
+            "event": {
+              "eventName": "bossEngage"
+            }
+          },
+          {
+            "time": 2766,
+            "args": [
+              "Shadow"
+            ],
+            "event": {
+              "eventName": "bossKill"
+            }
+          },
+          {
+            "time": 2830,
+            "args": [
+              "Ancient"
+            ],
+            "event": {
+              "eventName": "bossEngage"
+            }
+          },
+          {
+            "time": 2965,
+            "args": [
+              "Ancient"
+            ],
+            "event": {
+              "eventName": "bossKill"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

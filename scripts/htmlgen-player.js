@@ -220,6 +220,7 @@ function generateHtml(replays, players, player)
 		html += `<h4>( aka ${aliases.join(", ")} )</h4>`;
 	}
 	html += `<h4>${sortedReplays.length} games played</h4>`;
+	html += `<section id="unconfirmed-replays" hidden></section><section id="extra-boss-replays" hidden></section>`;
 	html += `<div class="thinWrapper">`;
 	html += `<hr class="big">`;
 
@@ -244,6 +245,8 @@ function generateHtmlFromGlobals(player)
 	let html = generateHtml(replays_, players_, player);
 	document.getElementById("everything").innerHTML = html;
 	registerCollapsibles();
+	if (typeof IBExtraBosses !== "undefined") IBExtraBosses.render(replays_, players_, player);
+	if (typeof IBUnconfirmed !== "undefined") IBUnconfirmed.render(players_, player);
 }
 
 $(document).ready(function() {
