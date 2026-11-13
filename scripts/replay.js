@@ -290,7 +290,7 @@ function getBossLongName(b)
 
 function classToIconPath(c, imagesPath)
 {
-	if (c === CLASS.SHAMAN) return imagesPath + "/images/icon-shaman.svg";
+	if (c === CLASS.SHAMAN) return imagesPath + "/images/icon-shaman.gif";
 	let path = imagesPath + "/images/";
 	if (c == CLASS.DK) {
 		path += "icon-dk.png";
@@ -844,3 +844,4 @@ function toReplayListDescending(replays)
 	});
 	return replaysDescending;
 }
+
