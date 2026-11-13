@@ -23,8 +23,9 @@ async function main(){
     const network=await recover({854522:null},{fetchJson:async url=>url.includes('?')?{body:[row(854522)],pagination:{current:1,totalPages:1}}:Promise.reject(Error('timeout'))});assert.equal(network.data[854522],null);assert.equal(network.report.failed.length,1);checks+=2;
     const salgeras=JSON.parse(fs.readFileSync(path.join(__dirname,'fixtures/unconfirmed-1130.json')));
     const observed=parser.parseWc3StatsReplayData(salgeras);
-    assert.equal(observed.players.length,8);assert.equal(observed.mapVersion,1130);assert.equal(observed.incomplete,true);checks+=3;
+    assert.equal(observed.players.length,8);assert.equal(observed.mapVersion,1130);assert.equal(observed.incomplete,false);checks+=3;
     const processedButNoResult=structuredClone(salgeras);processedButNoResult.body.processed=true;
+    processedButNoResult.body.data.game.events=processedButNoResult.body.data.game.events.filter(e=>!(e.args[0]==='Demonic'&&e.event.eventName==='bossKill'));
     const pendingResult=await recover({}, {fetchJson:async url=>url.includes('?')?{body:[row(855188)],pagination:{current:1,totalPages:1}}:processedButNoResult});
     assert.equal(pendingResult.report.unconfirmedResult[0].id,855188);assert(!Object.hasOwn(pendingResult.data,855188));checks+=2;
     const report={passed:true,checks,realReplay:{id:854522,map:'1.13.0',shamanRetained:true,players:3},syntheticFilenameOnly:'1.13.1 is NOT a real replay fixture',operatingDataChanged:false};

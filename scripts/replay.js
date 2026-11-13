@@ -118,7 +118,7 @@ const WC3_VERSION = {
 
 function stringToEnum(str, enumObject)
 {
-	for (k in enumObject) {
+	for (let k in enumObject) {
 		if (str == enumObject[k]) {
 			return enumObject[k];
 		}
@@ -473,9 +473,9 @@ function parseWc3StatsPlayerData(data)
 		return null;
 	}
 
-	for (b in BOSS) {
+	for (let b in BOSS) {
 		let mmdVarsBoss = {};
-		for (k in mmdVars) {
+		for (let k in mmdVars) {
 			if (k.substring(0, BOSS[b].length) == BOSS[b]) {
 				let kTrim = k[BOSS[b].length].toLowerCase() + k.substring(BOSS[b].length + 1, k.length);
 				mmdVarsBoss[kTrim] = mmdVars[k];
@@ -485,7 +485,7 @@ function parseWc3StatsPlayerData(data)
 		const bossStats = parseWc3StatsPlayerStats(mmdVarsBoss);
 		if (bossStats.deaths != null) {
 			playerData.bossKills += 1;
-			for (k in playerData.statsOverall) {
+			for (let k in playerData.statsOverall) {
 				if (k in bossStats && bossStats[k] != null) {
 					playerData.statsOverall[k] += bossStats[k];
 				}
@@ -497,9 +497,47 @@ function parseWc3StatsPlayerData(data)
 	return playerData
 }
 
+// Dedicated extension schema. These names are supported contracts, not proof
+// that released maps already emit these events/variables.
+function parseExtensionData(game) {
+ const definitions = {sylvanas: 'Sylvanas', wind: 'Wind boss'};
+ const bosses = Object.fromEntries(Object.entries(definitions).map(([id,name]) => [id,
+  {name, recorded:false, startTimes:[], wipeTimes:[], killTime:null, players:[]}]));
+ const baseEvents=[],unmappedEvents=[];
+ const stats={deaths:'Deaths',dmg:'Damage',hl:'Healing',hlr:'HealingReceived',degen:'Degen',addKills:'Addkills',counterCast:'Countercast',counterHit:'Counterhit'};
+ for(const event of game.events) {
+  const name=event.args?.length===1 ? String(event.args[0]).toLowerCase() : null;
+  if(Object.values(BOSS).includes(name)) {baseEvents.push(event);continue;}
+  const record=bosses[name],kind=event.event?.eventName;
+  if(!record || !['bossEngage','bossWipe','bossKill'].includes(kind) || !Number.isFinite(event.time)) {
+   unmappedEvents.push({name,kind,time:event.time});continue;
+  }
+  record.recorded=true;
+  if(kind==='bossEngage')record.startTimes.push(event.time);
+  if(kind==='bossWipe')record.wipeTimes.push(event.time);
+  if(kind==='bossKill')record.killTime=event.time;
+ }
+ for(const [id,record] of Object.entries(bosses))for(const player of game.players) {
+  const vars=player.variables||{},values={};let present=false;
+  for(const [key,suffix] of Object.entries(stats)) {
+   const value=vars[id+suffix];
+   values[key]=typeof value==='number'&&Number.isFinite(value)?value:null;
+   if(values[key]!==null)present=true;
+  }
+  if(present){record.recorded=true;record.players.push({name:player.name,stats:values});}
+ }
+ return {baseEvents,extensionData:{schema:1,bosses,unmappedEvents}};
+}
+
 function parseWc3StatsReplayData(data)
 {
-	const game = data.body.data.game;
+	let game = data.body.data.game;
+	let extensionData = null;
+	if (mapFileToVersion(game.map) >= 1130) {
+		const extra = parseExtensionData(game);
+		extensionData = extra.extensionData;
+		game = {...game, events: extra.baseEvents};
+	}
 	let replayData = {
 		id: data.body.id,
 		name: game.name,
@@ -615,7 +653,7 @@ function parseWc3StatsReplayData(data)
 		replayData.players.push(playerData);
 	}
 
-	for (b in BOSS) {
+	for (let b in BOSS) {
 		replayData.bosses[BOSS[b]] = {
 			startTimes: [],
 			wipeTimes: [],
@@ -695,7 +733,22 @@ function parseWc3StatsReplayData(data)
 			throw `Unrecognized event ${eName}`;
 		}
 	}
-	for (b in BOSS) {
+	// A completed base run remains a win after an optional encounter is lost.
+	// Require a real, temporally valid Demonic kill event; engagement is not enough.
+	if (replayData.mapVersion >= 1130) {
+		replayData.extensionData = extensionData;
+		replayData.terminalOutcome = flag;
+	}
+	{
+		const demonic = replayData.bosses[BOSS.DEMONIC];
+		if (demonic.killTime != null && (replayData.mapVersion >= 1130 || !replayData.win || replayData.incomplete)) {
+			if (!Number.isFinite(demonic.killTime) || !demonic.startTimes.some(t => Number.isFinite(t) && t <= demonic.killTime)) throw 'Invalid Demonic kill event';
+			replayData.win = true;
+			replayData.incomplete = false;
+			replayData.baseClear = {confirmed:true, basis:'demonic-kill-event', time:demonic.killTime};
+		}
+	}
+	for (let b in BOSS) {
 		const bossData = replayData.bosses[BOSS[b]];
 		if (replayData.mapVersion >= MAP_VERSION.V1_11_6 && replayData.difficulty == DIFFICULTY.E && BOSS[b] == BOSS.ANCIENT && replayData.win && bossData.killTime == null) {
 			// TODO known issue, no Ancient boss data after win on Easy

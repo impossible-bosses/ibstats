@@ -7,12 +7,20 @@ on:
       - 'scripts/**'
       - 'player/**'
       - 'tests/**'
+      - 'data/recovery-audit-20260625.json'
   workflow_dispatch:
     inputs:
       publish:
         description: 'Publish verified replay data and request a Pages build'
         type: boolean
         default: false
+      source:
+        description: 'Audited missing IDs for recovery, or bounded live synchronization'
+        type: choice
+        options:
+          - audited
+          - live
+        default: audited
   schedule:
     - cron: '17 * * * *'
 permissions:
@@ -25,7 +33,7 @@ jobs:
     name: Preview and verify (read-only)
     if: github.event_name != 'schedule' || vars.IBSTATS_AUTO_SYNC_ENABLED == 'true'
     runs-on: ubuntu-latest
-    timeout-minutes: 50
+    timeout-minutes: 25
     outputs:
       revision: ${{ steps.source.outputs.revision }}
     steps:
@@ -42,10 +50,53 @@ jobs:
           node tests/unconfirmed.test.js
           node tests/staged-files.test.js
           node tests/listing-size.test.js
-      - name: Collect into staging
-        run: node refresh.js --input data/replays.json --output staging/replays.json
+          node tests/batch-refresh.test.js
+          node tests/base-clear.test.js
+          node tests/extra-boss-ui.test.js
+          node tests/audited-recovery.test.js
+      - name: Restore collection checkpoint for this branch
+        if: github.event_name == 'schedule' || inputs.source == 'live'
+        uses: actions/cache/restore@v4
+        with:
+          path: sync-state/
+          key: ibstats-batch-v2-${{ github.ref }}-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            ibstats-batch-v2-${{ github.ref }}-
+      - name: Prepare audited missing-ID recovery (no network)
+        if: github.event_name != 'schedule' && inputs.source != 'live'
+        run: node scripts/prepare-audited-recovery.js
+      - name: Collect a bounded batch into staging
+        if: github.event_name == 'schedule' || inputs.source == 'live'
+        run: node scripts/batch-refresh.js --input data/replays.json --output staging/replays.json --state sync-state/state.json
+      - name: Save collection checkpoint
+        if: always() && (github.event_name == 'schedule' || inputs.source == 'live') && hashFiles('sync-state/state.json') != ''
+        uses: actions/cache/save@v4
+        with:
+          path: sync-state/
+          key: ibstats-batch-v2-${{ github.ref }}-${{ github.run_id }}-${{ github.run_attempt }}
       - name: Verify without changing repository files
         run: node scripts/apply-staged-replays.js data/replays.json staging/replays.json staging/refresh-status.json --check
+      - name: Show incremental collection summary
+        if: always() && hashFiles('staging/refresh-status.json') != ''
+        run: |
+          node <<'NODE'
+          const fs=require('fs');
+          const r=JSON.parse(fs.readFileSync('staging/refresh-status.json'));
+          const c=r.collection;
+          fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,
+            '## Incremental replay collection\n\n'+
+            '**Collection mode: '+c.mode+'. Full Discord attachment coverage is not verified.**\n\n'+
+            '- New eligible records in this candidate: '+r.added.length+'\n'+
+            '- Recovered original null entries: '+r.recoveredNull.length+'\n'+
+            '- Unconfirmed results (excluded from rankings): '+r.unconfirmedResult.length+'\n'+
+            '- Errors: '+r.failed.length+'\n'+
+            '- Pages fetched this run: '+c.pagesFetchedThisRun+'\n'+
+            '- Detail requests this run: '+c.detailsAttemptedThisRun+'\n'+
+            '- Known eligible entries awaiting details: '+c.queuedWithoutDetail+'\n'+
+            '- Resume page (with overlap): '+c.nextPage+'\n'+
+            '- Checkpoint batch number: '+c.checkpointRun+'\n'+
+            '- PR preview never publishes replay data.\n');
+          NODE
       - name: Save review artifacts even on collection failure
         if: always()
         uses: actions/upload-artifact@v4

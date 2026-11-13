@@ -97,7 +97,7 @@ async function recover(stored, options = {}) {
             if (!raw.body || idKey(raw.body.id) !== id) throw new Error('Detail ID does not match listing');
             if (raw.body.processed === false) {report.pending.push(Number(id)); continue;}
             const parsed = replay.parseWc3StatsReplayData(raw);
-            if (parsed.mapVersion >= 1130 && parsed.incomplete) {
+            if (parsed.incomplete) {
                 report.unconfirmedResult.push({id: Number(id), reason: 'Final result not confirmed in the replay', players: parsed.players.map(p => p.name), playedOn: parsed.playedOn, difficulty: parsed.difficulty, mapVersion: parsed.mapVersion});
                 continue;
             }
