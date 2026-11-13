@@ -139,6 +139,7 @@ function generateHtmlAndCharts(replays, players, boss, diff)
     for (const b of BOSSES_SORTED) {
         html += ` <a href="./?b=${b}&d=${diff}">${b}</a> .`;
     }
+    html += ` <a href="./?b=wind&d=${encodeURIComponent(diff)}">Vaelor</a> . <a href="./?b=sylvanas&d=${encodeURIComponent(diff)}">Sylvanas / Ilgynoth</a> .`;
     html += `</p>`;
     html += `<p style="text-align: center;">.`;
     for (const d of DIFFICULTIES_SORTED) {
@@ -186,6 +187,16 @@ $(document).ready(function() {
         window.location.href = '../';
     }
 
+    const selectedBoss = urlParams.get("b");
+    if (selectedBoss === 'wind' || selectedBoss === 'sylvanas') {
+        const difficulty = urlParams.get('d');
+        if (!DIFFICULTIES_SORTED.includes(difficulty)) {
+            everything.textContent = 'Unknown difficulty.';
+            return;
+        }
+        IBExtensionBossPage.load(everything, selectedBoss, difficulty);
+        return;
+    }
     const boss = urlParams.get("b");
     boss_ = boss;
     const diff = urlParams.get("d");
@@ -205,3 +216,4 @@ $(document).ready(function() {
         }
     });
 });
+
