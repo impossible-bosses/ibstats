@@ -139,7 +139,7 @@ function generateHtmlAndCharts(replays, players, boss, diff)
     for (const b of BOSSES_SORTED) {
         html += ` <a href="./?b=${b}&d=${diff}">${b}</a> .`;
     }
-    html += ` <a href="./?b=wind&d=${encodeURIComponent(diff)}">Vaelor</a> . <a href="./?b=sylvanas&d=${encodeURIComponent(diff)}">Sylvanas / Ilgynoth</a> .`;
+    html += ` <a href="./?b=wind&d=${encodeURIComponent(diff)}">Vaelor</a> . <a href="./?b=sylvanas&d=${encodeURIComponent(diff)}">Sylvanas</a> . <a href="./?b=ilgynoth&d=${encodeURIComponent(diff)}">Ilgynoth</a> .`;
     html += `</p>`;
     html += `<p style="text-align: center;">.`;
     for (const d of DIFFICULTIES_SORTED) {

@@ -211,7 +211,7 @@ function generateHtmlGameRow(replay, homePath, players, player)
 	let html = "";
 	if (replay.mapVersion >= MAP_VERSION.V1_11_4) {
 		const diffString = difficultyToShortString(replay.difficulty);
-		const maxBosses = getDifficultyMaxBosses(replay.difficulty);
+		const maxBosses = replay.maxBosses ?? getDifficultyMaxBosses(replay.difficulty);
 
 		html += `<td class="alignCenter"><a href="${homePath}/game?id=${replay.id}">${replay.name}</a></td>`;
 		if (player != null) {

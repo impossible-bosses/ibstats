@@ -1,6 +1,6 @@
 (function(root){
 'use strict';
-const names={wind:'Vaelor, the Gale Reaver',sylvanas:'Sylvanas / Ilgynoth'};
+const names={wind:'Vaelor, the Gale Reaver',sylvanas:'Sylvanas',ilgynoth:'Ilgynoth'};
 function collect(replays,id,difficulty){
  const rows=[];
  for(const replay of Object.values(replays||{})){
@@ -25,7 +25,7 @@ function render(host,replays,id,difficulty){
  const diffs=el('p');diffs.style.textAlign='center';for(const d of ['Very Easy','Easy','Moderate','Normal','Hard'])diffs.append(link(d,'./?b='+id+'&d='+encodeURIComponent(d)),document.createTextNode(' · '));frag.append(diffs);
  frag.append(el('h1',names[id]),el('h4','Difficulty: '+difficulty));
  const rows=collect(replays,id,difficulty);
- frag.append(el('p','These optional encounters are recorded separately from original boss rankings. Sylvanas and Ilgynoth form one encounter. Older replays may contain no dedicated records.'));
+ frag.append(el('p','These encounters have their own records, separate from original boss rankings. Older replays may contain no dedicated records.'));
  frag.append(el('p',`${rows.length} recorded games · ${rows.filter(r=>r.cleared).length} clears · ${rows.reduce((n,r)=>n+r.wipes,0)} recorded wipes`));
  if(!rows.length)frag.append(el('p','No dedicated records are available for this difficulty yet. This does not mean the boss was never attempted.'));
  const table=el('table');table.style.width='100%';const head=el('tr');

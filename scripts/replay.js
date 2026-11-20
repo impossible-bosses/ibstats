@@ -107,6 +107,7 @@ const MAP_VERSION = {
 	V1_12_3: 1123,
 	V1_13_0: 1130,
 	V1_13_1: 1131,
+	V1_13_2: 1132,
 };
 
 const WC3_VERSION = {
@@ -142,7 +143,8 @@ function compareDifficulties(d1, d2)
 function mapFileToVersion(file)
 {
 	if (file === "Impossible.Bosses.v1.13.0.w3x") return MAP_VERSION.V1_13_0;
-	if (file === "Impossible.Bosses.v1.13.1.w3x") return MAP_VERSION.V1_13_1;
+	if (file === "Impossible.Bosses.v1.13.2.w3x") return MAP_VERSION.V1_13_2;
+	if (file === "Impossible.Bosses.v1.13.1.w3x" || /^IB_1\.13\.1_R\d+_(NORMAL|DEBUG)_TEST\.w3x$/i.test(file)) return MAP_VERSION.V1_13_1;
 	if (file == "Impossible.Bosses.v1.10.5.w3x" || file == "Impossible.Bosses.v1.10.5 (1).w3x" || file == "Impossible.Bosses.v1.10.5-ent.w3x" || file == "Impossible.Bosses.v1.10.5_1.28Fix.w3x") {
 		return MAP_VERSION.V1_10_5;
 	}
@@ -329,6 +331,7 @@ function mapVersionToString(v)
 {
 	if (v === MAP_VERSION.V1_13_0) return "1.13.0";
 	if (v === MAP_VERSION.V1_13_1) return "1.13.1";
+	if (v === MAP_VERSION.V1_13_2) return "1.13.2";
 	if (v == MAP_VERSION.V1_10_5) {
 		return "1.10.5";
 	}
@@ -500,7 +503,7 @@ function parseWc3StatsPlayerData(data)
 // Dedicated extension schema. These names are supported contracts, not proof
 // that released maps already emit these events/variables.
 function parseExtensionData(game) {
- const definitions = {sylvanas: 'Sylvanas', wind: 'Wind boss'};
+ const definitions = {sylvanas: 'Sylvanas', wind: 'Wind boss', ilgynoth: 'Ilgynoth'};
  const bosses = Object.fromEntries(Object.entries(definitions).map(([id,name]) => [id,
   {name, recorded:false, startTimes:[], wipeTimes:[], killTime:null, players:[]}]));
  const baseEvents=[],unmappedEvents=[];
@@ -529,20 +532,37 @@ function parseExtensionData(game) {
  return {baseEvents,extensionData:{schema:1,bosses,unmappedEvents}};
 }
 
+function confirmedBossClear(boss) {
+	return Number.isFinite(boss?.killTime) &&
+		boss.startTimes.some(time => Number.isFinite(time) && time <= boss.killTime);
+}
+
 function parseWc3StatsReplayData(data)
 {
 	let game = data.body.data.game;
+	const mapVersion = mapFileToVersion(game.map);
+	const campaignRules = mapVersion === MAP_VERSION.V1_13_2 || (mapVersion === MAP_VERSION.V1_13_1 &&
+		game.players.some(player => String(player.variables?.ibCampaignRules) === "11"));
 	let extensionData = null;
-	if (mapFileToVersion(game.map) >= 1130) {
+	if (mapVersion >= 1130) {
 		const extra = parseExtensionData(game);
 		extensionData = extra.extensionData;
-		game = {...game, events: extra.baseEvents};
+		// Earlier builds could also publish a stock kill under the replaced name.
+		const replacement = {[BOSS.BRUTE]: "wind", [BOSS.ANCIENT]: "sylvanas"};
+		const engaged = new Set(extra.baseEvents
+			.filter(event => event.event.eventName === "bossEngage")
+			.map(event => event.args[0].toLowerCase()));
+		game = {...game, events: extra.baseEvents.filter(event => {
+			const boss = event.args[0].toLowerCase();
+			return event.event.eventName !== "bossKill" || engaged.has(boss) ||
+				!confirmedBossClear(extensionData.bosses[replacement[boss]]);
+		})};
 	}
 	let replayData = {
 		id: data.body.id,
 		name: game.name,
 		wc3Version: majorVersionToWc3Version(data.body.data.header.majorVersion),
-		mapVersion: mapFileToVersion(game.map),
+		mapVersion,
 		host: game.host,
 		length: data.body.length,
 		playedOn: data.body.playedOn,
@@ -683,7 +703,10 @@ function parseWc3StatsReplayData(data)
 			continue;
 		}
 		if (boss == BOSS.FIRE && eName == "bossEngage") {
-			if (fireEngaged) {
+			const fire = replayData.bosses[BOSS.FIRE];
+			const isContinue = mapVersion >= 1131 && replayData.continues && fire.killTime == null &&
+				fire.wipeTimes.some(time => time >= fire.startTimes.at(-1) && time <= e.time);
+			if (fireEngaged && !campaignRules && !isContinue) {
 				remake = true;
 				if (replayData.id == 119579) {
 					// rewriting history. fire boss never happened...
@@ -739,13 +762,50 @@ function parseWc3StatsReplayData(data)
 		replayData.extensionData = extensionData;
 		replayData.terminalOutcome = flag;
 	}
-	{
-		const demonic = replayData.bosses[BOSS.DEMONIC];
-		if (demonic.killTime != null && (replayData.mapVersion >= 1130 || !replayData.win || replayData.incomplete)) {
-			if (!Number.isFinite(demonic.killTime) || !demonic.startTimes.some(t => Number.isFinite(t) && t <= demonic.killTime)) throw 'Invalid Demonic kill event';
+	const demonic = replayData.bosses[BOSS.DEMONIC];
+	const ilgynoth = extensionData?.bosses.ilgynoth;
+	const hardCampaign = replayData.difficulty === DIFFICULTY.H &&
+		(campaignRules || Boolean(ilgynoth?.startTimes.length));
+	if (demonic.killTime != null && (mapVersion >= 1130 || !replayData.win || replayData.incomplete)) {
+		if (!confirmedBossClear(demonic)) throw 'Invalid Demonic kill event';
+		replayData.baseClear = {confirmed:true, basis:'demonic-kill-event', time:demonic.killTime};
+		if (!hardCampaign) {
 			replayData.win = true;
 			replayData.incomplete = false;
-			replayData.baseClear = {confirmed:true, basis:'demonic-kill-event', time:demonic.killTime};
+		}
+	}
+	if (hardCampaign) {
+		replayData.maxBosses = 11;
+		replayData.win = flag !== "loser" && confirmedBossClear(demonic) && confirmedBossClear(ilgynoth) &&
+			ilgynoth.startTimes.some(time => time >= demonic.killTime && time <= ilgynoth.killTime);
+		replayData.incomplete = !replayData.win && flag !== "loser";
+	}
+	if (extensionData) {
+		const clears = new Map();
+		const extensions = [[BOSS.BRUTE, "wind"], [BOSS.ANCIENT, "sylvanas"]];
+		if (hardCampaign) extensions.push(["ilgynoth", "ilgynoth"]);
+		for (const [slot, boss] of extensions) {
+			const record = extensionData.bosses[boss];
+			if ((campaignRules || hardCampaign) && isBossInDifficulty(slot, replayData.difficulty)) {
+				replayData.totalWipes += new Set(record.wipeTimes).size;
+			}
+			if (isBossInDifficulty(slot, replayData.difficulty) && confirmedBossClear(record) &&
+				(boss !== "ilgynoth" || replayData.win)) clears.set(slot, boss);
+		}
+		// Use settled slots for modern records so a replacement can never
+		// count as an extra kill. Keep legacy per-player participation intact.
+		if (campaignRules || hardCampaign || clears.size) {
+			const slots = new Set(clears.keys());
+			for (const [boss, record] of Object.entries(replayData.bosses)) {
+				if (isBossInDifficulty(boss, replayData.difficulty) && confirmedBossClear(record)) slots.add(boss);
+			}
+			const varsBySlot = new Map(game.players.map(player => [player.slot, player.variables]));
+			for (const player of replayData.players) {
+				const vars = varsBySlot.get(player.slot) || {};
+				player.bossKills = [...slots].filter(slot => vars[slot + "Deaths"] != null ||
+					(clears.has(slot) && vars[clears.get(slot) + "Deaths"] != null)).length;
+			}
+			replayData.bossKills = slots.size;
 		}
 	}
 	for (let b in BOSS) {
