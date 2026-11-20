@@ -97,3 +97,16 @@ assert.equal(parse(releasedHardWin).win, true);
 assert.equal(parse(releasedHardWin).mapVersion, 1132);
 assert.equal(parse(releasedCampaign('winner', 'Normal')).bossKills, 10);
 assert.equal(parse(releasedCampaign('winner', 'Normal')).win, true);
+
+for (const [difficulty, kills] of [['Normal', 10], ['Hard', 11]]) {
+    const replay = releasedCampaign('winner', difficulty);
+    replay.body.data.game.map = 'Impossible.Bosses.v1.13.3.w3x';
+    if (difficulty === 'Hard') {
+        add(replay, 'Ilgynoth', 'bossEngage', 3630);
+        add(replay, 'Ilgynoth', 'bossKill', 3750);
+    }
+    const result = parse(replay);
+    assert.equal(result.bossKills, kills);
+    assert.equal(result.mapVersion, 1133);
+    assert.equal(result.win, true);
+}
