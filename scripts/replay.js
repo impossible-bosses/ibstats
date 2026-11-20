@@ -108,6 +108,7 @@ const MAP_VERSION = {
 	V1_13_0: 1130,
 	V1_13_1: 1131,
 	V1_13_2: 1132,
+	V1_13_3: 1133,
 };
 
 const WC3_VERSION = {
@@ -143,6 +144,7 @@ function compareDifficulties(d1, d2)
 function mapFileToVersion(file)
 {
 	if (file === "Impossible.Bosses.v1.13.0.w3x") return MAP_VERSION.V1_13_0;
+	if (file === "Impossible.Bosses.v1.13.3.w3x") return MAP_VERSION.V1_13_3;
 	if (file === "Impossible.Bosses.v1.13.2.w3x") return MAP_VERSION.V1_13_2;
 	if (file === "Impossible.Bosses.v1.13.1.w3x" || /^IB_1\.13\.1_R\d+_(NORMAL|DEBUG)_TEST\.w3x$/i.test(file)) return MAP_VERSION.V1_13_1;
 	if (file == "Impossible.Bosses.v1.10.5.w3x" || file == "Impossible.Bosses.v1.10.5 (1).w3x" || file == "Impossible.Bosses.v1.10.5-ent.w3x" || file == "Impossible.Bosses.v1.10.5_1.28Fix.w3x") {
@@ -331,6 +333,7 @@ function mapVersionToString(v)
 {
 	if (v === MAP_VERSION.V1_13_0) return "1.13.0";
 	if (v === MAP_VERSION.V1_13_1) return "1.13.1";
+	if (v === MAP_VERSION.V1_13_3) return "1.13.3";
 	if (v === MAP_VERSION.V1_13_2) return "1.13.2";
 	if (v == MAP_VERSION.V1_10_5) {
 		return "1.10.5";
@@ -541,7 +544,7 @@ function parseWc3StatsReplayData(data)
 {
 	let game = data.body.data.game;
 	const mapVersion = mapFileToVersion(game.map);
-	const campaignRules = mapVersion === MAP_VERSION.V1_13_2 || (mapVersion === MAP_VERSION.V1_13_1 &&
+	const campaignRules = mapVersion === MAP_VERSION.V1_13_3 || mapVersion === MAP_VERSION.V1_13_2 || (mapVersion === MAP_VERSION.V1_13_1 &&
 		game.players.some(player => String(player.variables?.ibCampaignRules) === "11"));
 	let extensionData = null;
 	if (mapVersion >= 1130) {
