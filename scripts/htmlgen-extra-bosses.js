@@ -6,6 +6,7 @@
    if(!replay?.extensionData)continue;
    if(!replay.players.some(p=>resolve(p.name)===player))continue;
    for(const [id,boss]of Object.entries(replay.extensionData.bosses)){
+    if(id==="ilgynoth" && !boss.recorded && replay.maxBosses!==11)continue;
     const own=boss.players.find(p=>resolve(p.name)===player);
     let duration=null;
     if(boss.killTime!=null){const starts=boss.startTimes.filter(t=>t<=boss.killTime);if(starts.length)duration=boss.killTime-Math.max(...starts);}

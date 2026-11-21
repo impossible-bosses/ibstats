@@ -11,7 +11,7 @@ function generateHtmlTitle(replay)
 		victoryDefeatString = "Victory!";
 	}
 	else {
-		victoryDefeatString = `Defeat (${replay.bossKills}/${getDifficultyMaxBosses(replay.difficulty)})`;
+		victoryDefeatString = `${replay.incomplete ? "Result unconfirmed" : "Defeat"} (${replay.bossKills}/${replay.maxBosses ?? getDifficultyMaxBosses(replay.difficulty)})`;
 	}
 
 	const date = new Date(replay.playedOn * 1000);

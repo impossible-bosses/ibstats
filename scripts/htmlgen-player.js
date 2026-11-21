@@ -7,7 +7,8 @@ function generateHtmlPlayerProgress(playerSortedReplays, players, player)
 	for (let d in DIFFICULTY) {
 		progress[DIFFICULTY[d]] = {
 			win: false,
-			maxBossKills: 0
+			maxBossKills: 0,
+			maxBosses: 0
 		};
 	}
 
@@ -18,13 +19,16 @@ function generateHtmlPlayerProgress(playerSortedReplays, players, player)
 		}
 		const ind = getPlayerIndexInReplay(replay, player, players);
 		const bossKills = replay.players[ind].bossKills;
+		const maxBosses = replay.maxBosses ?? getDifficultyMaxBosses(replay.difficulty);
 		if (replay.win && bossKills == replay.bossKills) {
 			progress[replay.difficulty].win = true;
 			progress[replay.difficulty].maxBossKills = 0;
+			progress[replay.difficulty].maxBosses = maxBosses;
 		}
 		else {
 			if (progress[replay.difficulty].maxBossKills < bossKills) {
 				progress[replay.difficulty].maxBossKills = bossKills;
+				progress[replay.difficulty].maxBosses = maxBosses;
 			}
 		}
 	}
@@ -39,7 +43,7 @@ function generateHtmlPlayerProgress(playerSortedReplays, players, player)
 	html += `<tbody><tr>`;
 	for (let i = 0; i < DIFFICULTIES_SORTED.length; i++) {
 		const prog = progress[DIFFICULTIES_SORTED[i]];
-		const maxBosses = getDifficultyMaxBosses(DIFFICULTIES_SORTED[i]);
+		const maxBosses = prog.maxBosses || getDifficultyMaxBosses(DIFFICULTIES_SORTED[i]);
 		let string = "-";
 		if (prog.win) {
 			string = `${maxBosses} / ${maxBosses}`;
